@@ -34,6 +34,13 @@ public class SanPham {
     public SanPham() {
     }
 
+    public SanPham(String IDSanPham, Double GiaChiTiet) {
+        this.IDSanPham = IDSanPham;
+        this.GiaChiTiet = GiaChiTiet;
+    }
+
+
+
     public SanPham(String IDSanPham, PhanLoai IDPhanLoai, KiemDinh IDKIemDinh, MauSac IDMauSac, Size IDSize, String TenSanPham, boolean GioiTinh, ChatLieu IDChatLieu, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, NhaCungCap IDNhaCungCap, int SoLuongDaQuy, float KichThuocDa, float TrongLuong, DaQuy IDDaQuy, Date NgaySua, Date NgayTao, boolean TrangThai) {
         this.IDSanPham = IDSanPham;
         this.IDPhanLoai = IDPhanLoai;
