@@ -227,7 +227,7 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="txt_TrangSuc" min="-2" pref="414" max="-2" attributes="0"/>
+                                      <Component id="txt_TenTrangSuc" min="-2" pref="414" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -247,7 +247,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="txt_TrangSuc" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_TenTrangSuc" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -374,7 +374,7 @@
                 <Property name="text" type="java.lang.String" value="T&#xea;n Trang S&#x1ee9;c"/>
               </Properties>
             </Component>
-            <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TrangSuc">
+            <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TenTrangSuc">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>

@@ -46,7 +46,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         pnl_ThemMoi = new javax.swing.JPanel();
         lbl_ThemMoi = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_TrangSuc = new view.until.textfield.TextFieldSuggestion();
+        txt_TenTrangSuc = new view.until.textfield.TextFieldSuggestion();
         jLabel3 = new javax.swing.JLabel();
         txt_GiaBan = new view.until.textfield.TextFieldSuggestion();
         jLabel4 = new javax.swing.JLabel();
@@ -384,7 +384,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
                                                     .addComponent(txt_TrongLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGap(30, 30, 30))))
                             .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
-                                .addComponent(txt_TrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_TenTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(pnl_ThemMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -398,7 +398,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
-                        .addComponent(txt_TrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_TenTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -1498,8 +1498,8 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.textfield.TextFieldSuggestion txt_TenMau;
     private view.until.textfield.TextFieldSuggestion txt_TenNhaCungCap;
     private view.until.textfield.TextFieldSuggestion txt_TenPhanLoai;
+    private view.until.textfield.TextFieldSuggestion txt_TenTrangSuc;
     private view.until.textfield.TextFieldSuggestion txt_TonKho;
-    private view.until.textfield.TextFieldSuggestion txt_TrangSuc;
     private view.until.textfield.TextFieldSuggestion txt_TrongLuong;
     // End of variables declaration//GEN-END:variables
 }
