@@ -34,7 +34,11 @@ public class GiaDienBanHang extends javax.swing.JPanel {
         tabbedPaneCustom1 = new view.until.tabbedpane.TabbedPaneCustom();
         jPanel1 = new javax.swing.JPanel();
         background1 = new view.until.swing.Background();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scroll = new javax.swing.JScrollPane();
+        panelItem1 = new view.until.swing.PanelItem();
+        item1 = new view.until.swing.component.Item();
+        item2 = new view.until.swing.component.Item();
+        item3 = new view.until.swing.component.Item();
         jLabel1 = new javax.swing.JLabel();
         background2 = new view.until.swing.Background();
         background3 = new view.until.swing.Background();
@@ -60,15 +64,24 @@ public class GiaDienBanHang extends javax.swing.JPanel {
 
         tabbedPaneCustom1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
+        scroll.setBorder(null);
+        scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        panelItem1.add(item1);
+        panelItem1.add(item2);
+        panelItem1.add(item3);
+
+        scroll.setViewportView(panelItem1);
+
         javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
         background1.setLayout(background1Layout);
         background1Layout.setHorizontalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
         );
         background1Layout.setVerticalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+            .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -82,7 +95,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
         );
         background2Layout.setVerticalGroup(
             background2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout background3Layout = new javax.swing.GroupLayout(background3);
@@ -254,6 +267,9 @@ public class GiaDienBanHang extends javax.swing.JPanel {
     private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
     private com.raven.datechooser.DateChooser dateChooser1;
     private com.raven.datechooser.DateChooser dateChooser2;
+    private view.until.swing.component.Item item1;
+    private view.until.swing.component.Item item2;
+    private view.until.swing.component.Item item3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -261,9 +277,10 @@ public class GiaDienBanHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_ThongTin;
+    private view.until.swing.PanelItem panelItem1;
     private javax.swing.JPanel panel_ThongTin;
+    private javax.swing.JScrollPane scroll;
     private view.until.tabbedpane.TabbedPaneCustom tabbedPaneCustom1;
     private view.until.table.TableDark tbl_DanhSachHoaDon;
     private view.until.textfield.TextFieldSuggestion txt_BatDau;
