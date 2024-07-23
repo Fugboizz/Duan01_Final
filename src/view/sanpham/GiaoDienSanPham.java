@@ -5,13 +5,26 @@
 package view.sanpham;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import model.HinhAnhSanPham;
+import model.SanPham;
+import repository.HinhAnhSanPham.HinhAnhSanPhamrepo;
+import repository.SanPham.repoChiTietSanPham;
 
 /**
  *
  * @author HUNGpYN
  */
 public class GiaoDienSanPham extends javax.swing.JPanel {
-
+private List<SanPham> spList = new ArrayList<>();
+    private List<HinhAnhSanPham> haList = new ArrayList<>();
+    private repository.SanPham.repoChiTietSanPham rpsp = new repoChiTietSanPham();
+    private HinhAnhSanPhamrepo hasprp = new HinhAnhSanPhamrepo();
+    private model.SanPham mdsp = new SanPham();
+    private DefaultTableModel model;
  private Color color2 = Color.decode("#101820");// thanden
  private Color color1 = Color.decode("#FEE715"); //mau vang
     public GiaoDienSanPham() {
@@ -22,8 +35,45 @@ public class GiaoDienSanPham extends javax.swing.JPanel {
         btn_TimKiem.setColor1(color2);
         btn_TimKiem.setColor2(color1);
         tbl_SanPham.setRowHeight(100);
+        fillToTable();
     }
+     void fillToTable() {
+        spList = rpsp.getAll();
+        haList = hasprp.getAll();
 
+        String[] hienthi = {"Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Hình Ảnh", "Trạng Thái"};
+        model = new DefaultTableModel(hienthi, 0);
+
+        for (SanPham sp : spList) {
+            for (HinhAnhSanPham ha : haList) {
+                if (sp.getIDSanPham().equals(ha.getIDSanPham().getIDSanPham())) {
+                    ImageIcon imageIcon = null;
+                    try {
+                        imageIcon = new ImageIcon("/Icon/baohanh.png");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        imageIcon = new ImageIcon(); // Placeholder nếu lỗi xảy ra
+                    }
+                    String tenPhanLoai = sp.getIDPhanLoai() != null ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
+                    String trangThai = sp.isTrangThai() ? "Đang Hoạt Động" : "Ngừng Kinh Doanh";
+
+                    Object[] rowObject = {
+                        sp.getIDSanPham(),
+                        sp.getTenSanPham(),
+                        tenPhanLoai,
+                        sp.isGioiTinh() ? "Nam" : "Nữ",
+                        sp.getGiaChiTiet(),
+                        imageIcon,
+                        trangThai
+                    };
+                    model.addRow(rowObject);
+                }
+            }
+        }
+
+        tbl_SanPham.setModel(model);
+        tbl_SanPham.getColumnModel().getColumn(5).setCellRenderer(tbl_SanPham.getDefaultRenderer(ImageIcon.class)); // Đặt renderer cho cột hình ảnh
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
