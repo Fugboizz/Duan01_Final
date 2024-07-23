@@ -32,7 +32,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
-        jLabel20 = new javax.swing.JLabel();
         buttonGroup4 = new javax.swing.ButtonGroup();
         buttonGroup5 = new javax.swing.ButtonGroup();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -41,12 +40,13 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         buttonGroup7 = new javax.swing.ButtonGroup();
         buttonGroup8 = new javax.swing.ButtonGroup();
         buttonGroup9 = new javax.swing.ButtonGroup();
+        dateChooser1 = new com.raven.datechooser.DateChooser();
         tabbedPaneCustom1 = new view.until.tabbedpane.TabbedPaneCustom();
         panel_ThemSanPham = new javax.swing.JPanel();
         pnl_ThemMoi = new javax.swing.JPanel();
         lbl_ThemMoi = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_TrangSuc = new view.until.textfield.TextFieldSuggestion();
+        txt_TenTrangSuc = new view.until.textfield.TextFieldSuggestion();
         jLabel3 = new javax.swing.JLabel();
         txt_GiaBan = new view.until.textfield.TextFieldSuggestion();
         jLabel4 = new javax.swing.JLabel();
@@ -179,8 +179,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         jLabel45 = new javax.swing.JLabel();
         txt_Date = new view.until.textfield.TextFieldSuggestion();
 
-        jLabel20.setText("jLabel20");
-
         tableDark2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -193,6 +191,9 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             }
         ));
         jScrollPane3.setViewportView(tableDark2);
+
+        dateChooser1.setForeground(new java.awt.Color(102, 102, 102));
+        dateChooser1.setTextRefernce(txt_Date);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -383,7 +384,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
                                                     .addComponent(txt_TrongLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGap(30, 30, 30))))
                             .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
-                                .addComponent(txt_TrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_TenTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(pnl_ThemMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -397,7 +398,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
-                        .addComponent(txt_TrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_TenTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -1192,16 +1193,16 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
                                     .addComponent(textFieldSuggestion4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(textFieldSuggestion3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(182, 182, 182)
+                        .addGap(209, 209, 209)
                         .addComponent(btn_CapNhatNhaCungCap3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
+                        .addGap(84, 84, 84)
                         .addComponent(bnt_ThemNhaCungCap3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(radioButtonCustom14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(radioButtonCustom13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1369,8 +1370,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.button.Button button3;
     private view.until.button.Button button4;
     private view.until.button.Button button5;
-    private view.until.button.Button button6;
-    private view.until.button.Button button7;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -1387,6 +1386,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.combobox.ComboBoxSuggestion cbo_MauSac;
     private view.until.combobox.ComboBoxSuggestion cbo_PhanLoai;
     private view.until.combobox.ComboBoxSuggestion cbo_Size;
+    private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1399,7 +1399,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -1415,9 +1414,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
@@ -1439,7 +1435,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1448,11 +1443,9 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lbl_ThemMoi;
     private view.until.tabbedpane.MaterialTabbed materialTabbed1;
-    private view.until.tabbedpane.MaterialTabbed materialTabbed2;
     private javax.swing.JPanel panel_ThemSanPham;
     private javax.swing.JPanel pnl_ThemMoi;
     private view.until.radiobutton.RadioButtonCustom radioButtonCustom1;
@@ -1470,10 +1463,8 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.radiobutton.RadioButtonCustom radioButtonCustom8;
     private view.until.radiobutton.RadioButtonCustom radioButtonCustom9;
     private view.until.radiobutton.RadioButtonCustom rdo_HoatDongPL;
-    private view.until.radiobutton.RadioButtonCustom rdo_HoatDongPL1;
     private view.until.radiobutton.RadioButtonCustom rdo_KinhDoanS;
     private view.until.radiobutton.RadioButtonCustom rdo_NgungHoatDongPL;
-    private view.until.radiobutton.RadioButtonCustom rdo_NgungHoatDongPL1;
     private view.until.radiobutton.RadioButtonCustom rdo_NgungKinhDoanhS;
     private view.until.tabbedpane.TabbedPaneCustom tabbedPaneCustom1;
     private view.until.table.TableDark tableDark1;
@@ -1483,7 +1474,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.table.TableDark tableDark5;
     private view.until.table.TableDark tbl_ChatLieu;
     private view.until.table.TableDark tbl_PhanLoai;
-    private view.until.table.TableDark tbl_PhanLoai1;
     private view.until.table.TableDark tbl_Size;
     private view.until.textarea.TextAreaSuggestion textAreaSuggestion1;
     private view.until.textfield.TextFieldSuggestion textFieldSuggestion1;
@@ -1499,7 +1489,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.textfield.TextFieldSuggestion txt_MaMau;
     private view.until.textfield.TextFieldSuggestion txt_MaNhaCungCap;
     private view.until.textfield.TextFieldSuggestion txt_MaPhanLoai;
-    private view.until.textfield.TextFieldSuggestion txt_MaPhanLoai1;
     private view.until.textfield.TextFieldSuggestion txt_MaSize;
     private view.until.textfield.TextFieldSuggestion txt_SoDienThoai;
     private view.until.textfield.TextFieldSuggestion txt_SoLuongDa;
@@ -1509,9 +1498,8 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.textfield.TextFieldSuggestion txt_TenMau;
     private view.until.textfield.TextFieldSuggestion txt_TenNhaCungCap;
     private view.until.textfield.TextFieldSuggestion txt_TenPhanLoai;
-    private view.until.textfield.TextFieldSuggestion txt_TenPhanLoai1;
+    private view.until.textfield.TextFieldSuggestion txt_TenTrangSuc;
     private view.until.textfield.TextFieldSuggestion txt_TonKho;
-    private view.until.textfield.TextFieldSuggestion txt_TrangSuc;
     private view.until.textfield.TextFieldSuggestion txt_TrongLuong;
     // End of variables declaration//GEN-END:variables
 }
