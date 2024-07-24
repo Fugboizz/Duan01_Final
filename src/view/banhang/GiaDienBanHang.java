@@ -4,7 +4,14 @@
  */
 package view.banhang;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import model.SanPham;
+import repository.SanPham.repoChiTietSanPham;
+import view.until.swing.event.EventItem;
+import view.until.swing.form.MainForm;
 
 /**
  *
@@ -15,9 +22,32 @@ public class GiaDienBanHang extends javax.swing.JPanel {
 
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
+    private repoChiTietSanPham rpct = new repoChiTietSanPham();
+    private MainForm mainForm;
     public GiaDienBanHang() {
         initComponents();
         setFont();
+        init();
+        
+    }
+    private void init(){
+        mainForm = new MainForm();
+        SanPhamPanel.setLayout(new BorderLayout());
+        SanPhamPanel.add(mainForm);
+        testData();
+    }
+    private void testData(){
+        mainForm.setEvent(new EventItem() {
+            @Override
+            public void itemClick(Component com, SanPham sp) {
+                System.out.println(sp.getIDSanPham());
+                JOptionPane.showInputDialog("Nhập số lượng");
+                mainForm.setSelected(com);
+            }
+        });
+        for (int i = 0; i < 30; i++) {
+            mainForm.addItem(new SanPham("SP0001",5.00));
+        }
     }
     void setFont(){
         btn_TimKiemHoaDon.setColor1(color2);
@@ -33,12 +63,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
         dateChooser2 = new com.raven.datechooser.DateChooser();
         tabbedPaneCustom1 = new view.until.tabbedpane.TabbedPaneCustom();
         jPanel1 = new javax.swing.JPanel();
-        background1 = new view.until.swing.Background();
-        scroll = new javax.swing.JScrollPane();
-        panelItem1 = new view.until.swing.PanelItem();
-        item1 = new view.until.swing.component.Item();
-        item2 = new view.until.swing.component.Item();
-        item3 = new view.until.swing.component.Item();
+        SanPhamPanel = new view.until.swing.Background();
         jLabel1 = new javax.swing.JLabel();
         background2 = new view.until.swing.Background();
         background3 = new view.until.swing.Background();
@@ -64,24 +89,15 @@ public class GiaDienBanHang extends javax.swing.JPanel {
 
         tabbedPaneCustom1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        scroll.setBorder(null);
-        scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        panelItem1.add(item1);
-        panelItem1.add(item2);
-        panelItem1.add(item3);
-
-        scroll.setViewportView(panelItem1);
-
-        javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
-        background1.setLayout(background1Layout);
-        background1Layout.setHorizontalGroup(
-            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+        javax.swing.GroupLayout SanPhamPanelLayout = new javax.swing.GroupLayout(SanPhamPanel);
+        SanPhamPanel.setLayout(SanPhamPanelLayout);
+        SanPhamPanelLayout.setHorizontalGroup(
+            SanPhamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 619, Short.MAX_VALUE)
         );
-        background1Layout.setVerticalGroup(
-            background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        SanPhamPanelLayout.setVerticalGroup(
+            SanPhamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -117,7 +133,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(background1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SanPhamPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(background2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -136,7 +152,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(background2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(background1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(SanPhamPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -259,7 +275,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.until.swing.Background background1;
+    private view.until.swing.Background SanPhamPanel;
     private view.until.swing.Background background2;
     private view.until.swing.Background background3;
     private view.until.button.Button btn_Excel;
@@ -267,9 +283,6 @@ public class GiaDienBanHang extends javax.swing.JPanel {
     private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
     private com.raven.datechooser.DateChooser dateChooser1;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private view.until.swing.component.Item item1;
-    private view.until.swing.component.Item item2;
-    private view.until.swing.component.Item item3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -278,9 +291,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_ThongTin;
-    private view.until.swing.PanelItem panelItem1;
     private javax.swing.JPanel panel_ThongTin;
-    private javax.swing.JScrollPane scroll;
     private view.until.tabbedpane.TabbedPaneCustom tabbedPaneCustom1;
     private view.until.table.TableDark tbl_DanhSachHoaDon;
     private view.until.textfield.TextFieldSuggestion txt_BatDau;
