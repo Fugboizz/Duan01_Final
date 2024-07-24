@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import view.khachhang.GiaoDienKhachHang;
+import view.nhanvien.GiaoDienNhanVien;
 import view.sanpham.GiaoDienSanPham;
 
 public class Main extends javax.swing.JFrame {
@@ -14,7 +16,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         simpleTitleBar1.init(this);
-        getContentPane().setBackground(new Color(25,25,25));
+        getContentPane().setBackground(new Color(25, 25, 25));
         setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
@@ -23,6 +25,10 @@ public class Main extends javax.swing.JFrame {
                     showForm(new Form_1());
                 } else if (index == 1) {
                     showForm(new GiaoDienSanPham());
+                } else if (index == 3) {
+                    showForm(new GiaoDienNhanVien());
+                } else if (index == 4) {
+                    showForm(new GiaoDienKhachHang());
                 } else if (index == 8) {
                     System.out.println("Logout");
                 } else {
