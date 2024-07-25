@@ -54,6 +54,8 @@ public class Main extends javax.swing.JFrame {
         super.setVisible(aFlag);
         if (aFlag && cuaSo == 1) {
             showForm(new GiaoDienSanPham());
+        }else if(aFlag && cuaSo == 4){
+            showForm(new GiaoDienKhachHang());
         }
     }
 
