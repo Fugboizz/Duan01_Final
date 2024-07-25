@@ -19,42 +19,50 @@ import view.until.swing.form.MainForm;
  */
 public class GiaDienBanHang extends javax.swing.JPanel {
 
-
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
     private repoChiTietSanPham rpct = new repoChiTietSanPham();
     private MainForm mainForm;
+
     public GiaDienBanHang() {
         initComponents();
         setFont();
         init();
-        
+
     }
-    private void init(){
+
+    private void init() {
         mainForm = new MainForm();
         SanPhamPanel.setLayout(new BorderLayout());
         SanPhamPanel.add(mainForm);
         testData();
     }
-    private void testData(){
+
+    private void testData() {
         mainForm.setEvent(new EventItem() {
             @Override
             public void itemClick(Component com, SanPham sp) {
-                System.out.println(sp.getIDSanPham());
+                System.out.println(sp.getTenSanPham());
+                double giaGiam = sp.getGiaChiTiet() * sp.getIDGiamGia().getTyLeGiamGia();
+                System.out.println(giaGiam);
                 JOptionPane.showInputDialog("Nhập số lượng");
                 mainForm.setSelected(com);
             }
         });
-        for (int i = 0; i < 30; i++) {
-//            mainForm.addItem(new SanPham("SP0001",5.00));
+        for (SanPham sp : rpct.getAll()) {
+            if (sp.isTrangThai()) {
+                mainForm.addItem(new SanPham(sp.getTenSanPham(), sp.getSoLuongTonKho(), sp.getGiaChiTiet(), sp.getIDGiamGia(), sp.getHinhAnhSanPham()));
+            }
         }
     }
-    void setFont(){
+
+    void setFont() {
         btn_TimKiemHoaDon.setColor1(color2);
         btn_TimKiemHoaDon.setColor2(color1);
         panel_ThongTin.setBackground(color2);
         lbl_ThongTin.setForeground(color1);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

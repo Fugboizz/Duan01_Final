@@ -26,6 +26,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -73,9 +76,9 @@
                                       <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="radioButtonCustom1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rdo_QuanLi" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="radioButtonCustom2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rdo_NhanVien" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
@@ -83,9 +86,9 @@
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="radioButtonCustom6" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rdo_NghiViec" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="radioButtonCustom5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rdoo_LamViec" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -97,15 +100,17 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_Anh" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                   <Component id="btn_ThemAnh" min="-2" pref="107" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lbl_Anh" min="-2" pref="165" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="58" pref="58" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -137,9 +142,9 @@
                                           <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="radioButtonCustom3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="rdo_Nam" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                                  <Component id="radioButtonCustom4" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="rdo_Nu" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="txt_MatKhau" pref="175" max="32767" attributes="0"/>
                                               <Component id="txt_Email" alignment="0" max="32767" attributes="0"/>
@@ -176,8 +181,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="txt_Anh" min="-2" pref="206" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lbl_Anh" min="-2" pref="200" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btn_ThemAnh" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -197,8 +202,8 @@
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="radioButtonCustom3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="radioButtonCustom4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rdo_Nam" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rdo_Nu" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -239,10 +244,10 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="radioButtonCustom1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="radioButtonCustom2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="radioButtonCustom5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="radioButtonCustom6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rdo_QuanLi" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rdo_NhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rdoo_LamViec" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rdo_NghiViec" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -287,11 +292,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="view.until.textfield.TextFieldSuggestion" name="txt_Anh">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
-        </Component>
         <Component class="view.until.button.Button" name="btn_ThemAnh">
           <Properties>
             <Property name="text" type="java.lang.String" value="Th&#xea;m &#x1ea2;nh"/>
@@ -365,7 +365,7 @@
             <Property name="text" type="java.lang.String" value="Ch&#x1ee9;c V&#x1ee5;"/>
           </Properties>
         </Component>
-        <Component class="view.until.radiobutton.RadioButtonCustom" name="radioButtonCustom1">
+        <Component class="view.until.radiobutton.RadioButtonCustom" name="rdo_QuanLi">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup3"/>
@@ -373,10 +373,10 @@
             <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xed;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonCustom1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdo_QuanLiActionPerformed"/>
           </Events>
         </Component>
-        <Component class="view.until.radiobutton.RadioButtonCustom" name="radioButtonCustom2">
+        <Component class="view.until.radiobutton.RadioButtonCustom" name="rdo_NhanVien">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup3"/>
@@ -390,7 +390,7 @@
             <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh"/>
           </Properties>
         </Component>
-        <Component class="view.until.radiobutton.RadioButtonCustom" name="radioButtonCustom3">
+        <Component class="view.until.radiobutton.RadioButtonCustom" name="rdo_Nam">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
@@ -399,7 +399,7 @@
             <Property name="text" type="java.lang.String" value="Nam"/>
           </Properties>
         </Component>
-        <Component class="view.until.radiobutton.RadioButtonCustom" name="radioButtonCustom4">
+        <Component class="view.until.radiobutton.RadioButtonCustom" name="rdo_Nu">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
@@ -412,7 +412,7 @@
             <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i"/>
           </Properties>
         </Component>
-        <Component class="view.until.radiobutton.RadioButtonCustom" name="radioButtonCustom5">
+        <Component class="view.until.radiobutton.RadioButtonCustom" name="rdoo_LamViec">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup2"/>
@@ -421,10 +421,10 @@
             <Property name="text" type="java.lang.String" value="L&#xe0;m Vi&#x1ec7;c"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonCustom5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoo_LamViecActionPerformed"/>
           </Events>
         </Component>
-        <Component class="view.until.radiobutton.RadioButtonCustom" name="radioButtonCustom6">
+        <Component class="view.until.radiobutton.RadioButtonCustom" name="rdo_NghiViec">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup2"/>
@@ -439,6 +439,9 @@
               <Font name="Tahoma" size="12" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="view.until.button.Button" name="button3">
           <Properties>
@@ -474,6 +477,11 @@
           </Properties>
         </Component>
         <Component class="view.until.textfield.TextFieldSuggestion" name="txt_MaNhanVien">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_Anh">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jLabel12"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

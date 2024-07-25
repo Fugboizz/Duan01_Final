@@ -12,17 +12,16 @@ import javax.swing.SwingUtilities;
 import model.SanPham;
 import repository.SanPham.repoChiTietSanPham;
 import service.CapNhatSanPham.CapNhatSanPhamSv;
+import service.taikhoan.ServiceTaiKhoan;
 import view.main.Main;
 import view.until.combobox.ComboBoxSuggestion;
 
-/**
- *
- * @author HUNGpYN
- */
 public class ThemMoiSanPham extends javax.swing.JDialog {
 
     private CapNhatSanPhamSv capNhatSanPhamSv = new CapNhatSanPhamSv();
     private repoChiTietSanPham rpChiTietSanPham = new repoChiTietSanPham();
+//    lấy phương thức hình ảnh
+    private service.taikhoan.ServiceTaiKhoan stk;
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
 
@@ -138,10 +137,10 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         rdoNgungKinhDoanh = new view.until.radiobutton.RadioButtonCustom();
         rdoKinhDoanh = new view.until.radiobutton.RadioButtonCustom();
-        txt_Anh = new view.until.textfield.TextFieldSuggestion();
         btn_ThemAnh = new view.until.button.Button();
         btnHuy = new view.until.button.Button();
         btnLuu = new view.until.button.Button();
+        lbl_HinhAnh = new javax.swing.JLabel();
         Panel_ThemThuocTinh = new javax.swing.JPanel();
         materialTabbed1 = new view.until.tabbedpane.MaterialTabbed();
         PanelPhanLoai = new javax.swing.JPanel();
@@ -349,10 +348,13 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             }
         });
 
-        txt_Anh.setEditable(false);
-
         btn_ThemAnh.setText("Thêm Ảnh");
         btn_ThemAnh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_ThemAnh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ThemAnhActionPerformed(evt);
+            }
+        });
 
         btnHuy.setText("Hủy");
         btnHuy.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -370,6 +372,8 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             }
         });
 
+        lbl_HinhAnh.setText("jLabel20");
+
         javax.swing.GroupLayout panel_ThemSanPhamLayout = new javax.swing.GroupLayout(panel_ThemSanPham);
         panel_ThemSanPham.setLayout(panel_ThemSanPhamLayout);
         panel_ThemSanPhamLayout.setHorizontalGroup(
@@ -377,12 +381,12 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
                 .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(txt_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addComponent(btn_ThemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49)
+                        .addComponent(btn_ThemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(lbl_HinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35)
                 .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
                         .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,11 +473,11 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
                 .addComponent(pnl_ThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_ThemSanPhamLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_TenTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -497,7 +501,9 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
                         .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)))
-                    .addComponent(txt_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ThemSanPhamLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_HinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_ThemSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_TrongLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1455,7 +1461,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_CapNhatNhaCungCap3ActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-
+        String link = (String) lbl_HinhAnh.getClientProperty("imagepath");
         rpChiTietSanPham.add(capNhatSanPhamSv.checkCboPhanLoai(cbo_PhanLoai),
                 capNhatSanPhamSv.checkCboKiemDinh(cbo_KiemDinh),
                 capNhatSanPhamSv.checkCboMauSac(cbo_MauSac),
@@ -1463,7 +1469,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
                 rdoNam.isSelected() ? true : false, capNhatSanPhamSv.checkCboChatLieu(cbo_ChatLieu),
                 Integer.parseInt(txt_TonKho.getText()), Float.parseFloat(txt_GiaBan.getText()), "GG0001",
                 capNhatSanPhamSv.checkCboNhaCungCap(cbo_NhaCungCap), Integer.parseInt(txt_SoLuongDa.getText()),
-                Float.parseFloat(txt_KichThuocDa1.getText()), Float.parseFloat(txt_TrongLuong.getText()), "",
+                Float.parseFloat(txt_KichThuocDa1.getText()), Float.parseFloat(txt_TrongLuong.getText()), link,
                 capNhatSanPhamSv.checkCboLoaiDa(cbo_LoaiDa1), rdoKinhDoanh.isSelected() ? true : false);
 
 
@@ -1561,6 +1567,12 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private void tbl_KiemDinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_KiemDinhMouseClicked
         capNhatSanPhamSv.getDataKiemDinh(tbl_KiemDinh, txt_MaKD, txt_DonViKD, txt_NgayKD, rdo_HKD, rdo_NKD);
     }//GEN-LAST:event_tbl_KiemDinhMouseClicked
+
+    private void btn_ThemAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemAnhActionPerformed
+        // TODO add your handling code here:
+        stk = new ServiceTaiKhoan();
+        stk.chonAnh(lbl_HinhAnh);
+    }//GEN-LAST:event_btn_ThemAnhActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1698,6 +1710,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JLabel lbl_HinhAnh;
     private javax.swing.JLabel lbl_ThemMoi;
     private view.until.tabbedpane.MaterialTabbed materialTabbed1;
     private javax.swing.JPanel panel_ThemSanPham;
@@ -1730,7 +1743,6 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.table.TableDark tbl_PhanLoai;
     private view.until.table.TableDark tbl_Size;
     private view.until.textarea.TextAreaSuggestion txtA_DiaChi;
-    private view.until.textfield.TextFieldSuggestion txt_Anh;
     private view.until.textfield.TextFieldSuggestion txt_DonViKD;
     private view.until.textfield.TextFieldSuggestion txt_Email;
     private view.until.textfield.TextFieldSuggestion txt_GiaBan;
