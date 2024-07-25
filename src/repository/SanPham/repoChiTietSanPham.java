@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -66,6 +66,7 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
 
                 GiamGia gg = new GiamGia();
                 gg.setIDGIamGia(res.getString("IDGiamGia"));
+                gg.setTyLeGiamGia(res.getFloat("TyLeGiamGia"));
 
                 DaQuy dq = new DaQuy();
                 dq.setIDDaQuy(res.getString("IDDaQuy"));

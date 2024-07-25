@@ -5,6 +5,10 @@
 package view.nhanvien;
 
 import java.awt.Color;
+import javax.swing.JTable;
+import service.taikhoan.ServiceTaiKhoan;
+import view.main.Main;
+import view.sanpham.ThemMoiSanPham;
 
 /**
  *
@@ -14,10 +18,14 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
 
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
+    private service.taikhoan.ServiceTaiKhoan stk;
 
     public GiaoDienNhanVien() {
+        stk = new ServiceTaiKhoan();
         initComponents();
         setFont();
+        stk.fillToTable(tbl_NhanVien);
+
     }
 
     void setFont() {
@@ -25,6 +33,10 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
         panel_ThemMoi.setBackground(color2);
         btn_TimKiem.setColor1(color2);
         btn_TimKiem.setColor2(color1);
+    }
+
+    public JTable tbl() {
+        return tbl_NhanVien;
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +55,7 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
         btn_TimKiem = new view.until.button.Button();
         btn_Excel = new view.until.button.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableDark1 = new view.until.table.TableDark();
+        tbl_NhanVien = new view.until.table.TableDark();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1013, 612));
@@ -120,72 +132,77 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
             }
         });
 
-        tableDark1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_NhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Nhân Viên", "Họ Và Tên", "Tài Khoản", "Mật Khẩu", "Số Điện Thoại", "Chức Vụ", "Trạng Thái"
+                "Mã Nhân Viên", "Họ Và Tên", "Tài Khoản", "Mật Khẩu", "Giới Tính", "Số Điện Thoại", "Chức Vụ", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableDark1);
+        tbl_NhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_NhanVienMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_NhanVien);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -238,9 +255,11 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
 
         getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
-
+    private Main main;
     private void btn_TaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TaoMoiActionPerformed
         // TODO add your handling code here:
+        ThemMoiNhanVien tmnv = new ThemMoiNhanVien(main, true);
+        tmnv.setVisible(true);
     }//GEN-LAST:event_btn_TaoMoiActionPerformed
 
     private void txt_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TimKiemActionPerformed
@@ -259,6 +278,12 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_ExcelActionPerformed
 
+    private void tbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NhanVienMouseClicked
+        // TODO add your handling code here:
+        stk = new ServiceTaiKhoan();
+        stk.doubleCicled(tbl_NhanVien);
+    }//GEN-LAST:event_tbl_NhanVienMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.until.button.Button btn_Excel;
@@ -272,7 +297,7 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_DanhSach;
     private javax.swing.JPanel panel_ThemMoi;
-    private view.until.table.TableDark tableDark1;
+    private view.until.table.TableDark tbl_NhanVien;
     private view.until.textfield.TextFieldSuggestion txt_TimKiem;
     // End of variables declaration//GEN-END:variables
 }

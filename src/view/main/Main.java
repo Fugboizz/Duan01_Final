@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import view.banhang.GiaDienBanHang;
 import view.khachhang.GiaoDienKhachHang;
 import view.nhanvien.GiaoDienNhanVien;
 import view.sanpham.GiaoDienSanPham;
@@ -29,7 +30,10 @@ public class Main extends javax.swing.JFrame {
                     showForm(new Form_1());
                 } else if (index == 1) {
                     showForm(new GiaoDienSanPham());
-                } else if (index == 3) {
+                }else if(index == 2){
+                    showForm(new GiaDienBanHang());
+                }
+                else if (index == 3) {
                     showForm(new GiaoDienNhanVien());
                 } else if (index == 4) {
                     showForm(new GiaoDienKhachHang());

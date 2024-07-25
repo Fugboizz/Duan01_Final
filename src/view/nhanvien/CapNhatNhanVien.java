@@ -5,6 +5,13 @@
 package view.nhanvien;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
+import model.TaiKhoan;
+import service.taikhoan.ServiceTaiKhoan;
 
 /**
  *
@@ -30,6 +37,40 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
     }
 
+   public  void setData(TaiKhoan tk) {
+        txt_MaNhanVien.setText(tk.getIDTaiKhoan());
+        txt_HoVaTen2.setText(tk.getHoTen());
+        Date birth = tk.getNgaySinh();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy");
+        String formattedDate = dateFormat.format(birth);
+        txt_NgaySinh.setText(formattedDate);
+        txt_TaiKhoan.setText(tk.getTaiKhoan());
+        txt_MatKhau.setText(tk.getMatKhau());
+        txt_SoDienThoai.setText(tk.getSoDienThoai());
+        txt_Email.setText(tk.getEmail());
+        txt_DiaChi.setText(tk.getDiaChi());
+        if (tk.isGioiTinh()) {
+            rdo_Nam.setSelected(true);
+        } else {
+            rdo_Nu.setSelected(true);
+        }
+        if (tk.isChucVu()) {
+            rdo_QuanLi.setSelected(true);
+        } else {
+            rdo_NhanVien.setSelected(true);
+        }
+        if (tk.isChucVu()) {
+            rdoo_LamViec.setSelected(true);
+        } else {
+            rdo_NghiViec.setSelected(true);
+        }
+        ImageIcon imageIcon = new ImageIcon(tk.getHinhAnh());
+        Image image = imageIcon.getImage(); // Chuyển đổi về đối tượng Image
+        Image scaledImage = image.getScaledInstance(lbl_Anh.getWidth()-2, lbl_Anh.getHeight()-2, Image.SCALE_SMOOTH); // Thay đổi kích thước ảnh
+        imageIcon = new ImageIcon(scaledImage);
+        lbl_Anh.setIcon(imageIcon);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,7 +82,6 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         pnl_ThemMoi = new javax.swing.JPanel();
         lbl_ThemMoi = new javax.swing.JLabel();
-        txt_Anh = new view.until.textfield.TextFieldSuggestion();
         btn_ThemAnh = new view.until.button.Button();
         jLabel1 = new javax.swing.JLabel();
         txt_TaiKhoan = new view.until.textfield.TextFieldSuggestion();
@@ -56,14 +96,14 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         txt_NgaySinh = new view.until.textfield.TextFieldSuggestion();
         jLabel7 = new javax.swing.JLabel();
-        radioButtonCustom1 = new view.until.radiobutton.RadioButtonCustom();
-        radioButtonCustom2 = new view.until.radiobutton.RadioButtonCustom();
+        rdo_QuanLi = new view.until.radiobutton.RadioButtonCustom();
+        rdo_NhanVien = new view.until.radiobutton.RadioButtonCustom();
         jLabel8 = new javax.swing.JLabel();
-        radioButtonCustom3 = new view.until.radiobutton.RadioButtonCustom();
-        radioButtonCustom4 = new view.until.radiobutton.RadioButtonCustom();
+        rdo_Nam = new view.until.radiobutton.RadioButtonCustom();
+        rdo_Nu = new view.until.radiobutton.RadioButtonCustom();
         jLabel9 = new javax.swing.JLabel();
-        radioButtonCustom5 = new view.until.radiobutton.RadioButtonCustom();
-        radioButtonCustom6 = new view.until.radiobutton.RadioButtonCustom();
+        rdoo_LamViec = new view.until.radiobutton.RadioButtonCustom();
+        rdo_NghiViec = new view.until.radiobutton.RadioButtonCustom();
         button2 = new view.until.button.Button();
         button3 = new view.until.button.Button();
         jLabel10 = new javax.swing.JLabel();
@@ -71,11 +111,17 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         txt_DiaChi = new view.until.textarea.TextAreaSuggestion();
         jLabel11 = new javax.swing.JLabel();
         txt_MaNhanVien = new view.until.textfield.TextFieldSuggestion();
+        lbl_Anh = new javax.swing.JLabel();
 
         dateChooser1.setForeground(new java.awt.Color(51, 51, 51));
         dateChooser1.setTextRefernce(txt_NgaySinh);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -96,8 +142,6 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                 .addComponent(lbl_ThemMoi)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
-
-        txt_Anh.setEditable(false);
 
         btn_ThemAnh.setText("Thêm Ảnh");
         btn_ThemAnh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -152,43 +196,48 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
         jLabel7.setText("Chức Vụ");
 
-        buttonGroup3.add(radioButtonCustom1);
-        radioButtonCustom1.setText("Quản Lí");
-        radioButtonCustom1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup3.add(rdo_QuanLi);
+        rdo_QuanLi.setText("Quản Lí");
+        rdo_QuanLi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonCustom1ActionPerformed(evt);
+                rdo_QuanLiActionPerformed(evt);
             }
         });
 
-        buttonGroup3.add(radioButtonCustom2);
-        radioButtonCustom2.setSelected(true);
-        radioButtonCustom2.setText("Nhân Viên");
+        buttonGroup3.add(rdo_NhanVien);
+        rdo_NhanVien.setSelected(true);
+        rdo_NhanVien.setText("Nhân Viên");
 
         jLabel8.setText("Giới Tính");
 
-        buttonGroup1.add(radioButtonCustom3);
-        radioButtonCustom3.setSelected(true);
-        radioButtonCustom3.setText("Nam");
+        buttonGroup1.add(rdo_Nam);
+        rdo_Nam.setSelected(true);
+        rdo_Nam.setText("Nam");
 
-        buttonGroup1.add(radioButtonCustom4);
-        radioButtonCustom4.setText("Nữ");
+        buttonGroup1.add(rdo_Nu);
+        rdo_Nu.setText("Nữ");
 
         jLabel9.setText("Trạng Thái");
 
-        buttonGroup2.add(radioButtonCustom5);
-        radioButtonCustom5.setSelected(true);
-        radioButtonCustom5.setText("Làm Việc");
-        radioButtonCustom5.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup2.add(rdoo_LamViec);
+        rdoo_LamViec.setSelected(true);
+        rdoo_LamViec.setText("Làm Việc");
+        rdoo_LamViec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonCustom5ActionPerformed(evt);
+                rdoo_LamViecActionPerformed(evt);
             }
         });
 
-        buttonGroup2.add(radioButtonCustom6);
-        radioButtonCustom6.setText("Nghỉ Việc");
+        buttonGroup2.add(rdo_NghiViec);
+        rdo_NghiViec.setText("Nghỉ Việc");
 
         button2.setText("Hủy");
         button2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
 
         button3.setText("Lưu");
         button3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -200,6 +249,8 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txt_DiaChi);
 
         jLabel11.setText("Mã Nhân Viên");
+
+        lbl_Anh.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -217,29 +268,30 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                                     .addComponent(jLabel7)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(radioButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(rdo_QuanLi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(radioButtonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(rdo_NhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(80, 80, 80)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(radioButtonCustom6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(rdo_NghiViec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(radioButtonCustom5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(rdoo_LamViec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(88, 88, 88)
                                 .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(btn_ThemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(58, 58, 58)
+                                .addGap(34, 34, 34)
+                                .addComponent(btn_ThemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(lbl_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -266,9 +318,9 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                                         .addGap(67, 67, 67)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(radioButtonCustom3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(rdo_Nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(32, 32, 32)
-                                                .addComponent(radioButtonCustom4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(rdo_Nu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(txt_MatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                                             .addComponent(txt_Email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -291,8 +343,8 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txt_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_ThemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -309,8 +361,8 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(radioButtonCustom3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(radioButtonCustom4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(rdo_Nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rdo_Nu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -343,10 +395,10 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(radioButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioButtonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioButtonCustom5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioButtonCustom6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rdo_QuanLi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdo_NhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdoo_LamViec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdo_NghiViec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -392,13 +444,24 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_NgaySinhActionPerformed
 
-    private void radioButtonCustom5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCustom5ActionPerformed
+    private void rdoo_LamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoo_LamViecActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_radioButtonCustom5ActionPerformed
+    }//GEN-LAST:event_rdoo_LamViecActionPerformed
 
-    private void radioButtonCustom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCustom1ActionPerformed
+    private void rdo_QuanLiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_QuanLiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_radioButtonCustom1ActionPerformed
+ 
+    }//GEN-LAST:event_rdo_QuanLiActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_button2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -464,15 +527,15 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_Anh;
     private javax.swing.JLabel lbl_ThemMoi;
     private javax.swing.JPanel pnl_ThemMoi;
-    private view.until.radiobutton.RadioButtonCustom radioButtonCustom1;
-    private view.until.radiobutton.RadioButtonCustom radioButtonCustom2;
-    private view.until.radiobutton.RadioButtonCustom radioButtonCustom3;
-    private view.until.radiobutton.RadioButtonCustom radioButtonCustom4;
-    private view.until.radiobutton.RadioButtonCustom radioButtonCustom5;
-    private view.until.radiobutton.RadioButtonCustom radioButtonCustom6;
-    private view.until.textfield.TextFieldSuggestion txt_Anh;
+    private view.until.radiobutton.RadioButtonCustom rdo_Nam;
+    private view.until.radiobutton.RadioButtonCustom rdo_NghiViec;
+    private view.until.radiobutton.RadioButtonCustom rdo_NhanVien;
+    private view.until.radiobutton.RadioButtonCustom rdo_Nu;
+    private view.until.radiobutton.RadioButtonCustom rdo_QuanLi;
+    private view.until.radiobutton.RadioButtonCustom rdoo_LamViec;
     private view.until.textarea.TextAreaSuggestion txt_DiaChi;
     private view.until.textfield.TextFieldSuggestion txt_Email;
     private view.until.textfield.TextFieldSuggestion txt_HoVaTen2;
