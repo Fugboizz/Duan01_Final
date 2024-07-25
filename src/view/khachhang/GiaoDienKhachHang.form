@@ -44,12 +44,7 @@
                   <Component id="comboBoxSuggestion1" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_SoDienThoai" min="-2" pref="206" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
               <Component id="btn_TimKiem" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="btn_Excel" min="-2" pref="35" max="-2" attributes="0"/>
@@ -67,7 +62,6 @@
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -76,7 +70,6 @@
                       <Component id="comboBoxSuggestion1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_TimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="comboBoxSuggestion3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_SoDienThoai" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btn_Excel" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
@@ -97,7 +90,7 @@
                   <Component id="lbl_DanhSach" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btn_TaoMoi" min="-2" pref="143" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -234,15 +227,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="view.until.textfield.TextFieldSuggestion" name="txt_SoDienThoai">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_SoDienThoaiActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

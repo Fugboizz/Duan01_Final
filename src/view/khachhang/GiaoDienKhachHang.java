@@ -4,30 +4,54 @@
  */
 package view.khachhang;
 
-import view.nhanvien.*;
 import java.awt.Color;
+import javax.swing.JTable;
+import view.main.Main;
 
 /**
  *
  * @author HUNGpYN
  */
 public class GiaoDienKhachHang extends javax.swing.JPanel {
-
+    private service.KhachHang.GiaoDienKhachHangService qlKH = new service.KhachHang.GiaoDienKhachHangService();
+    private Main main;
+    private boolean check;
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
 
     public GiaoDienKhachHang() {
         initComponents();
         setFont();
+        qlKH.fillToTable(tbl_KhachHang);
+        check();
     }
-
+    JTable tbl = new JTable();
+    
     void setFont() {
         lbl_DanhSach.setForeground(color1);
         panel_ThemMoi.setBackground(color2);
         btn_TimKiem.setColor1(color2);
         btn_TimKiem.setColor2(color1);
     }
+    
+    public JTable tbl() {
+        return tbl_KhachHang;
+    }
 
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+    
+    void check(){
+        if(isCheck()){
+            qlKH.fillToTable(tbl_KhachHang);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -45,8 +69,6 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
         btn_Excel = new view.until.button.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_KhachHang = new view.until.table.TableDark();
-        txt_SoDienThoai = new view.until.textfield.TextFieldSuggestion();
-        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1013, 612));
@@ -72,7 +94,7 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
                 .addComponent(lbl_DanhSach)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(154, 154, 154))
         );
         panel_ThemMoiLayout.setVerticalGroup(
             panel_ThemMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,14 +166,6 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbl_KhachHang);
 
-        txt_SoDienThoai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_SoDienThoaiActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Số Điện Thoại");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,11 +184,7 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txt_SoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(244, 244, 244)
                 .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,16 +199,14 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_SoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
@@ -208,6 +216,9 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_TaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TaoMoiActionPerformed
+        ThemMoiKhachHang themMoiKH = new ThemMoiKhachHang(main, true);
+        themMoiKH.setVisible(true);
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_TaoMoiActionPerformed
 
@@ -227,10 +238,6 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_ExcelActionPerformed
 
-    private void txt_SoDienThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_SoDienThoaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_SoDienThoaiActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.until.button.Button btn_Excel;
@@ -241,12 +248,10 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_DanhSach;
     private javax.swing.JPanel panel_ThemMoi;
     private view.until.table.TableDark tbl_KhachHang;
-    private view.until.textfield.TextFieldSuggestion txt_SoDienThoai;
     private view.until.textfield.TextFieldSuggestion txt_TimKiem;
     // End of variables declaration//GEN-END:variables
 }

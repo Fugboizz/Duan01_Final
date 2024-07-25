@@ -17,12 +17,21 @@ public class KhachHang {
  private String DiaChi;
  private String Email ;
  private int TichDiem;
-  private Date NgayTao;
+ private Date NgayTao;
  private Date NgaySua;
  private boolean TrangThai;
 
     public KhachHang() {
     }
+
+    public KhachHang( String HoTen, String SoDienThoai, String DiaChi, String Email, boolean TrangThai) {
+        this.HoTen = HoTen;
+        this.SoDienThoai = SoDienThoai;
+        this.DiaChi = DiaChi;
+        this.Email = Email;
+        this.TrangThai = TrangThai;
+    }
+    
 
     public KhachHang(String IDKhachHang, String HoTen, String SoDienThoai, String DiaChi, String Email, int TichDiem, Date NgayTao, Date NgaySua, boolean TrangThai) {
         this.IDKhachHang = IDKhachHang;
