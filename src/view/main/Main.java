@@ -13,7 +13,11 @@ import view.sanpham.GiaoDienSanPham;
 
 public class Main extends javax.swing.JFrame {
 
-    public Main() {
+    private int cuaSo;
+    private static Main currentInstance;
+
+    public Main(int cuaSo) {
+        this.cuaSo = cuaSo;
         initComponents();
         simpleTitleBar1.init(this);
         getContentPane().setBackground(new Color(25, 25, 25));
@@ -38,6 +42,19 @@ public class Main extends javax.swing.JFrame {
         };
         menu1.initMenu(event);
         showForm(new Form_1());
+        currentInstance = this;
+    }
+
+    public void showw() {
+        showForm(new GiaoDienSanPham());
+    }
+
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag && cuaSo == 1) {
+            showForm(new GiaoDienSanPham());
+        }
     }
 
     private void showForm(Component com) {
@@ -45,6 +62,12 @@ public class Main extends javax.swing.JFrame {
         body.add(com);
         body.revalidate();
         body.repaint();
+    }
+    public static void closeCurrentInstance() {
+        if (currentInstance != null) {
+            currentInstance.dispose();
+            currentInstance = null;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -129,7 +152,7 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new Main(0).setVisible(true);
             }
         });
     }

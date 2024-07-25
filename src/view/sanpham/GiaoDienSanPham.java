@@ -5,28 +5,38 @@
 package view.sanpham;
 
 import java.awt.Color;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.HinhAnhSanPham;
+import model.GiaoDien.GiaoDienSanPhamModel;
 import model.SanPham;
-import repository.HinhAnhSanPham.HinhAnhSanPhamrepo;
 import repository.SanPham.repoChiTietSanPham;
+import service.GiaDienSanPhamService;
+import view.main.Main;
 
 /**
  *
  * @author HUNGpYN
  */
 public class GiaoDienSanPham extends javax.swing.JPanel {
-private List<SanPham> spList = new ArrayList<>();
-    private List<HinhAnhSanPham> haList = new ArrayList<>();
+
+    private List<SanPham> spList = new ArrayList<>();
     private repository.SanPham.repoChiTietSanPham rpsp = new repoChiTietSanPham();
-    private HinhAnhSanPhamrepo hasprp = new HinhAnhSanPhamrepo();
-    private model.SanPham mdsp = new SanPham();
+    private GiaoDienSanPhamModel mdgd = new GiaoDienSanPhamModel();
+    private GiaDienSanPhamService gdspsv = new GiaDienSanPhamService();
     private DefaultTableModel model;
- private Color color2 = Color.decode("#101820");// thanden
- private Color color1 = Color.decode("#FEE715"); //mau vang
+    private Color color2 = Color.decode("#101820");// thanden
+    private Color color1 = Color.decode("#FEE715"); //mau vang
+    private String selectedID = null;
+    private CapNhatSanPham cpspCapNhatSanPham ;
+    private ThemMoiSanPham tpspMoiSanPham;
+    private Main main;
     public GiaoDienSanPham() {
         initComponents();
         tbl_SanPham.fixTable(jScrollPane2);
@@ -36,44 +46,94 @@ private List<SanPham> spList = new ArrayList<>();
         btn_TimKiem.setColor2(color1);
         tbl_SanPham.setRowHeight(100);
         fillToTable();
-    }
-     void fillToTable() {
-        spList = rpsp.getAll();
-        haList = hasprp.getAll();
-
-        String[] hienthi = {"Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Hình Ảnh", "Trạng Thái"};
-        model = new DefaultTableModel(hienthi, 0);
-
-        for (SanPham sp : spList) {
-            for (HinhAnhSanPham ha : haList) {
-                if (sp.getIDSanPham().equals(ha.getIDSanPham().getIDSanPham())) {
-                    ImageIcon imageIcon = null;
-                    try {
-                        imageIcon = new ImageIcon("/Icon/baohanh.png");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        imageIcon = new ImageIcon(); // Placeholder nếu lỗi xảy ra
-                    }
-                    String tenPhanLoai = sp.getIDPhanLoai() != null ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
-                    String trangThai = sp.isTrangThai() ? "Đang Hoạt Động" : "Ngừng Kinh Doanh";
-
-                    Object[] rowObject = {
-                        sp.getIDSanPham(),
-                        sp.getTenSanPham(),
-                        tenPhanLoai,
-                        sp.isGioiTinh() ? "Nam" : "Nữ",
-                        sp.getGiaChiTiet(),
-                        imageIcon,
-                        trangThai
-                    };
-                    model.addRow(rowObject);
+        List<String> tenPhanLoais = gdspsv.fillTocbo();
+        for (String ten : tenPhanLoais) {
+            cbosLoaiTrangSuc.addItem(ten);
+        }
+        tbl_SanPham.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) { // Kiểm tra nhấp chuột hai lần
+            int row = tbl_SanPham.rowAtPoint(e.getPoint()); // Lấy chỉ số hàng được nhấp
+            if (row >= 0 && row < tbl_SanPham.getRowCount()) {
+                selectedID = (String) tbl_SanPham.getValueAt(row, tbl_SanPham.getColumnModel().getColumnIndex("Mã Trang Sức")).toString();
+                if (selectedID != null) {
+                    cpspCapNhatSanPham = new CapNhatSanPham(main, true);
+                    cpspCapNhatSanPham.setSelectedID(selectedID);
+                    cpspCapNhatSanPham.setVisible(true); 
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "Mã Trang Sức không hợp lệ.");
                 }
             }
         }
-
-        tbl_SanPham.setModel(model);
-        tbl_SanPham.getColumnModel().getColumn(5).setCellRenderer(tbl_SanPham.getDefaultRenderer(ImageIcon.class)); // Đặt renderer cho cột hình ảnh
     }
+}); 
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                onPanelShown();
+            }
+        });
+    
+    }
+     private void onPanelShown() {
+         System.out.println("THành Công");
+        fillToTable();
+    }
+      public void refreshData() {
+        fillToTable();  
+    }
+
+    public String getSelectedID() {
+    return selectedID;
+}
+
+    void fillToTable() {
+        spList = rpsp.getAll();
+        String[] hienthi = {"Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Số Lượng Tồn Kho", "Trạng Thái"};
+        model = new DefaultTableModel(hienthi, 0);
+
+        for (SanPham sp : spList) {
+            String tenPhanLoai = sp.getIDPhanLoai() != null ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
+            String trangThai = sp.isTrangThai() ? "Đang Hoạt Động" : "Ngừng Kinh Doanh";
+            Object[] rowObject = {
+                sp.getIDSanPham(),
+                sp.getTenSanPham(),
+                tenPhanLoai,
+                sp.isGioiTinh() ? "Nam" : "Nữ",
+                sp.getGiaChiTiet()+"VNĐ",
+                sp.getSoLuongTonKho() > 0 ? sp.getSoLuongTonKho() : "Hết Hàng",
+                trangThai
+            };
+            model.addRow(rowObject);
+        }
+        tbl_SanPham.setModel(model);
+    }
+
+    void fillTOCheck(GiaoDienSanPhamModel gdspmd
+    ) {
+        spList = rpsp.getAllWithConditional(gdspmd);
+        String[] hienthi = {"Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Số Lượng Tồn Kho", "Trạng Thái"};
+        model = new DefaultTableModel(hienthi, 0);
+
+        for (SanPham sp : spList) {
+            String tenPhanLoai = sp.getIDPhanLoai() != null ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
+            String trangThai = sp.isTrangThai() ? "Đang Hoạt Động" : "Ngừng Kinh Doanh";
+            Object[] rowObject = {
+                sp.getIDSanPham(),
+                sp.getTenSanPham(),
+                tenPhanLoai,
+                sp.isGioiTinh() ? "Nam" : "Nữ",
+                sp.getGiaChiTiet(),
+                sp.getSoLuongTonKho() > 0 ? sp.getSoLuongTonKho() : "Hết Hàng",
+                trangThai
+            };
+            model.addRow(rowObject);
+        }
+        tbl_SanPham.setModel(model);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,9 +145,9 @@ private List<SanPham> spList = new ArrayList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxSuggestion1 = new view.until.combobox.ComboBoxSuggestion();
-        comboBoxSuggestion2 = new view.until.combobox.ComboBoxSuggestion();
-        comboBoxSuggestion3 = new view.until.combobox.ComboBoxSuggestion();
+        cbosTrangThai = new view.until.combobox.ComboBoxSuggestion();
+        cbosLoaiTrangSuc = new view.until.combobox.ComboBoxSuggestion();
+        cbosGioiTinh = new view.until.combobox.ComboBoxSuggestion();
         jLabel4 = new javax.swing.JLabel();
         txt_TimKiem = new view.until.textfield.TextFieldSuggestion();
         btn_TimKiem = new view.until.button.Button();
@@ -138,27 +198,27 @@ private List<SanPham> spList = new ArrayList<>();
 
         jLabel3.setText("Trạng Thái");
 
-        comboBoxSuggestion1.setEditable(false);
-        comboBoxSuggestion1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Kinh Doanh", "Ngừng Kinh Doanh" }));
-        comboBoxSuggestion1.addActionListener(new java.awt.event.ActionListener() {
+        cbosTrangThai.setEditable(false);
+        cbosTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Kinh Doanh", "Ngừng Kinh Doanh" }));
+        cbosTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion1ActionPerformed(evt);
+                cbosTrangThaiActionPerformed(evt);
             }
         });
 
-        comboBoxSuggestion2.setEditable(false);
-        comboBoxSuggestion2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả" }));
-        comboBoxSuggestion2.addActionListener(new java.awt.event.ActionListener() {
+        cbosLoaiTrangSuc.setEditable(false);
+        cbosLoaiTrangSuc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả" }));
+        cbosLoaiTrangSuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion2ActionPerformed(evt);
+                cbosLoaiTrangSucActionPerformed(evt);
             }
         });
 
-        comboBoxSuggestion3.setEditable(false);
-        comboBoxSuggestion3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Nam", "Nữ" }));
-        comboBoxSuggestion3.addActionListener(new java.awt.event.ActionListener() {
+        cbosGioiTinh.setEditable(false);
+        cbosGioiTinh.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Nam", "Nữ" }));
+        cbosGioiTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion3ActionPerformed(evt);
+                cbosGioiTinhActionPerformed(evt);
             }
         });
 
@@ -172,6 +232,11 @@ private List<SanPham> spList = new ArrayList<>();
 
         btn_TimKiem.setText("Tìm Kiếm");
         btn_TimKiem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_TimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_TimKiemActionPerformed(evt);
+            }
+        });
 
         btn_Excel.setBorder(null);
         btn_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
@@ -187,16 +252,16 @@ private List<SanPham> spList = new ArrayList<>();
                     .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbosLoaiTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbosGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbosTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
                         .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,9 +280,9 @@ private List<SanPham> spList = new ArrayList<>();
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbosLoaiTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbosTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbosGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -254,6 +319,8 @@ private List<SanPham> spList = new ArrayList<>();
                 return canEdit [columnIndex];
             }
         });
+        tbl_SanPham.setEnabled(false);
+        tbl_SanPham.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jScrollPane2.setViewportView(tbl_SanPham);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -275,34 +342,49 @@ private List<SanPham> spList = new ArrayList<>();
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboBoxSuggestion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion1ActionPerformed
+    private void cbosTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbosTrangThaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion1ActionPerformed
+    }//GEN-LAST:event_cbosTrangThaiActionPerformed
 
-    private void comboBoxSuggestion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion2ActionPerformed
+    private void cbosLoaiTrangSucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbosLoaiTrangSucActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion2ActionPerformed
+    }//GEN-LAST:event_cbosLoaiTrangSucActionPerformed
 
-    private void comboBoxSuggestion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion3ActionPerformed
+    private void cbosGioiTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbosGioiTinhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion3ActionPerformed
+    }//GEN-LAST:event_cbosGioiTinhActionPerformed
 
     private void btn_TaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TaoMoiActionPerformed
-        // TODO add your handling code here:
+       tpspMoiSanPham = new ThemMoiSanPham(main, true);
+       tpspMoiSanPham.setVisible(true);
     }//GEN-LAST:event_btn_TaoMoiActionPerformed
 
     private void txt_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TimKiemActionPerformed
 
+    private void btn_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemActionPerformed
+
+        GiaoDienSanPhamModel GiaoDienSanPhamModel = new GiaoDienSanPhamModel();
+        String searchText = txt_TimKiem.getText().trim();
+        if (!searchText.isEmpty()) {
+            GiaoDienSanPhamModel.setTenTrangSuc(txt_TimKiem.getText());
+        }
+        GiaoDienSanPhamModel.setLoaiTrangSuc(cbosLoaiTrangSuc.getSelectedItem().toString());
+        GiaoDienSanPhamModel.setTrangThai(cbosTrangThai.getSelectedIndex());
+        GiaoDienSanPhamModel.setGioiTinh(cbosGioiTinh.getSelectedIndex());
+        spList.clear();
+        fillTOCheck(GiaoDienSanPhamModel);
+    }//GEN-LAST:event_btn_TimKiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.until.button.Button btn_Excel;
     private view.until.button.Button btn_TaoMoi;
     private view.until.button.Button btn_TimKiem;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion2;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion3;
+    private view.until.combobox.ComboBoxSuggestion cbosGioiTinh;
+    private view.until.combobox.ComboBoxSuggestion cbosLoaiTrangSuc;
+    private view.until.combobox.ComboBoxSuggestion cbosTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

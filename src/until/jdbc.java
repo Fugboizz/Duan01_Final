@@ -15,7 +15,7 @@ public class jdbc {
         Connection c = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost;encrypt=true;trustServerCertificate=true;databaseName=DUAN01;user=sa;password=123456aA@$";
+            String url = "jdbc:sqlserver://localhost;encrypt=true;trustServerCertificate=true;databaseName=DUAN01_02;user=sa;password=123456aA@$";
             c = DriverManager.getConnection(url);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

@@ -46,7 +46,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
             }
         });
         for (int i = 0; i < 30; i++) {
-            mainForm.addItem(new SanPham("SP0001",5.00));
+//            mainForm.addItem(new SanPham("SP0001",5.00));
         }
     }
     void setFont(){

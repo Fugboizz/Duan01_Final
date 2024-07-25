@@ -27,7 +27,7 @@ public class NhaCungCapRepository implements NhaCungCapInterface{
     @Override
     public List<NhaCungCap> getAll() {
          List kd = new ArrayList();
-        sql = "select * from NguonGoc";
+        sql = "select * from NhaCungCap";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);

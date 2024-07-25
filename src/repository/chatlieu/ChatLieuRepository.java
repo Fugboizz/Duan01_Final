@@ -28,10 +28,7 @@ public class ChatLieuRepository implements ChatLieuInterface {
     @Override
     public List<ChatLieu> getAll() {
     List<ChatLieu> list = new ArrayList<>();
-    sql = "SELECT c.IDChatLieu, c.TenChatLieu, c.TyLe, c.IDMauSac, m.ChiTietMauSac " +
-          "FROM ChatLieu c " +
-          "JOIN MauSac m ON c.IDMauSac = m.IDMauSac " +
-          "WHERE c.TrangThai = 1";
+    sql = "SELECT * from ChatLieu";
     try {
         con = jdbc.getConnection();
         pre = con.prepareStatement(sql);
@@ -40,11 +37,7 @@ public class ChatLieuRepository implements ChatLieuInterface {
             ChatLieu cl = new ChatLieu();
             cl.setIDChatLieu(res.getString("IDChatLieu"));
             cl.setTenChatLieu(res.getString("TenChatLieu"));
-            cl.setTyLe(res.getFloat("TyLe"));
-            
-            MauSac ms = new MauSac();
-            ms.setIDMauSac(res.getString("IDMauSac"));
-            ms.setChiTietMauSac(res.getString("ChiTietMauSac"));         
+            cl.setTyLe(res.getFloat("TyLe"));        
             list.add(cl);
         }
         return list;

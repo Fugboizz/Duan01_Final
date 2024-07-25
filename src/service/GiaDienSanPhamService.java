@@ -4,10 +4,26 @@
  */
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+import model.PhanLoai;
+import repository.PhanLoai.PhanLoaiRepo;
+
 /**
  *
  * @author WINDOWS10
  */
-public class GiaDienSanPhamService {
+public class GiaDienSanPhamService implements GiaoDienSanPhamServiceInterface{
+    private List<PhanLoai> lstpl = new ArrayList<>();
+    private PhanLoaiRepo rppl = new PhanLoaiRepo();
+    @Override
+    public List<String> fillTocbo() {
+        lstpl = rppl.getAll();
+        List<String> tenPhanLoais = new ArrayList<>();
+        for (PhanLoai pl : lstpl) {
+            tenPhanLoais.add(pl.getTenPhanLoai());
+        }
+        return tenPhanLoais;
+    }
     
 }

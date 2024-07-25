@@ -26,6 +26,7 @@ public class SanPham {
     private int SoLuongDaQuy;
     private float KichThuocDa;
     private float TrongLuong ;
+    private String HinhAnhSanPham ;
     private DaQuy IDDaQuy;
     private Date NgaySua;
     private Date NgayTao;
@@ -34,14 +35,7 @@ public class SanPham {
     public SanPham() {
     }
 
-    public SanPham(String IDSanPham, Double GiaChiTiet) {
-        this.IDSanPham = IDSanPham;
-        this.GiaChiTiet = GiaChiTiet;
-    }
-
-
-
-    public SanPham(String IDSanPham, PhanLoai IDPhanLoai, KiemDinh IDKIemDinh, MauSac IDMauSac, Size IDSize, String TenSanPham, boolean GioiTinh, ChatLieu IDChatLieu, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, NhaCungCap IDNhaCungCap, int SoLuongDaQuy, float KichThuocDa, float TrongLuong, DaQuy IDDaQuy, Date NgaySua, Date NgayTao, boolean TrangThai) {
+    public SanPham(String IDSanPham, PhanLoai IDPhanLoai, KiemDinh IDKIemDinh, MauSac IDMauSac, Size IDSize, String TenSanPham, boolean GioiTinh, ChatLieu IDChatLieu, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, NhaCungCap IDNhaCungCap, int SoLuongDaQuy, float KichThuocDa, float TrongLuong, String HinhAnhSanPham, DaQuy IDDaQuy, Date NgaySua, Date NgayTao, boolean TrangThai) {
         this.IDSanPham = IDSanPham;
         this.IDPhanLoai = IDPhanLoai;
         this.IDKIemDinh = IDKIemDinh;
@@ -57,6 +51,7 @@ public class SanPham {
         this.SoLuongDaQuy = SoLuongDaQuy;
         this.KichThuocDa = KichThuocDa;
         this.TrongLuong = TrongLuong;
+        this.HinhAnhSanPham = HinhAnhSanPham;
         this.IDDaQuy = IDDaQuy;
         this.NgaySua = NgaySua;
         this.NgayTao = NgayTao;
@@ -183,6 +178,14 @@ public class SanPham {
         this.TrongLuong = TrongLuong;
     }
 
+    public String getHinhAnhSanPham() {
+        return HinhAnhSanPham;
+    }
+
+    public void setHinhAnhSanPham(String HinhAnhSanPham) {
+        this.HinhAnhSanPham = HinhAnhSanPham;
+    }
+
     public DaQuy getIDDaQuy() {
         return IDDaQuy;
     }
@@ -214,7 +217,7 @@ public class SanPham {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-  
 
+    
     
 }

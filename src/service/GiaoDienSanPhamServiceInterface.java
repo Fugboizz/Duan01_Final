@@ -12,5 +12,5 @@ import model.SanPham;
  * @author WINDOWS10
  */
 public interface GiaoDienSanPhamServiceInterface {
-    public void fillToTable(List<SanPham> Listsp);
+    public List<String>  fillTocbo();
 }

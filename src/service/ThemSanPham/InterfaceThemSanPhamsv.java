@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package repository.HinhAnhSanPham;
+package service.ThemSanPham;
 
 import java.util.List;
-import model.HinhAnhSanPham;
-
+import javax.swing.JTable;
 
 /**
  *
  * @author WINDOWS10
  */
-public interface InterfaceHinhAnhSanPham {
-    public List<HinhAnhSanPham> getAll();
+public interface InterfaceThemSanPhamsv {
+    public void fillToTable(JTable tbl, List<Enum> lst);
 }
