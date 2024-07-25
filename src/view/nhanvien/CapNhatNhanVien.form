@@ -93,9 +93,9 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="button2" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="btn_Huy" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                                  <Component id="button3" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="btn_Luu" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -107,7 +107,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="lbl_Anh" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbl_HinhAnh" min="-2" pref="165" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -157,7 +157,7 @@
                                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" attributes="0">
                                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="txt_HoVaTen2" min="-2" pref="175" max="-2" attributes="0"/>
+                                                  <Component id="txt_HoVaTen" min="-2" pref="175" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -181,7 +181,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lbl_Anh" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="lbl_HinhAnh" min="-2" pref="200" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btn_ThemAnh" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -193,7 +193,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txt_HoVaTen2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_HoVaTen" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_MaNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -251,8 +251,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="button2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="button3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_Huy" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_Luu" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
@@ -325,9 +325,9 @@
             <Property name="text" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u"/>
           </Properties>
         </Component>
-        <Component class="view.until.textfield.TextFieldSuggestion" name="txt_HoVaTen2">
+        <Component class="view.until.textfield.TextFieldSuggestion" name="txt_HoVaTen">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_HoVaTen2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_HoVaTenActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -432,7 +432,7 @@
             <Property name="text" type="java.lang.String" value="Ngh&#x1ec9; Vi&#x1ec7;c"/>
           </Properties>
         </Component>
-        <Component class="view.until.button.Button" name="button2">
+        <Component class="view.until.button.Button" name="btn_Huy">
           <Properties>
             <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -440,16 +440,19 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_HuyActionPerformed"/>
           </Events>
         </Component>
-        <Component class="view.until.button.Button" name="button3">
+        <Component class="view.until.button.Button" name="btn_Luu">
           <Properties>
             <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LuuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -478,7 +481,7 @@
         </Component>
         <Component class="view.until.textfield.TextFieldSuggestion" name="txt_MaNhanVien">
         </Component>
-        <Component class="javax.swing.JLabel" name="lbl_Anh">
+        <Component class="javax.swing.JLabel" name="lbl_HinhAnh">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel12"/>
           </Properties>

@@ -8,9 +8,13 @@ import java.awt.Color;
 import java.awt.Image;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.TaiKhoan;
+import repository.taikhoan.RepositoryTaiKhoan;
 import service.taikhoan.ServiceTaiKhoan;
 
 /**
@@ -21,11 +25,13 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
+    private repository.taikhoan.RepositoryTaiKhoan rptk;
 
     public CapNhatNhanVien(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setFont();
+
     }
 
     void setFont() {
@@ -37,12 +43,62 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
     }
 
-   public  void setData(TaiKhoan tk) {
+    //Truyền dữ liệu vào đối tượng
+    TaiKhoan readForm() {
+        TaiKhoan tk = new TaiKhoan();
+        tk.setIDTaiKhoan(txt_MaNhanVien.getText());
+        tk.setHoTen(txt_HoVaTen.getText());
+        tk.setTaiKhoan(txt_TaiKhoan.getText());
+        tk.setMatKhau(txt_MatKhau.getText());
+        tk.setDiaChi(txt_DiaChi.getText());
+        tk.setEmail(txt_Email.getText());
+        tk.setSoDienThoai(txt_SoDienThoai.getText());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilDate = null; // Sử dụng java.util.Date
+        try {
+            utilDate = dateFormat.parse(txt_NgaySinh.getText()); // Phân tích chuỗi ngày
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // Chuyển đổi thành java.sql.Date
+            tk.setNgaySinh(sqlDate); // Thiết lập ngày sinh trong đối tượng tk
+        } catch (ParseException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ nếu có lỗi phân tích
+        }
+        String link = (String) lbl_HinhAnh.getClientProperty("imagepath");
+        tk.setHinhAnh(link);
+        if (rdo_Nam.isSelected()) {
+            tk.setGioiTinh(true);
+        } else {
+            tk.setGioiTinh(false);
+        }
+        if (rdo_QuanLi.isSelected()) {
+            tk.setChucVu(true);
+        } else {
+            tk.setChucVu(false);
+        }
+        return tk;
+
+    }
+
+    // Show dữ liệu lên dialog
+    public void setData(TaiKhoan tk) {
         txt_MaNhanVien.setText(tk.getIDTaiKhoan());
-        txt_HoVaTen2.setText(tk.getHoTen());
-        Date birth = tk.getNgaySinh();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy");
+        txt_HoVaTen.setText(tk.getHoTen());
+        // Giả sử tk.getNgaySinh() trả về java.sql.Date
+        // Đây là ví dụ giả định; hãy thay bằng ngày thực tế từ tk.getNgaySinh()
+          java.sql.Date sqlDate = tk.getNgaySinh();
+         sqlDate = new Date(Calendar.getInstance().getTimeInMillis()); // Thay bằng tk.getNgaySinh()
+        
+        // Tạo SimpleDateFormat với định dạng ngày cần
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        
+        // Chuyển đổi java.sql.Date thành java.util.Date
+        java.util.Date birth = new java.util.Date(sqlDate.getTime());
+        
+        // Định dạng ngày
         String formattedDate = dateFormat.format(birth);
+        
+        // Hiển thị ngày đã định dạng
+        System.out.println("Ngày tháng đã định dạng: " + formattedDate);
+        System.out.println(formattedDate);
         txt_NgaySinh.setText(formattedDate);
         txt_TaiKhoan.setText(tk.getTaiKhoan());
         txt_MatKhau.setText(tk.getMatKhau());
@@ -59,16 +115,16 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         } else {
             rdo_NhanVien.setSelected(true);
         }
-        if (tk.isChucVu()) {
+        if (tk.isTrangThai()) {
             rdoo_LamViec.setSelected(true);
         } else {
             rdo_NghiViec.setSelected(true);
         }
         ImageIcon imageIcon = new ImageIcon(tk.getHinhAnh());
         Image image = imageIcon.getImage(); // Chuyển đổi về đối tượng Image
-        Image scaledImage = image.getScaledInstance(lbl_Anh.getWidth()-2, lbl_Anh.getHeight()-2, Image.SCALE_SMOOTH); // Thay đổi kích thước ảnh
+        Image scaledImage = image.getScaledInstance(lbl_HinhAnh.getWidth() - 2, lbl_HinhAnh.getHeight() - 2, Image.SCALE_SMOOTH); // Thay đổi kích thước ảnh
         imageIcon = new ImageIcon(scaledImage);
-        lbl_Anh.setIcon(imageIcon);
+        lbl_HinhAnh.setIcon(imageIcon);
     }
 
     @SuppressWarnings("unchecked")
@@ -88,7 +144,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txt_SoDienThoai = new view.until.textfield.TextFieldSuggestion();
         jLabel3 = new javax.swing.JLabel();
-        txt_HoVaTen2 = new view.until.textfield.TextFieldSuggestion();
+        txt_HoVaTen = new view.until.textfield.TextFieldSuggestion();
         jLabel4 = new javax.swing.JLabel();
         txt_MatKhau = new view.until.textfield.TextFieldSuggestion();
         jLabel5 = new javax.swing.JLabel();
@@ -104,14 +160,14 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         rdoo_LamViec = new view.until.radiobutton.RadioButtonCustom();
         rdo_NghiViec = new view.until.radiobutton.RadioButtonCustom();
-        button2 = new view.until.button.Button();
-        button3 = new view.until.button.Button();
+        btn_Huy = new view.until.button.Button();
+        btn_Luu = new view.until.button.Button();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_DiaChi = new view.until.textarea.TextAreaSuggestion();
         jLabel11 = new javax.swing.JLabel();
         txt_MaNhanVien = new view.until.textfield.TextFieldSuggestion();
-        lbl_Anh = new javax.swing.JLabel();
+        lbl_HinhAnh = new javax.swing.JLabel();
 
         dateChooser1.setForeground(new java.awt.Color(51, 51, 51));
         dateChooser1.setTextRefernce(txt_NgaySinh);
@@ -164,9 +220,9 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
         jLabel3.setText("Mật khẩu");
 
-        txt_HoVaTen2.addActionListener(new java.awt.event.ActionListener() {
+        txt_HoVaTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_HoVaTen2ActionPerformed(evt);
+                txt_HoVaTenActionPerformed(evt);
             }
         });
 
@@ -231,16 +287,21 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         buttonGroup2.add(rdo_NghiViec);
         rdo_NghiViec.setText("Nghỉ Việc");
 
-        button2.setText("Hủy");
-        button2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btn_Huy.setText("Hủy");
+        btn_Huy.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_Huy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btn_HuyActionPerformed(evt);
             }
         });
 
-        button3.setText("Lưu");
-        button3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_Luu.setText("Lưu");
+        btn_Luu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_Luu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LuuActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Địa Chỉ");
 
@@ -250,7 +311,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
         jLabel11.setText("Mã Nhân Viên");
 
-        lbl_Anh.setText("jLabel12");
+        lbl_HinhAnh.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -280,9 +341,9 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                                         .addGap(18, 18, 18)
                                         .addComponent(rdoo_LamViec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(88, 88, 88)
-                                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btn_Luu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -290,7 +351,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                                 .addComponent(btn_ThemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
-                                .addComponent(lbl_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lbl_HinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -330,7 +391,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                                             .addComponent(jLabel1)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(6, 6, 6)
-                                                .addComponent(txt_HoVaTen2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(txt_HoVaTen, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -343,7 +404,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_Anh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_HinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_ThemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -353,7 +414,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_HoVaTen2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_HoVaTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_MaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -401,8 +462,8 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
                             .addComponent(rdo_NghiViec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_Luu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29))))
         );
 
@@ -424,9 +485,9 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_SoDienThoaiActionPerformed
 
-    private void txt_HoVaTen2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_HoVaTen2ActionPerformed
+    private void txt_HoVaTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_HoVaTenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_HoVaTen2ActionPerformed
+    }//GEN-LAST:event_txt_HoVaTenActionPerformed
 
     private void txt_MatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_MatKhauActionPerformed
         // TODO add your handling code here:
@@ -450,7 +511,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
     private void rdo_QuanLiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_QuanLiActionPerformed
         // TODO add your handling code here:
- 
+
     }//GEN-LAST:event_rdo_QuanLiActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -458,10 +519,40 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void btn_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_HuyActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_button2ActionPerformed
+    }//GEN-LAST:event_btn_HuyActionPerformed
+
+    private void btn_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LuuActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (readForm() != null) {
+                RepositoryTaiKhoan rtk = new RepositoryTaiKhoan();
+                rtk.update(readForm()); // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
+
+                // Lấy thể hiện của GiaoDienNhanVien
+                GiaoDienNhanVien gdnv = GiaoDienNhanVien.getInstance();
+                if (gdnv != null) {
+                    gdnv.update(); // Cập nhật bảng
+                }
+
+                // Hiển thị thông báo thành công
+                JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+            } else {
+                // Hiển thị thông báo lỗi nếu dữ liệu không hợp lệ
+                JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin nhập vào.");
+            }
+        } catch (Exception e) {
+            // Xử lý tất cả các ngoại lệ khác
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Thêm thất bại: " + e.getMessage());
+        } finally {
+            // Đóng JDialog
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_btn_LuuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -507,9 +598,9 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.until.button.Button btn_Huy;
+    private view.until.button.Button btn_Luu;
     private view.until.button.Button btn_ThemAnh;
-    private view.until.button.Button button2;
-    private view.until.button.Button button3;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -527,7 +618,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_Anh;
+    private javax.swing.JLabel lbl_HinhAnh;
     private javax.swing.JLabel lbl_ThemMoi;
     private javax.swing.JPanel pnl_ThemMoi;
     private view.until.radiobutton.RadioButtonCustom rdo_Nam;
@@ -538,7 +629,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
     private view.until.radiobutton.RadioButtonCustom rdoo_LamViec;
     private view.until.textarea.TextAreaSuggestion txt_DiaChi;
     private view.until.textfield.TextFieldSuggestion txt_Email;
-    private view.until.textfield.TextFieldSuggestion txt_HoVaTen2;
+    private view.until.textfield.TextFieldSuggestion txt_HoVaTen;
     private view.until.textfield.TextFieldSuggestion txt_MaNhanVien;
     private view.until.textfield.TextFieldSuggestion txt_MatKhau;
     private view.until.textfield.TextFieldSuggestion txt_NgaySinh;

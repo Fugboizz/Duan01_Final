@@ -15,5 +15,4 @@ public interface RepositoryTaiKhoanInterface {
                 public List<TaiKhoan> getAll();
     public int creat(TaiKhoan tk);
     public int update(TaiKhoan tk);
-    public TaiKhoan getDataClicked(String tk);
 }
