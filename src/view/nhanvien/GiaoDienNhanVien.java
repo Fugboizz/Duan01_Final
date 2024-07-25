@@ -6,29 +6,37 @@ package view.nhanvien;
 
 import java.awt.Color;
 import javax.swing.JTable;
+import service.observer.Observer;
 import service.taikhoan.ServiceTaiKhoan;
 import view.main.Main;
-import view.sanpham.ThemMoiSanPham;
 
 /**
  *
  * @author HUNGpYN
  */
-public class GiaoDienNhanVien extends javax.swing.JPanel {
+public class GiaoDienNhanVien extends javax.swing.JPanel implements Observer {
 
-    private Color color2 = Color.decode("#101820");// thanden
-    private Color color1 = Color.decode("#FEE715"); //mau vang
-    private service.taikhoan.ServiceTaiKhoan stk;
+    private Color color2 = Color.decode("#101820"); // Thanden
+    private Color color1 = Color.decode("#FEE715"); // Mau vang
+    private ServiceTaiKhoan stk; // Khai báo làm final để không thay đổi thể hiện
+    private static GiaoDienNhanVien instance;
 
-    public GiaoDienNhanVien() {
-        stk = new ServiceTaiKhoan();
+    private GiaoDienNhanVien() {
+        stk = new ServiceTaiKhoan(); // Khởi tạo ServiceTaiKhoan
         initComponents();
         setFont();
-        stk.fillToTable(tbl_NhanVien);
-
+        stk.fillToTable(tbl_NhanVien); // Đổ dữ liệu vào bảng ngay khi khởi tạo
+        stk.doubleCicled(tbl_NhanVien);
     }
 
-    void setFont() {
+    public static GiaoDienNhanVien getInstance() {
+        if (instance == null) {
+            instance = new GiaoDienNhanVien();
+        }
+        return instance;
+    }
+
+    private void setFont() {
         lbl_DanhSach.setForeground(color1);
         panel_ThemMoi.setBackground(color2);
         btn_TimKiem.setColor1(color2);
@@ -37,6 +45,13 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
 
     public JTable tbl() {
         return tbl_NhanVien;
+    }
+
+    @Override
+    public void update() {
+        stk.fillToTable(tbl_NhanVien);
+        tbl_NhanVien.revalidate();
+        tbl_NhanVien.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -280,8 +295,6 @@ public class GiaoDienNhanVien extends javax.swing.JPanel {
 
     private void tbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NhanVienMouseClicked
         // TODO add your handling code here:
-        stk = new ServiceTaiKhoan();
-        stk.doubleCicled(tbl_NhanVien);
     }//GEN-LAST:event_tbl_NhanVienMouseClicked
 
 

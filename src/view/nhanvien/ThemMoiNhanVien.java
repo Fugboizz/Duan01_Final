@@ -6,6 +6,8 @@ package view.nhanvien;
 
 import java.awt.Color;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import model.TaiKhoan;
 import repository.taikhoan.RepositoryTaiKhoan;
@@ -37,7 +39,7 @@ public class ThemMoiNhanVien extends javax.swing.JDialog {
         txt_NgaySinh.setText("dd - mm - yyyy");
 
     }
-    TaiKhoan readForm() {
+   TaiKhoan readForm() {
         TaiKhoan tk = new TaiKhoan();
         tk.setHoTen(txt_HoVaTen.getText());
         tk.setTaiKhoan(txt_TaiKhoan.getText());
@@ -45,7 +47,15 @@ public class ThemMoiNhanVien extends javax.swing.JDialog {
         tk.setDiaChi(txt_DiaChi.getText());
         tk.setEmail(txt_Email.getText());
         tk.setSoDienThoai(txt_SoDienThoai.getText());
-        tk.setNgaySinh(Date.valueOf(txt_NgaySinh.getText()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilDate = null; // Sử dụng java.util.Date
+        try {
+            utilDate = dateFormat.parse(txt_NgaySinh.getText()); // Phân tích chuỗi ngày
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // Chuyển đổi thành java.sql.Date
+            tk.setNgaySinh(sqlDate); // Thiết lập ngày sinh trong đối tượng tk
+        } catch (ParseException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ nếu có lỗi phân tích
+        }
         String link = (String) lbl_HinhAnh.getClientProperty("imagepath");
         tk.setHinhAnh(link);
         if (rdo_Nam.isSelected()) {
@@ -434,17 +444,32 @@ public class ThemMoiNhanVien extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ThemAnhActionPerformed
 
     private void btn_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LuuActionPerformed
-        // TODO add your handling code here:
-                rpt = new RepositoryTaiKhoan();
-        rpt.creat(readForm());
-        stk = new ServiceTaiKhoan();
-        gdnv = new GiaoDienNhanVien();
+        try {
+            if (readForm() != null) {
+                RepositoryTaiKhoan rtk = new RepositoryTaiKhoan();
+                rtk.creat(readForm()); // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
 
-        if (gdnv != null) {
-            stk.fillToTable(gdnv.tbl());
+                // Lấy thể hiện của GiaoDienNhanVien
+                GiaoDienNhanVien gdnv = GiaoDienNhanVien.getInstance();
+                if (gdnv != null) {
+                    gdnv.update(); // Cập nhật bảng
+                }
+
+                // Hiển thị thông báo thành công
+                JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+            } else {
+                // Hiển thị thông báo lỗi nếu dữ liệu không hợp lệ
+                JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin nhập vào.");
+            }
+        } catch (Exception e) {
+            // Xử lý tất cả các ngoại lệ khác
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Thêm thất bại: " + e.getMessage());
+        } finally {
+            // Đóng JDialog
+            this.dispose();
         }
-        this.dispose();
-        JOptionPane.showMessageDialog(null, "Thêm Thành Công");
+
     }//GEN-LAST:event_btn_LuuActionPerformed
 
     /**

@@ -20,7 +20,6 @@ import model.TaiKhoan;
 import repository.taikhoan.RepositoryTaiKhoan;
 import view.main.Main;
 import view.nhanvien.CapNhatNhanVien;
-import view.nhanvien.GiaoDienNhanVien;
 
 public class ServiceTaiKhoan implements ServiceTaiKhoanInterface {
 
@@ -45,10 +44,16 @@ public class ServiceTaiKhoan implements ServiceTaiKhoanInterface {
                 if (e.getClickCount() == 2) {
                     int row = tbl.getSelectedRow();
                     if (row >= 0) {
-                        TaiKhoan tk = rptk.getDataClicked(tbl.getValueAt(row, 0).toString());
-                        CapNhatNhanVien cnnv = new CapNhatNhanVien(main, true);
-                        cnnv.setData(tk);
-                        cnnv.setVisible(true);
+                        for (TaiKhoan tk : rptk.getAll()) {
+                            if (tk.getIDTaiKhoan().equalsIgnoreCase(tbl.getValueAt(row, 0).toString())) {
+                                CapNhatNhanVien cnnv = new CapNhatNhanVien(main, true);
+                                cnnv.setData(tk);
+                                cnnv.setVisible(true);
+                                break;
+                            }
+
+                        }
+
                     }
                 }
             }

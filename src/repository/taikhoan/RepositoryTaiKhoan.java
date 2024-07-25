@@ -93,37 +93,31 @@ public class RepositoryTaiKhoan implements RepositoryTaiKhoanInterface {
 
     @Override
     public int update(TaiKhoan tk) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        String sql = "UPDATE TaiKhoan SET TaiKhoan = ?, MatKhau = ?, HoTen = ?, DiaChi = ?, SoDienThoai = ?, "
+                + "Email = ?, NgaySinh = ?, HinhAnh = ?, ChucVu = ?, GioiTinh = ?, TrangThai = ?, NgaySua = GETDATE() "
+                + "WHERE IDTaiKhoan = ?";
 
-    @Override
-    public TaiKhoan getDataClicked(String id) {
-        sql = "select * from TaiKhoan where IDTaiKhoan = ?";
-        TaiKhoan tk = new TaiKhoan();
-        try {
-            conn = jdbc.getConnection();
-            pre = conn.prepareStatement(sql);
-            pre.setString(1, id);
-            res = pre.executeQuery();
-            if (res.next()) {
-                tk.setIDTaiKhoan(res.getString(1));
-                tk.setTaiKhoan(res.getString(2));
-                tk.setMatKhau(res.getString(3));
-                tk.setHoTen(res.getString(4));
-                tk.setDiaChi(res.getString(5));
-                tk.setSoDienThoai(res.getString(6));
-                tk.setEmail(res.getString(7));
-                tk.setNgaySinh(res.getDate(8));
-                tk.setHinhAnh(res.getString(9));
-                tk.setChucVu(res.getBoolean(10));
-                tk.setGioiTinh(res.getBoolean(11));
-                tk.setTrangThai(res.getBoolean(14));
-            }
-        } catch (Exception e) {
+        try (Connection conn = jdbc.getConnection(); PreparedStatement pre = conn.prepareStatement(sql)) {
+
+            pre.setString(1, tk.getTaiKhoan());
+            pre.setString(2, tk.getMatKhau());
+            pre.setString(3, tk.getHoTen());
+            pre.setString(4, tk.getDiaChi());
+            pre.setString(5, tk.getSoDienThoai());
+            pre.setString(6, tk.getEmail());
+            pre.setDate(7, tk.getNgaySinh());
+            pre.setString(8, tk.getHinhAnh());
+            pre.setBoolean(9, tk.isChucVu());
+            pre.setBoolean(10, tk.isGioiTinh());
+            pre.setBoolean(11, tk.isTrangThai());
+            pre.setString(12, tk.getIDTaiKhoan());
+
+            return pre.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            // Bạn có thể thêm xử lý ngoại lệ khác nếu cần
+            return 0;
         }
-        return tk;
     }
 
 }

@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import service.observer.Subject;
 import view.banhang.GiaDienBanHang;
 import view.khachhang.GiaoDienKhachHang;
 import view.nhanvien.GiaoDienNhanVien;
@@ -16,9 +17,13 @@ public class Main extends javax.swing.JFrame {
 
     private int cuaSo;
     private static Main currentInstance;
-
+    private Subject subject;
+    private GiaoDienNhanVien gdnv;
     public Main(int cuaSo) {
         this.cuaSo = cuaSo;
+                subject = new Subject();
+        gdnv = GiaoDienNhanVien.getInstance(); // Khởi tạo gdnv
+        subject.addObserver(gdnv);
         initComponents();
         simpleTitleBar1.init(this);
         getContentPane().setBackground(new Color(25, 25, 25));
@@ -34,7 +39,7 @@ public class Main extends javax.swing.JFrame {
                     showForm(new GiaDienBanHang());
                 }
                 else if (index == 3) {
-                    showForm(new GiaoDienNhanVien());
+                    showForm(GiaoDienNhanVien.getInstance());
                 } else if (index == 4) {
                     showForm(new GiaoDienKhachHang());
                 } else if (index == 8) {
