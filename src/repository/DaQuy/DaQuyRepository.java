@@ -26,7 +26,7 @@ public class DaQuyRepository implements DaQuyServiceInterface {
     @Override
     public List<DaQuy> getAll() {
         List<DaQuy> list = new ArrayList<>();
-        sql = "Select * from DaQuy where TrangThai = 1";
+        sql = "Select * from DaQuy";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
@@ -46,14 +46,13 @@ public class DaQuyRepository implements DaQuyServiceInterface {
     }
 
     @Override
-    // Thêm Đá Quý Khôi 17/07
     public int creat(DaQuy dq) {
-        sql = "INSERT INTO DaQuy(TenDaQuy, KichThuoc, TrangThai) VALUES(?,?,?)";
+        sql = "INSERT INTO DaQuy(TenDaQuy, TrangThai) VALUES(?,?)";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             pre.setString(1, dq.getTenDaQuy());
-            pre.setInt(3, 1);
+            pre.setBoolean(2, dq.isTrangThai());
             return pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,15 +61,13 @@ public class DaQuyRepository implements DaQuyServiceInterface {
     }
 
     @Override
-    // Update Đá Quý Khôi 17/07 
-    //EXEC UpdateDaQuy @IDDaQuy, @TenDaQuy, @KichThuoc, @TrangThai
-
    public int update(DaQuy dq) {
-    sql = "UPDATE DaQuy SET TenDaQuy = ?, KichThuoc = ? WHERE IDDaQuy = ?";
+    sql = "UPDATE DaQuy SET TenDaQuy = ?, TrangThai = ? WHERE IDDaQuy = ?";
     try {
         con = jdbc.getConnection();
         pre = con.prepareStatement(sql);
         pre.setString(1, dq.getTenDaQuy());
+        pre.setBoolean(2, dq.isTrangThai());
         pre.setString(3, dq.getIDDaQuy());
         return pre.executeUpdate();
     } catch (Exception e) {

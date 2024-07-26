@@ -230,6 +230,11 @@ public class ThemMoiNhanVien extends javax.swing.JDialog {
 
         btn_Huy.setText("Hủy");
         btn_Huy.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_Huy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_HuyActionPerformed(evt);
+            }
+        });
 
         btn_Luu.setText("Lưu");
         btn_Luu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -471,6 +476,10 @@ public class ThemMoiNhanVien extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btn_LuuActionPerformed
+
+    private void btn_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_HuyActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_HuyActionPerformed
 
     /**
      * @param args the command line arguments

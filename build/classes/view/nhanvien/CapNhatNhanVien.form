@@ -299,6 +299,9 @@
               <Font name="Tahoma" size="12" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThemAnhActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -483,7 +486,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_HinhAnh">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel12"/>
+            <Property name="text" type="java.lang.String" value="     "/>
           </Properties>
         </Component>
       </SubComponents>

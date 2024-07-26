@@ -13,4 +13,6 @@ import model.PhanLoai;
  */
 public interface InterfaceRepoPhanLoai {
     public List<PhanLoai> getAll();
+    public boolean updatePhanLoai(PhanLoai phanLoai);
+    public boolean addPhanLoai(PhanLoai pl);
 }

@@ -17,7 +17,8 @@ public interface KiemDinhInterface {
 
     public int creat();
 
-    public int update();
+    public int updateKiemDinh(KiemDinh kd);
 
     public int delete();
+    public boolean addKiemDinh(KiemDinh kiemDinh);
 }

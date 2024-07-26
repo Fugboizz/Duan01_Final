@@ -27,7 +27,7 @@ public class SizeRepository implements SizeInterface {
     @Override
     public List<Size> getAll() {
         List size = new ArrayList<>();
-        sql = "select * from Size where TrangThai = 1";
+        sql = "select * from Size";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
@@ -36,22 +36,24 @@ public class SizeRepository implements SizeInterface {
                 Size s = new Size();
                 s.setIDSize(res.getString(1));
                 s.setSoSize(res.getInt(2));
+                s.setTrangThai(res.getBoolean(5));
                 size.add(s);
             }
             return size;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 
     @Override
     public int creat(Size s) {
-        sql = "INSERT INTO Size(SoSize, TrangThai) VALUES(?,1)";
+        sql = "INSERT INTO Size(SoSize, TrangThai) VALUES(?,?)";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             pre.setInt(1, s.getSoSize());
+            pre.setBoolean(2, s.isTrangThai());
             return pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,12 +63,13 @@ public class SizeRepository implements SizeInterface {
 
     @Override
     public int update(Size s) {
-        sql = "UPDATE Size SET SoSize =?   WHERE IDSize = ?";
+        sql = "UPDATE Size SET SoSize =?, TrangThai = ?  WHERE IDSize = ?";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             pre.setInt(1, s.getSoSize());
-            pre.setString(2, s.getIDSize());
+            pre.setBoolean(2, s.isTrangThai());
+            pre.setString(3, s.getIDSize());
 
             return pre.executeUpdate();
         } catch (Exception e) {

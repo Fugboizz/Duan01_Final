@@ -11,6 +11,7 @@ import service.observer.Subject;
 import view.banhang.GiaDienBanHang;
 import view.khachhang.GiaoDienKhachHang;
 import view.nhanvien.GiaoDienNhanVien;
+import view.sanpham.CapNhatSanPham;
 import view.sanpham.GiaoDienSanPham;
 
 public class Main extends javax.swing.JFrame {
@@ -19,11 +20,15 @@ public class Main extends javax.swing.JFrame {
     private static Main currentInstance;
     private Subject subject;
     private GiaoDienNhanVien gdnv;
+    private CapNhatSanPham cnsp;
+    private GiaoDienSanPham gpsp;
     public Main(int cuaSo) {
         this.cuaSo = cuaSo;
                 subject = new Subject();
-        gdnv = GiaoDienNhanVien.getInstance(); // Khởi tạo gdnv
+        gdnv = GiaoDienNhanVien.getInstance();
         subject.addObserver(gdnv);
+        gpsp = GiaoDienSanPham.getInstance();
+        subject.addObserver(gpsp);
         initComponents();
         simpleTitleBar1.init(this);
         getContentPane().setBackground(new Color(25, 25, 25));
@@ -34,7 +39,7 @@ public class Main extends javax.swing.JFrame {
                 if (index == 0) {
                     showForm(new Form_1());
                 } else if (index == 1) {
-                    showForm(new GiaoDienSanPham());
+                    showForm(new GiaoDienSanPham().getInstance());
                 }else if(index == 2){
                     showForm(new GiaDienBanHang());
                 }
@@ -158,6 +163,7 @@ public class Main extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

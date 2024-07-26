@@ -5,6 +5,7 @@
 package repository.kiemdinh;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class KiemDinhRepository implements KiemDinhInterface {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             res = pre.executeQuery();
-            while (res.next()) {                
+            while (res.next()) {
                 KiemDinh kiemDinh = new KiemDinh();
                 kiemDinh.setIDKiemDinh(res.getString(1));
                 kiemDinh.setDonViKiemDinh(res.getString(2));
@@ -53,8 +54,33 @@ public class KiemDinhRepository implements KiemDinhInterface {
     }
 
     @Override
-    public int update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int updateKiemDinh(KiemDinh kd) {
+        String sql = "UPDATE [dbo].[KiemDinh] SET "
+                + "[DonViKiemDinh] = ?, "
+                + "[NgayKiemDinh] = ?, "
+                + "[NgayTao] = ?, "
+                + "[NgaySua] = ?, "
+                + "[TrangThai] = ? "
+                + "WHERE [IDKiemDinh] = ?";
+
+        try (Connection con = jdbc.getConnection(); PreparedStatement pre = con.prepareStatement(sql)) {
+
+            pre.setString(1, kd.getDonViKiemDinh());
+            pre.setDate(2, toSqlDate(kd.getNgayKiemDinh()));
+            pre.setDate(3, toSqlDate(kd.getNgayTao()));
+            pre.setDate(4, toSqlDate(kd.getNgaySua()));
+            pre.setBoolean(5, kd.isTrangThai());
+            pre.setString(6, kd.getIDKiemDinh());
+
+            return pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    private java.sql.Date toSqlDate(java.util.Date date) {
+        return (date == null) ? null : new java.sql.Date(date.getTime());
     }
 
     @Override
@@ -62,4 +88,17 @@ public class KiemDinhRepository implements KiemDinhInterface {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public boolean addKiemDinh(KiemDinh kiemDinh) {
+        String sql = "INSERT INTO [dbo].[KiemDinh] ([DonViKiemDinh], [NgayKiemDinh], [TrangThai]) VALUES (?, ?, ?)";
+        try (Connection con = jdbc.getConnection(); PreparedStatement pre = con.prepareStatement(sql)) {
+            pre.setString(1, kiemDinh.getDonViKiemDinh());
+            pre.setDate(2, kiemDinh.getNgayKiemDinh());
+            pre.setBoolean(3, kiemDinh.isTrangThai());
+            int rowsInserted = pre.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

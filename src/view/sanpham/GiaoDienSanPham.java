@@ -18,14 +18,17 @@ import model.GiaoDien.GiaoDienSanPhamModel;
 import model.SanPham;
 import repository.SanPham.repoChiTietSanPham;
 import service.GiaDienSanPhamService;
+import service.observer.Observer;
 import view.main.Main;
+import view.nhanvien.GiaoDienNhanVien;
 
 /**
  *
  * @author HUNGpYN
  */
-public class GiaoDienSanPham extends javax.swing.JPanel {
+public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
 
+    private static GiaoDienSanPham instance;
     private List<SanPham> spList = new ArrayList<>();
     private repository.SanPham.repoChiTietSanPham rpsp = new repoChiTietSanPham();
     private GiaoDienSanPhamModel mdgd = new GiaoDienSanPhamModel();
@@ -34,9 +37,10 @@ public class GiaoDienSanPham extends javax.swing.JPanel {
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
     private String selectedID = null;
-    private CapNhatSanPham cpspCapNhatSanPham ;
+    private CapNhatSanPham cpspCapNhatSanPham;
     private ThemMoiSanPham tpspMoiSanPham;
     private Main main;
+
     public GiaoDienSanPham() {
         initComponents();
         tbl_SanPham.fixTable(jScrollPane2);
@@ -51,43 +55,50 @@ public class GiaoDienSanPham extends javax.swing.JPanel {
             cbosLoaiTrangSuc.addItem(ten);
         }
         tbl_SanPham.addMouseListener(new MouseAdapter() {
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (e.getClickCount() == 2) { // Kiểm tra nhấp chuột hai lần
-            int row = tbl_SanPham.rowAtPoint(e.getPoint()); // Lấy chỉ số hàng được nhấp
-            if (row >= 0 && row < tbl_SanPham.getRowCount()) {
-                selectedID = (String) tbl_SanPham.getValueAt(row, tbl_SanPham.getColumnModel().getColumnIndex("Mã Trang Sức")).toString();
-                if (selectedID != null) {
-                    cpspCapNhatSanPham = new CapNhatSanPham(main, true);
-                    cpspCapNhatSanPham.setSelectedID(selectedID);
-                    cpspCapNhatSanPham.setVisible(true); 
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "Mã Trang Sức không hợp lệ.");
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Kiểm tra nhấp chuột hai lần
+                    int row = tbl_SanPham.rowAtPoint(e.getPoint()); // Lấy chỉ số hàng được nhấp
+                    if (row >= 0 && row < tbl_SanPham.getRowCount()) {
+                        selectedID = (String) tbl_SanPham.getValueAt(row, tbl_SanPham.getColumnModel().getColumnIndex("Mã Trang Sức")).toString();
+                        if (selectedID != null) {
+                            cpspCapNhatSanPham = new CapNhatSanPham(main, true);
+                            cpspCapNhatSanPham.setSelectedID(selectedID);
+                            cpspCapNhatSanPham.setVisible(true);
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Mã Trang Sức không hợp lệ.");
+                        }
+                    }
                 }
             }
-        }
-    }
-}); 
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                onPanelShown();
-            }
         });
-    
-    }
-     private void onPanelShown() {
-         System.out.println("THành Công");
-        fillToTable();
-    }
-      public void refreshData() {
-        fillToTable();  
+//        addComponentListener(new ComponentAdapter() {
+//            @Override
+//            public void componentShown(ComponentEvent e) {
+//                onPanelShown();
+//            }
+//        });
+
     }
 
+    public static GiaoDienSanPham getInstance() {
+        if (instance == null) {
+            instance = new GiaoDienSanPham();
+        }
+        return instance;
+    }
+//     private void onPanelShown() {
+//         System.out.println("THành Công");
+//        fillToTable();
+//    }
+//      public void refreshData() {
+//        fillToTable();  
+//    }
+
     public String getSelectedID() {
-    return selectedID;
-}
+        return selectedID;
+    }
 
     void fillToTable() {
         spList = rpsp.getAll();
@@ -102,7 +113,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel {
                 sp.getTenSanPham(),
                 tenPhanLoai,
                 sp.isGioiTinh() ? "Nam" : "Nữ",
-                sp.getGiaChiTiet()+"VNĐ",
+                sp.getGiaChiTiet() + "VNĐ",
                 sp.getSoLuongTonKho() > 0 ? sp.getSoLuongTonKho() : "Hết Hàng",
                 trangThai
             };
@@ -355,8 +366,8 @@ public class GiaoDienSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_cbosGioiTinhActionPerformed
 
     private void btn_TaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TaoMoiActionPerformed
-       tpspMoiSanPham = new ThemMoiSanPham(main, true);
-       tpspMoiSanPham.setVisible(true);
+        tpspMoiSanPham = new ThemMoiSanPham(main, true);
+        tpspMoiSanPham.setVisible(true);
     }//GEN-LAST:event_btn_TaoMoiActionPerformed
 
     private void txt_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TimKiemActionPerformed
@@ -396,4 +407,11 @@ public class GiaoDienSanPham extends javax.swing.JPanel {
     private view.until.table.TableDark tbl_SanPham;
     private view.until.textfield.TextFieldSuggestion txt_TimKiem;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+        fillToTable();
+        tbl_SanPham.revalidate();
+        tbl_SanPham.repaint();
+    }
 }

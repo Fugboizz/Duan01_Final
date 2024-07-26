@@ -9,6 +9,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -16,8 +22,19 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import model.ChatLieu;
+import model.DaQuy;
+import model.GiamGia;
+import model.GiaoDien.GiaoDienNhanVienModel;
+import model.KiemDinh;
+import model.MauSac;
+import model.NhaCungCap;
+import model.PhanLoai;
+import model.SanPham;
+import model.Size;
 import model.TaiKhoan;
 import repository.taikhoan.RepositoryTaiKhoan;
+import until.jdbc;
 import view.main.Main;
 import view.nhanvien.CapNhatNhanVien;
 
@@ -31,6 +48,15 @@ public class ServiceTaiKhoan implements ServiceTaiKhoanInterface {
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
         for (TaiKhoan tk : rptk.getAll()) {
+            tableModel.addRow(new Object[]{tk.getIDTaiKhoan(), tk.getHoTen(), tk.getTaiKhoan(), tk.getMatKhau(), tk.isGioiTinh() ? "Nam" : "Nữ",
+                tk.getSoDienThoai(), tk.isChucVu() ? "Quản Lí" : "Nhân Viên", tk.isTrangThai() ? "Làm Việc" : "Nghỉ Việc"});
+        }
+    }
+    
+    public void fillToTableCheck(JTable tbl, GiaoDienNhanVienModel gdnvm){
+        DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
+        tableModel.setRowCount(0);
+        for (TaiKhoan tk : rptk.fillToCheck(tbl, gdnvm)) {
             tableModel.addRow(new Object[]{tk.getIDTaiKhoan(), tk.getHoTen(), tk.getTaiKhoan(), tk.getMatKhau(), tk.isGioiTinh() ? "Nam" : "Nữ",
                 tk.getSoDienThoai(), tk.isChucVu() ? "Quản Lí" : "Nhân Viên", tk.isTrangThai() ? "Làm Việc" : "Nghỉ Việc"});
         }
@@ -86,4 +112,6 @@ public class ServiceTaiKhoan implements ServiceTaiKhoanInterface {
             }
         }
     }
+
+    
 }

@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTable;
+import model.GiaoDien.GiaoDienNhanVienModel;
 import model.TaiKhoan;
 import until.jdbc;
 
@@ -118,6 +120,61 @@ public class RepositoryTaiKhoan implements RepositoryTaiKhoanInterface {
             // Bạn có thể thêm xử lý ngoại lệ khác nếu cần
             return 0;
         }
+    }
+    @Override
+    public List<TaiKhoan> fillToCheck(JTable tbl, GiaoDienNhanVienModel gdnvmd) {
+        StringBuilder sqlBuilder = new StringBuilder("select * from TaiKhoan WHERE 1=1 ");
+        List<Object> params = new ArrayList<>();
+        List<TaiKhoan> lstTk = new ArrayList<>();
+        int defaultIntValue = 0;
+        if (gdnvmd.getGioiTinh() != defaultIntValue) {
+            sqlBuilder.append(" AND GioiTinh = ?");
+            params.add(gdnvmd.getGioiTinh() == 1);
+        }
+
+        if (gdnvmd.getTrangThai() != defaultIntValue) {
+            sqlBuilder.append(" AND TrangThai = ?");
+            params.add(gdnvmd.getTrangThai() == 1);
+        }
+
+        if (gdnvmd.getHoTen()!= null && !gdnvmd.getHoTen().isEmpty()) {
+            sqlBuilder.append(" AND HoTen LIKE ?");
+            params.add("%" + gdnvmd.getHoTen() + "%");
+        }
+
+        String sql = sqlBuilder.toString();
+        System.out.println(sql);
+        try (Connection con = jdbc.getConnection(); PreparedStatement pre = con.prepareStatement(sql)) {
+
+            for (int i = 0; i < params.size(); i++) {
+                pre.setObject(i + 1, params.get(i));
+                System.out.println(params.get(i));
+            }
+
+            try (ResultSet res = pre.executeQuery()) {
+                while (res.next()) {
+                    TaiKhoan tk = new TaiKhoan();
+                tk.setIDTaiKhoan(res.getString(1));
+                tk.setTaiKhoan(res.getString(2));
+                tk.setMatKhau(res.getString(3));
+                tk.setHoTen(res.getString(4));
+                tk.setDiaChi(res.getString(5));
+                tk.setSoDienThoai(res.getString(6));
+                tk.setEmail(res.getString(7));
+                tk.setNgaySinh(res.getDate(8));
+                tk.setHinhAnh(res.getString(9));
+                tk.setChucVu(res.getBoolean(10));
+                tk.setGioiTinh(res.getBoolean(11));
+                tk.setTrangThai(res.getBoolean(14));
+                lstTk.add(tk);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+        return lstTk;
     }
 
 }

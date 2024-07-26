@@ -26,6 +26,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
     private repository.taikhoan.RepositoryTaiKhoan rptk;
+     private ServiceTaiKhoan stk;
 
     public CapNhatNhanVien(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -82,44 +83,34 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
     public void setData(TaiKhoan tk) {
         txt_MaNhanVien.setText(tk.getIDTaiKhoan());
         txt_HoVaTen.setText(tk.getHoTen());
-        // Giả sử tk.getNgaySinh() trả về java.sql.Date
-        // Đây là ví dụ giả định; hãy thay bằng ngày thực tế từ tk.getNgaySinh()
-          java.sql.Date sqlDate = tk.getNgaySinh();
-         sqlDate = new Date(Calendar.getInstance().getTimeInMillis()); // Thay bằng tk.getNgaySinh()
-        
-        // Tạo SimpleDateFormat với định dạng ngày cần
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        
-        // Chuyển đổi java.sql.Date thành java.util.Date
-        java.util.Date birth = new java.util.Date(sqlDate.getTime());
-        
-        // Định dạng ngày
-        String formattedDate = dateFormat.format(birth);
-        
-        // Hiển thị ngày đã định dạng
-        System.out.println("Ngày tháng đã định dạng: " + formattedDate);
-        System.out.println(formattedDate);
+            java.sql.Date sqlDate = tk.getNgaySinh();
+            String formattedDate = dateFormat.format(sqlDate);
         txt_NgaySinh.setText(formattedDate);
         txt_TaiKhoan.setText(tk.getTaiKhoan());
         txt_MatKhau.setText(tk.getMatKhau());
         txt_SoDienThoai.setText(tk.getSoDienThoai());
         txt_Email.setText(tk.getEmail());
         txt_DiaChi.setText(tk.getDiaChi());
+
         if (tk.isGioiTinh()) {
             rdo_Nam.setSelected(true);
         } else {
             rdo_Nu.setSelected(true);
         }
+
         if (tk.isChucVu()) {
             rdo_QuanLi.setSelected(true);
         } else {
             rdo_NhanVien.setSelected(true);
         }
+
         if (tk.isTrangThai()) {
             rdoo_LamViec.setSelected(true);
         } else {
             rdo_NghiViec.setSelected(true);
         }
+
         ImageIcon imageIcon = new ImageIcon(tk.getHinhAnh());
         Image image = imageIcon.getImage(); // Chuyển đổi về đối tượng Image
         Image scaledImage = image.getScaledInstance(lbl_HinhAnh.getWidth() - 2, lbl_HinhAnh.getHeight() - 2, Image.SCALE_SMOOTH); // Thay đổi kích thước ảnh
@@ -201,6 +192,11 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
         btn_ThemAnh.setText("Thêm Ảnh");
         btn_ThemAnh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_ThemAnh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ThemAnhActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Họ Và Tên:");
 
@@ -311,7 +307,7 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
         jLabel11.setText("Mã Nhân Viên");
 
-        lbl_HinhAnh.setText("jLabel12");
+        lbl_HinhAnh.setText("     ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -553,6 +549,11 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btn_LuuActionPerformed
+
+    private void btn_ThemAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemAnhActionPerformed
+          stk = new ServiceTaiKhoan();
+        stk.chonAnh(lbl_HinhAnh);
+    }//GEN-LAST:event_btn_ThemAnhActionPerformed
 
     /**
      * @param args the command line arguments

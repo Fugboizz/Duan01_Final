@@ -5,6 +5,8 @@
 package repository.taikhoan;
 
 import java.util.List;
+import javax.swing.JTable;
+import model.GiaoDien.GiaoDienNhanVienModel;
 import model.TaiKhoan;
 
 /**
@@ -15,4 +17,5 @@ public interface RepositoryTaiKhoanInterface {
                 public List<TaiKhoan> getAll();
     public int creat(TaiKhoan tk);
     public int update(TaiKhoan tk);
+    public List<TaiKhoan> fillToCheck(JTable tbl, GiaoDienNhanVienModel gdnvmd);
 }

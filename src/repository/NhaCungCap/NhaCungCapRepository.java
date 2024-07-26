@@ -52,17 +52,57 @@ public class NhaCungCapRepository implements NhaCungCapInterface{
     }
 
     @Override
-    public int creat() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean addNhaCungCap(NhaCungCap nhaCungCap) {
+        String sql = "INSERT INTO [dbo].[NhaCungCap] ([TenNhaCungCap], [SoDienThoai], [DiaChi], [Email], [TrangThai]) VALUES (?, ?, ?, ?, ?)";
+        try (Connection con = jdbc.getConnection(); PreparedStatement pre = con.prepareStatement(sql)) {
+            pre.setString(1, nhaCungCap.getTenNhaCungCap());
+            pre.setString(2, nhaCungCap.getSoDienThoai());
+            pre.setString(3, nhaCungCap.getDiaChi());
+            pre.setString(4, nhaCungCap.getEmail());
+            pre.setBoolean(5, nhaCungCap.isTrangThai());
+
+            int rowsInserted = pre.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public int update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int updateNhaCungCap(NhaCungCap ncc) {
+    String sql = "UPDATE [dbo].[NhaCungCap] SET " +
+                 "[TenNhaCungCap] = ?, " +
+                 "[SoDienThoai] = ?, " +
+                 "[DiaChi] = ?, " +
+                 "[Email] = ?, " +
+                 "[TrangThai] = ? " +
+                 "WHERE [IDNhaCungCap] = ?";
+
+    try (Connection con = jdbc.getConnection(); 
+         PreparedStatement pre = con.prepareStatement(sql)) {
+        pre.setString(1, ncc.getTenNhaCungCap());
+        pre.setString(2, ncc.getSoDienThoai());
+        pre.setString(3, ncc.getDiaChi());
+        pre.setString(4, ncc.getEmail());
+        pre.setBoolean(5, ncc.isTrangThai());
+        pre.setString(6, ncc.getIDNhaCungCap());
+
+        return pre.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return 0;
     }
+}
+
 
     @Override
     public int delete() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int creat() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

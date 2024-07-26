@@ -6,6 +6,7 @@ package view.nhanvien;
 
 import java.awt.Color;
 import javax.swing.JTable;
+import model.GiaoDien.GiaoDienNhanVienModel;
 import service.observer.Observer;
 import service.taikhoan.ServiceTaiKhoan;
 import view.main.Main;
@@ -64,9 +65,9 @@ public class GiaoDienNhanVien extends javax.swing.JPanel implements Observer {
         txt_TimKiem = new view.until.textfield.TextFieldSuggestion();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        comboBoxSuggestion3 = new view.until.combobox.ComboBoxSuggestion();
+        cbos_GioITinh = new view.until.combobox.ComboBoxSuggestion();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxSuggestion1 = new view.until.combobox.ComboBoxSuggestion();
+        cbox_TrangThai = new view.until.combobox.ComboBoxSuggestion();
         btn_TimKiem = new view.until.button.Button();
         btn_Excel = new view.until.button.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -118,26 +119,31 @@ public class GiaoDienNhanVien extends javax.swing.JPanel implements Observer {
 
         jLabel2.setText("Giới Tính");
 
-        comboBoxSuggestion3.setEditable(false);
-        comboBoxSuggestion3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Nam", "Nữ" }));
-        comboBoxSuggestion3.addActionListener(new java.awt.event.ActionListener() {
+        cbos_GioITinh.setEditable(false);
+        cbos_GioITinh.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Nam", "Nữ" }));
+        cbos_GioITinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion3ActionPerformed(evt);
+                cbos_GioITinhActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Trạng Thái");
 
-        comboBoxSuggestion1.setEditable(false);
-        comboBoxSuggestion1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Kinh Doanh", "Ngừng Kinh Doanh" }));
-        comboBoxSuggestion1.addActionListener(new java.awt.event.ActionListener() {
+        cbox_TrangThai.setEditable(false);
+        cbox_TrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Làm Việc", "Nghỉ Việc" }));
+        cbox_TrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion1ActionPerformed(evt);
+                cbox_TrangThaiActionPerformed(evt);
             }
         });
 
         btn_TimKiem.setText("Tìm Kiếm");
         btn_TimKiem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_TimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_TimKiemActionPerformed(evt);
+            }
+        });
 
         btn_Excel.setBorder(null);
         btn_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
@@ -235,12 +241,12 @@ public class GiaoDienNhanVien extends javax.swing.JPanel implements Observer {
                         .addGap(101, 101, 101)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbos_GioITinh, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(116, 116, 116)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbox_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(74, 74, 74)
                                 .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
@@ -260,9 +266,9 @@ public class GiaoDienNhanVien extends javax.swing.JPanel implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbox_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbos_GioITinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1))
@@ -281,13 +287,13 @@ public class GiaoDienNhanVien extends javax.swing.JPanel implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TimKiemActionPerformed
 
-    private void comboBoxSuggestion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion3ActionPerformed
+    private void cbos_GioITinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbos_GioITinhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion3ActionPerformed
+    }//GEN-LAST:event_cbos_GioITinhActionPerformed
 
-    private void comboBoxSuggestion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion1ActionPerformed
+    private void cbox_TrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_TrangThaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion1ActionPerformed
+    }//GEN-LAST:event_cbox_TrangThaiActionPerformed
 
     private void btn_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcelActionPerformed
         // TODO add your handling code here:
@@ -297,13 +303,24 @@ public class GiaoDienNhanVien extends javax.swing.JPanel implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_NhanVienMouseClicked
 
+    private void btn_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemActionPerformed
+        GiaoDienNhanVienModel gdnvmd = new GiaoDienNhanVienModel();
+        String ten = txt_TimKiem.getText().trim();
+        if (!ten.isEmpty()) {
+            gdnvmd.setHoTen(ten);
+        }
+        gdnvmd.setGioiTinh(cbos_GioITinh.getSelectedIndex());
+        gdnvmd.setTrangThai(cbox_TrangThai.getSelectedIndex());
+        stk.fillToTableCheck(tbl_NhanVien, gdnvmd);
+    }//GEN-LAST:event_btn_TimKiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.until.button.Button btn_Excel;
     private view.until.button.Button btn_TaoMoi;
     private view.until.button.Button btn_TimKiem;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion3;
+    private view.until.combobox.ComboBoxSuggestion cbos_GioITinh;
+    private view.until.combobox.ComboBoxSuggestion cbox_TrangThai;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

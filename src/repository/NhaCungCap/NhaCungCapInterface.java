@@ -16,7 +16,9 @@ public interface NhaCungCapInterface {
 
     public int creat();
 
-    public int update();
+    public int updateNhaCungCap(NhaCungCap ncc);
 
     public int delete();
+    
+    public boolean addNhaCungCap(NhaCungCap nhaCungCap);
 }

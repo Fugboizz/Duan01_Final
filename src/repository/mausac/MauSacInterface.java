@@ -12,8 +12,9 @@ import model.MauSac;
  * @author HUNGpYN
  */
 public interface MauSacInterface {
-        public List<MauSac> getAll();
+    public List<MauSac> getAll();
     public int creat(MauSac ms);
     public int update(MauSac ms);
     public int delete(MauSac ms);
+    public boolean addMauSac(MauSac mauSac);
 }

@@ -123,11 +123,11 @@
                               <Component id="btn_ThemAnh" min="-2" pref="107" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Component id="lbl_HinhAnh" min="-2" pref="175" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -280,8 +280,8 @@
                                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="lbl_HinhAnh" min="-2" pref="228" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -651,9 +651,9 @@
                                                   <Component id="rdo_NgungHoatDongPL" min="-2" max="-2" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                                      <Component id="button4" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <Component id="btnUpdatePL" min="-2" pref="100" max="-2" attributes="0"/>
                                                       <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                                                      <Component id="button5" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <Component id="btnAddPL" min="-2" pref="100" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -685,8 +685,8 @@
                               </Group>
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="button4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="button5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnUpdatePL" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddPL" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="58" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="374" max="-2" attributes="0"/>
@@ -739,7 +739,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdo_NgungHoatDongPLActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="view.until.button.Button" name="button4">
+                    <Component class="view.until.button.Button" name="btnUpdatePL">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -747,16 +747,19 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button4ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdatePLActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="view.until.button.Button" name="button5">
+                    <Component class="view.until.button.Button" name="btnAddPL">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="12" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddPLActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
                       <AuxValues>
@@ -936,6 +939,9 @@
                           <Font name="Tahoma" size="12" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThemCLActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                       <AuxValues>
@@ -1015,7 +1021,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
-                                      <Component id="btn_CapNhatS" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="btn_UpdateSize" min="-2" pref="100" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
@@ -1063,7 +1069,7 @@
                               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btn_ThemS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btn_CapNhatS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_UpdateSize" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="85" max="32767" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" pref="329" max="-2" attributes="0"/>
@@ -1110,7 +1116,7 @@
                         <Property name="text" type="java.lang.String" value="Ng&#x1eeb;ng Kinh doanh"/>
                       </Properties>
                     </Component>
-                    <Component class="view.until.button.Button" name="btn_CapNhatS">
+                    <Component class="view.until.button.Button" name="btn_UpdateSize">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1118,7 +1124,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_CapNhatSActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_UpdateSizeActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="view.until.button.Button" name="btn_ThemS">
@@ -1362,6 +1368,9 @@
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bnt_ThemNhaCungCapActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane6">
                       <AuxValues>
@@ -1433,6 +1442,9 @@
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_CapNhatNhaCungCapActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel31">
                       <Properties>
@@ -1529,10 +1541,10 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
-                                              <Component id="bnt_ThemNhaCungCap1" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <Component id="btn_AddMS" min="-2" pref="100" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="btn_CapNhatNhaCungCap1" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <Component id="btn_UpdateMS" min="-2" pref="100" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -1562,8 +1574,8 @@
                               </Group>
                               <EmptySpace pref="84" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="bnt_ThemNhaCungCap1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btn_CapNhatNhaCungCap1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_AddMS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_UpdateMS" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="336" max="-2" attributes="0"/>
@@ -1634,21 +1646,27 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="view.until.button.Button" name="btn_CapNhatNhaCungCap1">
+                    <Component class="view.until.button.Button" name="btn_UpdateMS">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_UpdateMSActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="view.until.button.Button" name="bnt_ThemNhaCungCap1">
+                    <Component class="view.until.button.Button" name="btn_AddMS">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_AddMSActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel38">
                       <Properties>
@@ -1714,7 +1732,7 @@
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="btn_CapNhatNhaCungCap2" min="-2" pref="100" max="-2" attributes="0"/>
                                                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                                                      <Component id="bnt_ThemNhaCungCap2" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <Component id="btn_DaQuy_them" min="-2" pref="100" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -1750,7 +1768,7 @@
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btn_CapNhatNhaCungCap2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="bnt_ThemNhaCungCap2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_DaQuy_them" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="74" max="32767" attributes="0"/>
                               <Component id="jScrollPane9" min="-2" pref="345" max="-2" attributes="0"/>
@@ -1805,13 +1823,16 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_CapNhatNhaCungCap2ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="view.until.button.Button" name="bnt_ThemNhaCungCap2">
+                    <Component class="view.until.button.Button" name="btn_DaQuy_them">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_DaQuy_themActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane9">
                       <AuxValues>
@@ -1904,7 +1925,7 @@
                                       <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
                                       <Component id="btn_CapNhatNhaCungCap3" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                                      <Component id="bnt_ThemNhaCungCap3" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="bnt_Them_KiemDinh" min="-2" pref="100" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -1939,7 +1960,7 @@
                                       <EmptySpace min="24" pref="82" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="btn_CapNhatNhaCungCap3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="bnt_ThemNhaCungCap3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="bnt_Them_KiemDinh" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                       <Component id="jScrollPane10" min="-2" pref="323" max="-2" attributes="0"/>
@@ -2034,13 +2055,16 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_CapNhatNhaCungCap3ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="view.until.button.Button" name="bnt_ThemNhaCungCap3">
+                    <Component class="view.until.button.Button" name="bnt_Them_KiemDinh">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bnt_Them_KiemDinhActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="view.until.radiobutton.RadioButtonCustom" name="rdo_NKD">
                       <Properties>
@@ -2070,6 +2094,9 @@
                       </Properties>
                     </Component>
                     <Component class="view.until.textfield.TextFieldSuggestion" name="txt_NgayKD">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_NgayKDActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

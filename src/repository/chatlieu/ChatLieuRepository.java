@@ -37,7 +37,8 @@ public class ChatLieuRepository implements ChatLieuInterface {
             ChatLieu cl = new ChatLieu();
             cl.setIDChatLieu(res.getString("IDChatLieu"));
             cl.setTenChatLieu(res.getString("TenChatLieu"));
-            cl.setTyLe(res.getFloat("TyLe"));        
+            cl.setTyLe(res.getFloat("TyLe")); 
+            cl.setTrangThai(res.getBoolean("TrangThai"));
             list.add(cl);
         }
         return list;
@@ -49,12 +50,13 @@ public class ChatLieuRepository implements ChatLieuInterface {
 
     @Override
     public int creat(ChatLieu cl) {
-        sql = "INSERT INTO ChatLieu(TenChatLieu, TyLe,IDMauSac, TrangThai) VALUES(?,?,?,1)";
+        sql = "INSERT INTO ChatLieu(TenChatLieu, TyLe, TrangThai) VALUES(?,?,?)";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             pre.setString(1, cl.getTenChatLieu());
             pre.setFloat(2, cl.getTyLe());
+            pre.setBoolean(3, cl.isTrangThai());
             return pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,12 +66,13 @@ public class ChatLieuRepository implements ChatLieuInterface {
 
     @Override
     public int update(ChatLieu cl) {
-        sql = "UPDATE ChatLieu SET TenChatLieu = ?, TyLe = ?, IDMauSac = ? WHERE IDChatLieu = ?";
+        sql = "UPDATE ChatLieu SET TenChatLieu = ?, TyLe = ?, TrangThai = ? WHERE IDChatLieu = ?";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             pre.setString(1, cl.getTenChatLieu());
             pre.setFloat(2, cl.getTyLe());
+            pre.setBoolean(3, cl.isTrangThai());
             pre.setString(4, cl.getIDChatLieu());
             return pre.executeUpdate();
         } catch (Exception e) {

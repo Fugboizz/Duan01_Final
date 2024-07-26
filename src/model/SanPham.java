@@ -35,14 +35,6 @@ public class SanPham {
     public SanPham() {
     }
 
-    public SanPham(String TenSanPham, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
-        this.TenSanPham = TenSanPham;
-        this.SoLuongTonKho = SoLuongTonKho;
-        this.GiaChiTiet = GiaChiTiet;
-        this.IDGiamGia = IDGiamGia;
-        this.HinhAnhSanPham = HinhAnhSanPham;
-    }
-
     public SanPham(String IDSanPham, PhanLoai IDPhanLoai, KiemDinh IDKIemDinh, MauSac IDMauSac, Size IDSize, String TenSanPham, boolean GioiTinh, ChatLieu IDChatLieu, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, NhaCungCap IDNhaCungCap, int SoLuongDaQuy, float KichThuocDa, float TrongLuong, String HinhAnhSanPham, DaQuy IDDaQuy, Date NgaySua, Date NgayTao, boolean TrangThai) {
         this.IDSanPham = IDSanPham;
         this.IDPhanLoai = IDPhanLoai;
@@ -64,6 +56,14 @@ public class SanPham {
         this.NgaySua = NgaySua;
         this.NgayTao = NgayTao;
         this.TrangThai = TrangThai;
+    }
+
+    public SanPham(String TenSanPham, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
+        this.TenSanPham = TenSanPham;
+        this.SoLuongTonKho = SoLuongTonKho;
+        this.GiaChiTiet = GiaChiTiet;
+        this.IDGiamGia = IDGiamGia;
+        this.HinhAnhSanPham = HinhAnhSanPham;
     }
 
     public String getIDSanPham() {

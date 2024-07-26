@@ -25,7 +25,7 @@ public class MauSacRepository implements MauSacInterface{
     @Override
     public List<MauSac> getAll() {
             List ms = new ArrayList();
-        sql = "select * from MauSac where TrangThai = 1";
+        sql = "select * from MauSac";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
@@ -34,6 +34,7 @@ public class MauSacRepository implements MauSacInterface{
                 MauSac  mauSac= new MauSac();
                 mauSac.setIDMauSac(res.getString(1));
                 mauSac.setChiTietMauSac(res.getString(2));
+                mauSac.setTrangThai(res.getBoolean("TrangThai"));
                 ms.add(mauSac);
             }
             return ms;
@@ -59,11 +60,12 @@ public class MauSacRepository implements MauSacInterface{
 
     @Override
     public int update(MauSac ms) {
-        sql = "UPDATE MauSac SET ChiTietMauSac = ?   WHERE IDMauSac = ?";
+        sql = "UPDATE MauSac SET ChiTietMauSac = ?, TrangThai = ?   WHERE IDMauSac = ?";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
-            pre.setString(2, ms.getIDMauSac());
+            pre.setString(3, ms.getIDMauSac());
+            pre.setBoolean(2, ms.isTrangThai());
             pre.setString(1, ms.getChiTietMauSac());
 
             return pre.executeUpdate();
@@ -86,9 +88,22 @@ public class MauSacRepository implements MauSacInterface{
             return 0;
         }
     }
+    
+    public boolean addMauSac(MauSac mauSac) {
+        String sql = "INSERT INTO [dbo].[MauSac] ([ChiTietMauSac], [TrangThai]) VALUES (?, ?)";
+        try {con = jdbc.getConnection();
+            pre = con.prepareStatement(sql) ;
+            pre.setString(1, mauSac.getChiTietMauSac());
+            pre.setBoolean(2, mauSac.isTrangThai());
 
-    public MauSac getMauSacByID(MauSac idMauSac) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            int rowsInserted = pre.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+    
+    
     
 }
