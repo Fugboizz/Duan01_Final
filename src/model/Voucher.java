@@ -12,8 +12,8 @@ import java.util.Date;
  */
 public class Voucher {
     private String IDVoucher;
-    private float TyLe;
     private String TenVoucher;
+    private float TyLe;
     private Date NgayBatDau;
     private Date NgayKetThuc;
     private Date NgaySua;
@@ -21,6 +21,19 @@ public class Voucher {
 
     public Voucher() {
     }
+
+    public Voucher(String IDVoucher, String TenVoucher, float TyLe, Date NgayBatDau, Date NgayKetThuc, boolean TrangThai) {
+        this.IDVoucher = IDVoucher;
+        this.TenVoucher = TenVoucher;
+        this.TyLe = TyLe;
+        this.NgayBatDau = NgayBatDau;
+        this.NgayKetThuc = NgayKetThuc;
+        this.TrangThai = TrangThai;
+    }
+
+    
+    
+    
 
     public Voucher(String IDVoucher, float TyLe, String TenVoucher, Date NgayBatDau, Date NgayKetThuc, Date NgaySua, boolean TrangThai) {
         this.IDVoucher = IDVoucher;
@@ -72,6 +85,7 @@ public class Voucher {
         this.NgayKetThuc = NgayKetThuc;
     }
 
+
     public Date getNgaySua() {
         return NgaySua;
     }
@@ -87,6 +101,6 @@ public class Voucher {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
+
     
 }
