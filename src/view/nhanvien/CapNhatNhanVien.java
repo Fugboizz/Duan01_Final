@@ -44,7 +44,6 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
     }
 
-    //Truyền dữ liệu vào đối tượng
     TaiKhoan readForm() {
         TaiKhoan tk = new TaiKhoan();
         tk.setIDTaiKhoan(txt_MaNhanVien.getText());
@@ -55,13 +54,13 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         tk.setEmail(txt_Email.getText());
         tk.setSoDienThoai(txt_SoDienThoai.getText());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date utilDate = null; // Sử dụng java.util.Date
+        java.util.Date utilDate = null; 
         try {
-            utilDate = dateFormat.parse(txt_NgaySinh.getText()); // Phân tích chuỗi ngày
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // Chuyển đổi thành java.sql.Date
-            tk.setNgaySinh(sqlDate); // Thiết lập ngày sinh trong đối tượng tk
+            utilDate = dateFormat.parse(txt_NgaySinh.getText()); 
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            tk.setNgaySinh(sqlDate); 
         } catch (ParseException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ nếu có lỗi phân tích
+            e.printStackTrace(); 
         }
         String link = (String) lbl_HinhAnh.getClientProperty("imagepath");
         tk.setHinhAnh(link);
@@ -79,7 +78,6 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
 
     }
 
-    // Show dữ liệu lên dialog
     public void setData(TaiKhoan tk) {
         txt_MaNhanVien.setText(tk.getIDTaiKhoan());
         txt_HoVaTen.setText(tk.getHoTen());
@@ -110,7 +108,6 @@ public class CapNhatNhanVien extends javax.swing.JDialog {
         } else {
             rdo_NghiViec.setSelected(true);
         }
-
         ImageIcon imageIcon = new ImageIcon(tk.getHinhAnh());
         Image image = imageIcon.getImage(); // Chuyển đổi về đối tượng Image
         Image scaledImage = image.getScaledInstance(lbl_HinhAnh.getWidth() - 2, lbl_HinhAnh.getHeight() - 2, Image.SCALE_SMOOTH); // Thay đổi kích thước ảnh

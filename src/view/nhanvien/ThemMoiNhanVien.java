@@ -48,13 +48,13 @@ public class ThemMoiNhanVien extends javax.swing.JDialog {
         tk.setEmail(txt_Email.getText());
         tk.setSoDienThoai(txt_SoDienThoai.getText());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date utilDate = null; // Sử dụng java.util.Date
+        java.util.Date utilDate = null;
         try {
-            utilDate = dateFormat.parse(txt_NgaySinh.getText()); // Phân tích chuỗi ngày
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // Chuyển đổi thành java.sql.Date
-            tk.setNgaySinh(sqlDate); // Thiết lập ngày sinh trong đối tượng tk
+            utilDate = dateFormat.parse(txt_NgaySinh.getText());
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            tk.setNgaySinh(sqlDate);
         } catch (ParseException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ nếu có lỗi phân tích
+            e.printStackTrace();
         }
         String link = (String) lbl_HinhAnh.getClientProperty("imagepath");
         tk.setHinhAnh(link);

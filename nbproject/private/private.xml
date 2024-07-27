@@ -12,11 +12,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/sanpham/GiaoDienSanPham.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/sanpham/CapNhatSanPham.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/repository/SanPham/InterfaceRepoChiTietSanPham.java</file>
+            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/nhanvien/ThemMoiNhanVien.java</file>
+            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/repository/taikhoan/RepositoryTaiKhoan.java</file>
+            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/main/Main.java</file>
+            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/nhanvien/CapNhatNhanVien.java</file>
             <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/repository/SanPham/repoChiTietSanPham.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/sanpham/ThemMoiSanPham.java</file>
+            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/nhanvien/GiaoDienNhanVien.java</file>
         </group>
     </open-files>
 </project-private>

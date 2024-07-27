@@ -5,9 +5,11 @@
 package view.sanpham;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -88,6 +90,11 @@ public class CapNhatSanPham extends javax.swing.JDialog {
                     cbos_Size.setSelectedIndex(i);
                 }
             }
+            ImageIcon imageIcon = new ImageIcon(sp.getHinhAnhSanPham());
+            Image image = imageIcon.getImage(); // Chuyển đổi về đối tượng Image
+            Image scaledImage = image.getScaledInstance(lbl_HinhAnh.getWidth() - 2, lbl_HinhAnh.getHeight() - 2, Image.SCALE_SMOOTH); // Thay đổi kích thước ảnh
+            imageIcon = new ImageIcon(scaledImage);
+            lbl_HinhAnh.setIcon(imageIcon);
             updateComboBox(cbo_ChatLieu, sp.getIDChatLieu().getTenChatLieu());
             updateComboBox(cbo_KiemDinh, sp.getIDKIemDinh().getDonViKiemDinh());
             updateComboBox(cbo_LoaiDa1, sp.getIDDaQuy().getTenDaQuy());
@@ -107,7 +114,7 @@ public class CapNhatSanPham extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Số lượng tồn kho không hợp lệ!");
             return;
         }
-
+        String link = (String) lbl_HinhAnh.getClientProperty("imagepath");
         // Gọi phương thức update với tất cả các tham số, bao gồm soLuongTonKho
         int check = rpChiTietSanPham.update(
                 txt_MaTrangSuc.getText(),
@@ -125,7 +132,7 @@ public class CapNhatSanPham extends javax.swing.JDialog {
                 Integer.parseInt(txt_SoLuongDa.getText()), // Có thể cần thay đổi tùy vào cách xử lý
                 Float.parseFloat(txt_KichThuocDa1.getText()),
                 Float.parseFloat(txt_TrongLuong.getText()),
-                "", // Hình ảnh nếu không có giá trị
+                link, // Hình ảnh nếu không có giá trị
                 capNhatSanPhamSv.checkCboLoaiDa(cbo_LoaiDa1),
                 rdoKinhDoanh.isSelected()
         );

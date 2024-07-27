@@ -79,7 +79,7 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
                 gg.setTyLeGiamGia(tyLeGiamGia);
                 DaQuy dq = new DaQuy();
                 dq.setIDDaQuy(res.getString("IDDaQuy"));
-
+                
                 SanPham sp = new SanPham(
                         res.getString("IDSanPham"),
                         pl,

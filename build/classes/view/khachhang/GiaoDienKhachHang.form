@@ -34,14 +34,9 @@
                   <Component id="txt_TimKiem" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="comboBoxSuggestion3" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="comboBoxSuggestion1" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                  <Component id="cboxTrangThai" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
@@ -61,20 +56,18 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txt_TimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboBoxSuggestion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboxTrangThai" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_TimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboBoxSuggestion3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btn_Excel" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="428" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="430" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,44 +135,24 @@
         <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh"/>
-      </Properties>
-    </Component>
-    <Component class="view.until.combobox.ComboBoxSuggestion" name="comboBoxSuggestion3">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="T&#x1ea5;t C&#x1ea3;"/>
-            <StringItem index="1" value="Nam"/>
-            <StringItem index="2" value="N&#x1eef;"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxSuggestion3ActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i"/>
       </Properties>
     </Component>
-    <Component class="view.until.combobox.ComboBoxSuggestion" name="comboBoxSuggestion1">
+    <Component class="view.until.combobox.ComboBoxSuggestion" name="cboxTrangThai">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
             <StringItem index="0" value="T&#x1ea5;t C&#x1ea3;"/>
-            <StringItem index="1" value="Kinh Doanh"/>
-            <StringItem index="2" value="Ng&#x1eeb;ng Kinh Doanh"/>
+            <StringItem index="1" value="Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
+            <StringItem index="2" value="Ng&#x1eeb;ng Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxSuggestion1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxTrangThaiActionPerformed"/>
       </Events>
     </Component>
     <Component class="view.until.button.Button" name="btn_TimKiem">
@@ -189,6 +162,9 @@
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_TimKiemActionPerformed"/>
+      </Events>
     </Component>
     <Component class="view.until.button.Button" name="btn_Excel">
       <Properties>

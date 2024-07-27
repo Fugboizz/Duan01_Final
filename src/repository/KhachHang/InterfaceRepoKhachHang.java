@@ -5,6 +5,7 @@
 package repository.KhachHang;
 
 import java.util.List;
+import model.GiaoDien.GiaoDienKhachHangModel;
 import model.KhachHang;
 
 /**
@@ -17,5 +18,7 @@ public interface InterfaceRepoKhachHang {
     public int creat(KhachHang kh);
 
     public int update(KhachHang kh);
-
+    
+    public List<KhachHang> getAllWithConditional(GiaoDienKhachHangModel gdmd) ;
+    public List<KhachHang> getAllByID(String str);
 }

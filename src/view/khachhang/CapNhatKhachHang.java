@@ -6,6 +6,7 @@ package view.khachhang;
 
 import view.nhanvien.*;
 import java.awt.Color;
+import service.KhachHang.GiaoDienKhachHangService;
 
 /**
  *
@@ -15,11 +16,13 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
 
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
-
+    private String selectedID;
+    private GiaoDienKhachHangService gdsv = new GiaoDienKhachHangService();
     public CapNhatKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setFont();
+        
     }
 
     void setFont() {
@@ -28,6 +31,19 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
 
+    }
+    void fillByID(){
+        if (selectedID == null || selectedID.isEmpty()) {
+            System.out.println("selectedID is not set.");
+            return;
+        }
+        else{
+            gdsv.fillToUpdate(txt_MaKhachhang, txt_HoVaTen, txt_TichDiem, txt_SoDienThoai, txt_Email, txtA_DiaChi, rdo_HoatDong, rdo_HoatDong, selectedID);
+        }
+    }
+    public void setSelectedID(String id) {
+        this.selectedID = id;
+        fillByID();
     }
 
     @SuppressWarnings("unchecked")
@@ -45,13 +61,10 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         txt_TichDiem = new view.until.textfield.TextFieldSuggestion();
         jLabel2 = new javax.swing.JLabel();
         txt_SoDienThoai = new view.until.textfield.TextFieldSuggestion();
-        txt_HoVaTen2 = new view.until.textfield.TextFieldSuggestion();
+        txt_HoVaTen = new view.until.textfield.TextFieldSuggestion();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txt_Email = new view.until.textfield.TextFieldSuggestion();
-        jLabel8 = new javax.swing.JLabel();
-        rdo_Nam = new view.until.radiobutton.RadioButtonCustom();
-        rdo_Nu = new view.until.radiobutton.RadioButtonCustom();
         jLabel9 = new javax.swing.JLabel();
         rdo_DungHoatDong = new view.until.radiobutton.RadioButtonCustom();
         rdo_HoatDong = new view.until.radiobutton.RadioButtonCustom();
@@ -59,9 +72,9 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         button3 = new view.until.button.Button();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txt_DiaChi = new view.until.textarea.TextAreaSuggestion();
+        txtA_DiaChi = new view.until.textarea.TextAreaSuggestion();
         jLabel11 = new javax.swing.JLabel();
-        txt_MaNhanVien = new view.until.textfield.TextFieldSuggestion();
+        txt_MaKhachhang = new view.until.textfield.TextFieldSuggestion();
 
         dateChooser1.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -89,6 +102,7 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
 
         jLabel1.setText("Họ Và Tên:");
 
+        txt_TichDiem.setEnabled(false);
         txt_TichDiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_TichDiemActionPerformed(evt);
@@ -103,9 +117,9 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
             }
         });
 
-        txt_HoVaTen2.addActionListener(new java.awt.event.ActionListener() {
+        txt_HoVaTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_HoVaTen2ActionPerformed(evt);
+                txt_HoVaTenActionPerformed(evt);
             }
         });
 
@@ -118,15 +132,6 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
                 txt_EmailActionPerformed(evt);
             }
         });
-
-        jLabel8.setText("Giới Tính");
-
-        buttonGroup1.add(rdo_Nam);
-        rdo_Nam.setSelected(true);
-        rdo_Nam.setText("Nam");
-
-        buttonGroup1.add(rdo_Nu);
-        rdo_Nu.setText("Nữ");
 
         jLabel9.setText("Trạng Thái");
 
@@ -144,17 +149,29 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
 
         button2.setText("Hủy");
         button2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
 
         button3.setText("Lưu");
         button3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        button3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button3ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Địa Chỉ");
 
-        txt_DiaChi.setColumns(20);
-        txt_DiaChi.setRows(5);
-        jScrollPane1.setViewportView(txt_DiaChi);
+        txtA_DiaChi.setColumns(20);
+        txtA_DiaChi.setRows(5);
+        jScrollPane1.setViewportView(txtA_DiaChi);
 
         jLabel11.setText("Mã Khách Hàng");
+
+        txt_MaKhachhang.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,7 +185,7 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_MaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_MaKhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_SoDienThoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel11)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,27 +195,16 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
                             .addComponent(txt_TichDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_HoVaTen2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_HoVaTen, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(rdo_Nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(rdo_Nu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5))
+                        .addGap(93, 93, 93))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119)))
-                .addGap(93, 93, 93))
+                        .addGap(212, 212, 212))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(167, 167, 167)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -227,33 +233,24 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txt_HoVaTen2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_HoVaTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txt_MaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_MaKhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_SoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdo_Nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdo_Nu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_TichDiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_TichDiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
@@ -289,9 +286,9 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_SoDienThoaiActionPerformed
 
-    private void txt_HoVaTen2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_HoVaTen2ActionPerformed
+    private void txt_HoVaTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_HoVaTenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_HoVaTen2ActionPerformed
+    }//GEN-LAST:event_txt_HoVaTenActionPerformed
 
     private void txt_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_EmailActionPerformed
         // TODO add your handling code here:
@@ -304,6 +301,19 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
     private void rdo_DungHoatDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_DungHoatDongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdo_DungHoatDongActionPerformed
+
+    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
+       gdsv.update(txt_MaKhachhang, txt_HoVaTen, txt_SoDienThoai, txt_Email, txtA_DiaChi, rdo_HoatDong);
+       GiaoDienKhachHang gdnv = GiaoDienKhachHang.getInstance();
+                if (gdnv != null) {
+                    gdnv.update(); // Cập nhật bảng
+                }
+        this.dispose();
+    }//GEN-LAST:event_button3ActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_button2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,7 +373,6 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -371,12 +380,10 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
     private javax.swing.JPanel pnl_ThemMoi;
     private view.until.radiobutton.RadioButtonCustom rdo_DungHoatDong;
     private view.until.radiobutton.RadioButtonCustom rdo_HoatDong;
-    private view.until.radiobutton.RadioButtonCustom rdo_Nam;
-    private view.until.radiobutton.RadioButtonCustom rdo_Nu;
-    private view.until.textarea.TextAreaSuggestion txt_DiaChi;
+    private view.until.textarea.TextAreaSuggestion txtA_DiaChi;
     private view.until.textfield.TextFieldSuggestion txt_Email;
-    private view.until.textfield.TextFieldSuggestion txt_HoVaTen2;
-    private view.until.textfield.TextFieldSuggestion txt_MaNhanVien;
+    private view.until.textfield.TextFieldSuggestion txt_HoVaTen;
+    private view.until.textfield.TextFieldSuggestion txt_MaKhachhang;
     private view.until.textfield.TextFieldSuggestion txt_SoDienThoai;
     private view.until.textfield.TextFieldSuggestion txt_TichDiem;
     // End of variables declaration//GEN-END:variables

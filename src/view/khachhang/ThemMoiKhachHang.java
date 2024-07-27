@@ -291,7 +291,11 @@ public class ThemMoiKhachHang extends javax.swing.JDialog {
 
     private void btn_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LuuActionPerformed
         qlKH.themKhachHang(redFrom());
-        // TODO add your handling code here:
+        GiaoDienKhachHang gdnv = GiaoDienKhachHang.getInstance();
+                if (gdnv != null) {
+                    gdnv.update(); // Cập nhật bảng
+                }
+        this.dispose();
     }//GEN-LAST:event_btn_LuuActionPerformed
 
     private void btn_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_HuyActionPerformed
@@ -305,9 +309,7 @@ public class ThemMoiKhachHang extends javax.swing.JDialog {
     }//GEN-LAST:event_rdo_HoatDongActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Main.closeCurrentInstance();
-        Main newMain = new Main(4);
-        newMain.setVisible(true);
+
         
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed

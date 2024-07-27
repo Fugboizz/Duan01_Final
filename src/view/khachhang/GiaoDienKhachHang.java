@@ -5,27 +5,58 @@
 package view.khachhang;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import model.GiaoDien.GiaoDienKhachHangModel;
+import repository.KhachHang.repoKhachHang;
+import service.KhachHang.GiaoDienKhachHangService;
+import service.observer.Observer;
 import view.main.Main;
 
 /**
  *
  * @author HUNGpYN
  */
-public class GiaoDienKhachHang extends javax.swing.JPanel {
+public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer{
     private service.KhachHang.GiaoDienKhachHangService qlKH = new service.KhachHang.GiaoDienKhachHangService();
     private Main main;
     private boolean check;
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
-
+    private repoKhachHang rpkh = new repoKhachHang();
+    private GiaoDienKhachHangService khsv = new GiaoDienKhachHangService();
+    private String selectedID = null;
+    private CapNhatKhachHang cpkh ;
+    private static GiaoDienKhachHang instance;
     public GiaoDienKhachHang() {
         initComponents();
         setFont();
         qlKH.fillToTable(tbl_KhachHang);
         check();
+        
+        
+        tbl_KhachHang.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Kiểm tra nhấp chuột hai lần
+                    int row = tbl_KhachHang.rowAtPoint(e.getPoint()); // Lấy chỉ số hàng được nhấp
+                    if (row >= 0 && row < tbl_KhachHang.getRowCount()) {
+                        selectedID = (String) tbl_KhachHang.getValueAt(row, tbl_KhachHang.getColumnModel().getColumnIndex("Mã Khách Hàng")).toString();
+                        if (selectedID != null) {
+                            cpkh = new CapNhatKhachHang(main, true);
+                            cpkh.setSelectedID(selectedID);
+                            cpkh.setVisible(true);
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Mã Khách Hàng không hợp lệ.");
+                        }
+                    }
+                }
+            }
+        });
     }
-    JTable tbl = new JTable();
     
     void setFont() {
         lbl_DanhSach.setForeground(color1);
@@ -33,7 +64,9 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
         btn_TimKiem.setColor1(color2);
         btn_TimKiem.setColor2(color1);
     }
-    
+    public String getSelectedID() {
+        return selectedID;
+    }
     public JTable tbl() {
         return tbl_KhachHang;
     }
@@ -51,6 +84,18 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
             qlKH.fillToTable(tbl_KhachHang);
         }
     }
+    @Override
+    public void update() {
+        khsv.fillToTable(tbl_KhachHang);
+        tbl_KhachHang.revalidate();
+        tbl_KhachHang.repaint();
+    }
+    public static GiaoDienKhachHang getInstance() {
+        if (instance == null) {
+            instance = new GiaoDienKhachHang();
+        }
+        return instance;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,10 +106,8 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
         btn_TaoMoi = new view.until.button.Button();
         txt_TimKiem = new view.until.textfield.TextFieldSuggestion();
         jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        comboBoxSuggestion3 = new view.until.combobox.ComboBoxSuggestion();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxSuggestion1 = new view.until.combobox.ComboBoxSuggestion();
+        cboxTrangThai = new view.until.combobox.ComboBoxSuggestion();
         btn_TimKiem = new view.until.button.Button();
         btn_Excel = new view.until.button.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -114,28 +157,23 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
 
         jLabel4.setText("Họ và tên");
 
-        jLabel2.setText("Giới Tính");
-
-        comboBoxSuggestion3.setEditable(false);
-        comboBoxSuggestion3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Nam", "Nữ" }));
-        comboBoxSuggestion3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion3ActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Trạng Thái");
 
-        comboBoxSuggestion1.setEditable(false);
-        comboBoxSuggestion1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Kinh Doanh", "Ngừng Kinh Doanh" }));
-        comboBoxSuggestion1.addActionListener(new java.awt.event.ActionListener() {
+        cboxTrangThai.setEditable(false);
+        cboxTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Hoạt Động", "Ngừng Hoạt Động" }));
+        cboxTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion1ActionPerformed(evt);
+                cboxTrangThaiActionPerformed(evt);
             }
         });
 
         btn_TimKiem.setText("Tìm Kiếm");
         btn_TimKiem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_TimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_TimKiemActionPerformed(evt);
+            }
+        });
 
         btn_Excel.setBorder(null);
         btn_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
@@ -176,13 +214,9 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(29, 29, 29)
+                .addGap(172, 172, 172)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(244, 244, 244)
                 .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,18 +232,16 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cboxTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("");
@@ -226,26 +258,29 @@ public class GiaoDienKhachHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TimKiemActionPerformed
 
-    private void comboBoxSuggestion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion3ActionPerformed
+    private void cboxTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTrangThaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion3ActionPerformed
-
-    private void comboBoxSuggestion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion1ActionPerformed
+    }//GEN-LAST:event_cboxTrangThaiActionPerformed
 
     private void btn_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_ExcelActionPerformed
+
+    private void btn_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemActionPerformed
+       GiaoDienKhachHangModel gdmd = new GiaoDienKhachHangModel();
+        if (txt_TimKiem.getText().trim() != null && !txt_TimKiem.getText().trim().isEmpty()) {
+            gdmd.setHoTen(txt_TimKiem.getText().trim());
+        }
+        gdmd.setTrangThai(cboxTrangThai.getSelectedIndex());
+        khsv.fillToCheck(tbl_KhachHang, gdmd);
+    }//GEN-LAST:event_btn_TimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.until.button.Button btn_Excel;
     private view.until.button.Button btn_TaoMoi;
     private view.until.button.Button btn_TimKiem;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion3;
-    private javax.swing.JLabel jLabel2;
+    private view.until.combobox.ComboBoxSuggestion cboxTrangThai;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;

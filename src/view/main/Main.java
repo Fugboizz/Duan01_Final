@@ -21,13 +21,16 @@ public class Main extends javax.swing.JFrame {
     private static Main currentInstance;
     private Subject subject;
     private GiaoDienNhanVien gdnv;
-    private CapNhatSanPham cnsp;
+    private GiaoDienKhachHang gdkh;
     private GiaoDienSanPham gpsp;
+    private GiaoDienKhuyenMai gdkm;
     public Main(int cuaSo) {
         this.cuaSo = cuaSo;
-                subject = new Subject();
+        subject = new Subject();
         gdnv = GiaoDienNhanVien.getInstance();
+        gdkh = GiaoDienKhachHang.getInstance();
         subject.addObserver(gdnv);
+        subject.addObserver(gdkh);
         gpsp = GiaoDienSanPham.getInstance();
         subject.addObserver(gpsp);
         initComponents();
@@ -41,14 +44,14 @@ public class Main extends javax.swing.JFrame {
                     showForm(new Form_1());
                 } else if (index == 1) {
                     showForm(new GiaoDienSanPham().getInstance());
-                }else if(index == 2){
+                } else if (index == 2) {
                     showForm(new GiaDienBanHang());
-                }
-                else if (index == 3) {
+                } else if (index == 3) {
                     showForm(GiaoDienNhanVien.getInstance());
                 } else if (index == 4) {
-                    showForm(new GiaoDienKhachHang());
-                }else if (index == 5) {
+
+                    showForm(new GiaoDienKhachHang().getInstance());
+                } else if (index == 5) {
                     showForm(new GiaoDienKhuyenMai());
                 } else if (index == 8) {
                     System.out.println("Logout");
@@ -71,7 +74,7 @@ public class Main extends javax.swing.JFrame {
         super.setVisible(aFlag);
         if (aFlag && cuaSo == 1) {
             showForm(new GiaoDienSanPham());
-        }else if(aFlag && cuaSo == 4){
+        } else if (aFlag && cuaSo == 4) {
             showForm(new GiaoDienKhachHang());
         }
     }
@@ -82,6 +85,7 @@ public class Main extends javax.swing.JFrame {
         body.revalidate();
         body.repaint();
     }
+
     public static void closeCurrentInstance() {
         if (currentInstance != null) {
             currentInstance.dispose();
