@@ -28,6 +28,8 @@ public class GiaDienBanHang extends javax.swing.JPanel {
         initComponents();
         setFont();
         init();
+        testData();
+        System.out.println(rpct.getAll());
 
     }
 
@@ -43,15 +45,16 @@ public class GiaDienBanHang extends javax.swing.JPanel {
             @Override
             public void itemClick(Component com, SanPham sp) {
                 System.out.println(sp.getTenSanPham());
-                double giaGiam = sp.getGiaChiTiet() * sp.getIDGiamGia().getTyLeGiamGia();
-                System.out.println(giaGiam);
+                double giaGiam = sp.getGiaChiTiet() - (sp.getGiaChiTiet() * sp.getIDGiamGia().getTyLeGiamGia());;
+                System.out.println("GiaGiam:" + giaGiam);
+                System.out.println(sp.getIDGiamGia());
                 JOptionPane.showInputDialog("Nhập số lượng");
                 mainForm.setSelected(com);
             }
         });
         for (SanPham sp : rpct.getAll()) {
             if (sp.isTrangThai()) {
-                mainForm.addItem(new SanPham(sp.getTenSanPham(), sp.getSoLuongTonKho(), sp.getGiaChiTiet(), sp.getIDGiamGia(), sp.getHinhAnhSanPham()));
+                mainForm.addItem(new SanPham(sp.getTenSanPham(), sp.getSoLuongTonKho(), sp.getGiaChiTiet(), sp.getIDGiamGia(), sp.getHinhAnhSanPham()));  
             }
         }
     }
@@ -341,7 +344,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
                     .addComponent(jCheckBox1))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_MaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
@@ -410,7 +413,8 @@ public class GiaDienBanHang extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tableDark1.setModel(new javax.swing.table.DefaultTableModel(
@@ -462,14 +466,12 @@ public class GiaDienBanHang extends javax.swing.JPanel {
                         .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(58, 58, 58)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addContainerGap(326, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txt_TenTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))))
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -535,7 +537,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SanPhamPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(background2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -640,7 +642,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
                     .addComponent(btn_TimKiemHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE))
         );
 
         tabbedPaneCustom1.addTab("Lịch Sử", jPanel2);

@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 import service.observer.Subject;
 import view.banhang.GiaDienBanHang;
 import view.khachhang.GiaoDienKhachHang;
+import view.khuyenmai.GiaoDienKhuyenMai;
 import view.nhanvien.GiaoDienNhanVien;
 import view.sanpham.CapNhatSanPham;
 import view.sanpham.GiaoDienSanPham;
@@ -47,6 +48,8 @@ public class Main extends javax.swing.JFrame {
                     showForm(GiaoDienNhanVien.getInstance());
                 } else if (index == 4) {
                     showForm(new GiaoDienKhachHang());
+                }else if (index == 5) {
+                    showForm(new GiaoDienKhuyenMai());
                 } else if (index == 8) {
                     System.out.println("Logout");
                 } else {
