@@ -43,44 +43,39 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
 
     @Override
     public void doubleClick(JTable tbl) {
-    tbl.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
-                int row = tbl.getSelectedRow();
-                if (row >= 0) {
-                    
-                    for (HoaDon hd : rpLSBanHang.getAll()) {
-                        if (hd.getIDHoaDon().equalsIgnoreCase(tbl.getValueAt(row, 1).toString())) {
-                            hdct  = new view.banhang.HoaDonChiTiet(main, true);
-                            hdct.setData(hd);
-                            hdct.setVisible(true);
-                            break;
+        tbl.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = tbl.getSelectedRow();
+                    if (row >= 0) {
+
+                        for (HoaDon hd : rpLSBanHang.getAll()) {
+                            if (hd.getIDHoaDon().equalsIgnoreCase(tbl.getValueAt(row, 1).toString())) {
+                                hdct = new view.banhang.HoaDonChiTiet(main, true);
+                                hdct.setData(hd);
+                                hdct.setVisible(true);
+                                break;
+                            }
                         }
                     }
                 }
             }
-        }
-    });
-}
+        });
+    }
 
     @Override
     public void fillToTableHDCT(JTable tbl, String IDHoaDon) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-
-        List<HoaDonChiTiet> hdctList = rpLSBanHang.getData(IDHoaDon);
-        for (HoaDonChiTiet hdCT : hdctList) {
-            String ngayTaoHoaDon = sdf.format(hdCT.getNgayTao());
+        for (HoaDonChiTiet hdCT : rpLSBanHang.getData(IDHoaDon)) {
+            System.out.println(hdCT.getSoLUongSanPHam());
             double giaChiTiet = hdCT.getIDSanPham().getGiaChiTiet();
-            double tyLeGiamGia = 0.0f;
-            double tongTien = 0;
+            double tyLeGiamGia = 0.0;
             if (hdCT.getIDSanPham().getIDGiamGia() != null) {
                 tyLeGiamGia = hdCT.getIDSanPham().getIDGiamGia().getTyLeGiamGia();
             }
-            if (hdCT.getIDSanPham().getIDGiamGia() != null) {
-                tongTien = (hdCT.getSoLUongSanPHam() * giaChiTiet) - ((hdCT.getSoLUongSanPHam() * giaChiTiet) * tyLeGiamGia / 100);
-            }
+            double tongTien = (hdCT.getSoLUongSanPHam() * giaChiTiet) - ((hdCT.getSoLUongSanPHam() * giaChiTiet) * tyLeGiamGia / 100);
             model.addRow(new Object[]{
                 hdCT.getIDSanPham().getTenSanPham(),
                 hdCT.getSoLUongSanPHam(),

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import model.SanPham;
 import repository.SanPham.repoChiTietSanPham;
 import service.LichSuBanHang.LichSuBanHangService;
+import view.main.Main;
 import view.until.swing.event.EventItem;
 import view.until.swing.form.MainForm;
 
@@ -19,15 +20,14 @@ import view.until.swing.form.MainForm;
  * @author HUNGpYN
  */
 public class GiaoDienBanHang extends javax.swing.JPanel {
-
+    private Main main ;
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
     private repoChiTietSanPham rpct = new repoChiTietSanPham();
     private LichSuBanHangService qlLSBanHang = new LichSuBanHangService();
-
+    private String IDHoaDon;
     private MainForm mainForm;
-
-   
+    private LichSuBanHangService lhsv ;
     public GiaoDienBanHang() {
         initComponents();
         setFont();
@@ -70,18 +70,10 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         panel_ThongTin.setBackground(color2);
         lbl_ThongTin.setForeground(color1);
     }
-    
-   
-    
-public String getIDHoaDon(){
-    int index = tbl_DanhSachHoaDon.getSelectedRow();
-    String IDHoaDon = null;
-    if (index >= 0) {
-        IDHoaDon = tbl_DanhSachHoaDon.getValueAt(index, 1).toString();
-    }
-    return IDHoaDon;
-}
-    
+
+
+
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -666,8 +658,15 @@ public String getIDHoaDon(){
     }//GEN-LAST:event_btn_TaoHoaDonActionPerformed
 
     private void tbl_DanhSachHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_DanhSachHoaDonMouseClicked
-        getIDHoaDon();
-        
+        HoaDonChiTiet hdct = new HoaDonChiTiet(main,true);
+        int index = tbl_DanhSachHoaDon.getSelectedRow();
+        if (index >= 0) {
+            IDHoaDon = tbl_DanhSachHoaDon.getValueAt(index, 1).toString();
+            lhsv = new LichSuBanHangService();
+            lhsv.fillToTableHDCT(hdct.getJTable(), IDHoaDon);
+            hdct.setVisible(true);
+        }
+
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_DanhSachHoaDonMouseClicked
 

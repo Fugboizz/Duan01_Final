@@ -1,8 +1,8 @@
-
 package view.banhang;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import javax.swing.JTable;
 import model.HoaDon;
 
 /**
@@ -10,43 +10,43 @@ import model.HoaDon;
  * @author HUNGpYN
  */
 public class HoaDonChiTiet extends javax.swing.JDialog {
-    
+
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
     private service.LichSuBanHang.LichSuBanHangService qlLSBanHang = new service.LichSuBanHang.LichSuBanHangService();
     private GiaoDienBanHang gdBanHang = new GiaoDienBanHang();
-
-    public HoaDonChiTiet() {
-    }
-
+    
     public HoaDonChiTiet(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setFont();
-        qlLSBanHang.fillToTableHDCT(tbl_HDCT,gdBanHang.getIDHoaDon());
-      
-    }
+        
 
+    }
+   public JTable getJTable(){
+       return tbl_HDCT;
+   }
+    
     void setFont() {
         lbl_Menu.setBackground(color2);
         lbl_thongtin.setForeground(color1);
         setLocationRelativeTo(null);
         setTitle("LuxuryStore");
-        qlLSBanHang.fillToTableHDCT(tbl_HDCT, gdBanHang.getIDHoaDon());
+
     }
+
     public void setData(HoaDon hd) {
-    if (hd == null) {
-        throw new IllegalArgumentException("HoaDon is null");
+        if (hd == null) {
+            throw new IllegalArgumentException("HoaDon is null");
+        }
+
+        lbl_MaHoaDon.setText(hd.getIDHoaDon() != null ? hd.getIDHoaDon() : "");
+        lbl_HoTenKhachHang.setText(hd.getIdKhachHang() != null && hd.getIdKhachHang().getHoTen() != null ? hd.getIdKhachHang().getHoTen() : "");
+        lbl_NgayTaoHoaDon.setText(hd.getNgayTao() != null ? hd.getNgayTao().toString() : "");
+        lbl_TenVoucher.setText(hd.getIdVoucher() != null && hd.getIdVoucher().getTenVoucher() != null ? hd.getIdVoucher().getTenVoucher() : "0");
+        lbl_TongTien.setText(hd.getTongTienSau().toString());
     }
 
-    lbl_MaHoaDon.setText(hd.getIDHoaDon() != null ? hd.getIDHoaDon() : "");
-    lbl_HoTenKhachHang.setText(hd.getIdKhachHang() != null && hd.getIdKhachHang().getHoTen() != null ? hd.getIdKhachHang().getHoTen() : "");
-    lbl_NgayTaoHoaDon.setText(hd.getNgayTao() != null ? hd.getNgayTao().toString() : "");
-    lbl_TenVoucher.setText(hd.getIdVoucher() != null && hd.getIdVoucher().getTenVoucher() != null ? hd.getIdVoucher().getTenVoucher() : "0");
-    lbl_TongTien.setText(hd.getTongTienSau().toString());
-}
-
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -295,8 +295,7 @@ public class HoaDonChiTiet extends javax.swing.JDialog {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

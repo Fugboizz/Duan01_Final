@@ -22,7 +22,8 @@ import until.jdbc;
  *
  * @author nguyentrikhoi
  */
-public class LichSuBanHangRepository implements LichSuBanHangInterface{
+public class LichSuBanHangRepository implements LichSuBanHangInterface {
+
     private Connection con = null;
     private PreparedStatement pre = null;
     private ResultSet res = null;
@@ -36,20 +37,20 @@ public class LichSuBanHangRepository implements LichSuBanHangInterface{
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             res = pre.executeQuery();
-            while (res.next()) {                
+            while (res.next()) {
                 HoaDon hd = new HoaDon();
                 hd.setIDHoaDon(res.getString("IDHoaDon"));
                 hd.setNgayTao(res.getDate("NgayTao"));
                 TaiKhoan tk = new TaiKhoan();
                 tk.setHoTen(res.getString("TaiKhoan_HoTen"));
                 hd.setIdTaiKhoan(tk);
-                
+
                 KhachHang kh = new KhachHang();
                 kh.setHoTen(res.getString("KhachHang_HoTen"));
                 hd.setIdKhachHang(kh);
-                
+
                 hd.setTongTienSau(res.getDouble("TongTienSau"));
-                
+
                 listHD.add(hd);
             }
             return listHD;
@@ -58,34 +59,46 @@ public class LichSuBanHangRepository implements LichSuBanHangInterface{
             return null;
         }
     }
+
     @Override
     public List<HoaDonChiTiet> getData(String IDHoaDon) {
-    List<HoaDonChiTiet> listHDCT = new ArrayList<>();
-    sql = "SELECT * FROM View_HoaDonChiTiet WHERE IDHoaDon = ?";
-    try {
-        con = jdbc.getConnection();
-        pre = con.prepareStatement(sql);
-        pre.setString(1, "%"+IDHoaDon+"%");
-        res = pre.executeQuery();
-        while (res.next()) {                
-            HoaDonChiTiet hdCT = new HoaDonChiTiet();
-            
-            SanPham sp = new SanPham();
-            sp.setTenSanPham(res.getString("TenSanPham"));
-            sp.setGiaChiTiet(res.getDouble("GiaChiTiet"));
-            hdCT.setIDSanPham(sp);
-            hdCT.setSoLUongSanPHam(res.getInt("SoLuongSanPham"));
-            GiamGia gg = new GiamGia();
-            gg.setTyLeGiamGia(res.getFloat("TyLeGiamGia"));
-            sp.setIDGiamGia(gg);
-            hdCT.setIDSanPham(sp);
-            
-            listHDCT.add(hdCT);
+        List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+        String sql = "SELECT * FROM View_HoaDonChiTiet WHERE IDHoaDon = ?";
+
+        try (Connection con = jdbc.getConnection(); PreparedStatement pre = con.prepareStatement(sql)) {
+            pre.setString(1, IDHoaDon);
+
+            try (ResultSet res = pre.executeQuery()) {
+                while (res.next()) {
+                    HoaDonChiTiet hdCT = new HoaDonChiTiet();
+
+                    // Kiểm tra và xử lý trường hợp giá trị của GiamGia có thể là null
+                    GiamGia gg = new GiamGia();
+                    String idGiamGia = res.getString("IDGiamGia");
+                    if (idGiamGia != null) {
+                        gg.setIDGIamGia(idGiamGia);
+                        gg.setTyLeGiamGia(res.getFloat("TyLeGiamGia"));
+                    } else {
+                        gg.setIDGIamGia(null);
+                        gg.setTyLeGiamGia(0); // Nếu không có giảm giá, tỷ lệ giảm giá là 0
+                    }
+
+                    SanPham sp = new SanPham();
+                    sp.setIDGiamGia(gg);
+                    sp.setIDSanPham(res.getString("IDSanPham"));
+                    sp.setTenSanPham(res.getString("TenSanPham"));
+                    sp.setGiaChiTiet(res.getDouble("GiaChiTiet"));
+                    hdCT.setIDSanPham(sp);
+
+                    hdCT.setSoLUongSanPHam(res.getInt("SoLuongSanPham"));
+
+                    listHDCT.add(hdCT);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return listHDCT;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
     }
-}
+
 }
