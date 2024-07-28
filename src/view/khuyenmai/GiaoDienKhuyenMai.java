@@ -159,6 +159,10 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        dateChooserStart = new com.raven.datechooser.DateChooser();
+        dateChooserEnd = new com.raven.datechooser.DateChooser();
+        dateChooser1 = new com.raven.datechooser.DateChooser();
+        dateChooser2 = new com.raven.datechooser.DateChooser();
         tabbedPaneCustom1 = new view.until.tabbedpane.TabbedPaneCustom();
         jPanel1 = new javax.swing.JPanel();
         txt_NgayBatDau = new view.until.textfield.TextFieldSuggestion();
@@ -218,6 +222,14 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         btn_TimKiemSP1 = new view.until.button.Button();
+
+        dateChooserStart.setTextRefernce(txt_NgayBatDau);
+
+        dateChooserEnd.setTextRefernce(txt_NgayKetThuc);
+
+        dateChooser1.setTextRefernce(txt_NgayBatDauG);
+
+        dateChooser2.setTextRefernce(txt_NgayKetThucG);
 
         tabbedPaneCustom1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
@@ -963,6 +975,10 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup2;
     private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
     private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion2;
+    private com.raven.datechooser.DateChooser dateChooser1;
+    private com.raven.datechooser.DateChooser dateChooser2;
+    private com.raven.datechooser.DateChooser dateChooserEnd;
+    private com.raven.datechooser.DateChooser dateChooserStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
