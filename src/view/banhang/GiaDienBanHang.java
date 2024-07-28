@@ -29,7 +29,7 @@ public class GiaDienBanHang extends javax.swing.JPanel {
         setFont();
         init();
         testData();
-        System.out.println(rpct.getAll());
+        System.out.println(rpct.getAll().size());
 
     }
 

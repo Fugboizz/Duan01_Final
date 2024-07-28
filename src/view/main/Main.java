@@ -5,10 +5,8 @@ import view.form.Form;
 import com.raven.form.Form_1;
 import java.awt.Color;
 import java.awt.Component;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import service.observer.Subject;
-import view.banhang.GiaDienBanHang;
+import view.banhang.GiaoDienBanHang;
 import view.khachhang.GiaoDienKhachHang;
 import view.khuyenmai.GiaoDienKhuyenMai;
 import view.nhanvien.GiaoDienNhanVien;
@@ -45,7 +43,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 1) {
                     showForm(new GiaoDienSanPham().getInstance());
                 } else if (index == 2) {
-                    showForm(new GiaDienBanHang());
+                    showForm(new GiaoDienBanHang());
                 } else if (index == 3) {
                     showForm(GiaoDienNhanVien.getInstance());
                 } else if (index == 4) {
