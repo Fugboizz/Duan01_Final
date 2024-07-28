@@ -57,6 +57,8 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
         btn_TimKiemSP = new view.until.button.Button();
         comboBoxSuggestion1 = new view.until.combobox.ComboBoxSuggestion();
         comboBoxSuggestion2 = new view.until.combobox.ComboBoxSuggestion();
+        btn_Huy = new view.until.button.Button();
+        btn_Luu = new view.until.button.Button();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -149,6 +151,12 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
             }
         });
 
+        btn_Huy.setText("Hủy");
+        btn_Huy.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+
+        btn_Luu.setText("Lưu");
+        btn_Luu.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -178,6 +186,12 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
                                 .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 101, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(btn_Luu, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,11 +212,13 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
                             .addComponent(textFieldSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_TimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_TimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Luu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,6 +262,8 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.until.button.Button btn_Huy;
+    private view.until.button.Button btn_Luu;
     private view.until.button.Button btn_TimKiemSP;
     private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
     private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion2;

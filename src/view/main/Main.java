@@ -118,7 +118,7 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(simpleTitleBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1651, Short.MAX_VALUE)
+            .addComponent(simpleTitleBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1652, Short.MAX_VALUE)
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

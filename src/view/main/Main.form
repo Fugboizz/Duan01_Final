@@ -51,7 +51,7 @@
                   <Component id="body" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="simpleTitleBar1" pref="1651" max="32767" attributes="0"/>
+              <Component id="simpleTitleBar1" pref="1652" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
