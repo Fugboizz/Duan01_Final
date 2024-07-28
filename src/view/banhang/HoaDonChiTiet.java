@@ -24,6 +24,7 @@ public class HoaDonChiTiet extends javax.swing.JDialog {
         initComponents();
         setFont();
         qlLSBanHang.fillToTableHDCT(tbl_HDCT,gdBanHang.getIDHoaDon());
+      
     }
 
     void setFont() {

@@ -71,17 +71,17 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         lbl_ThongTin.setForeground(color1);
     }
     
-    public String getIDHoaDon(){
-        int index = tbl_DanhSachHoaDon.getSelectedRow();
-        String IDHoaDon = null;
-        if (index >=0) {
-            IDHoaDon = tbl_DanhSachHoaDon.getValueAt(index, 1).toString();
-        }
-        System.out.println(IDHoaDon);
-        return IDHoaDon;
-    }
+   
     
-
+public String getIDHoaDon(){
+    int index = tbl_DanhSachHoaDon.getSelectedRow();
+    String IDHoaDon = null;
+    if (index >= 0) {
+        IDHoaDon = tbl_DanhSachHoaDon.getValueAt(index, 1).toString();
+    }
+    return IDHoaDon;
+}
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -667,6 +667,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
     private void tbl_DanhSachHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_DanhSachHoaDonMouseClicked
         getIDHoaDon();
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_DanhSachHoaDonMouseClicked
 

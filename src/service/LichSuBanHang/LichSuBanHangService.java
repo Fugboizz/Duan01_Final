@@ -81,7 +81,6 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
             if (hdCT.getIDSanPham().getIDGiamGia() != null) {
                 tongTien = (hdCT.getSoLUongSanPHam() * giaChiTiet) - ((hdCT.getSoLUongSanPHam() * giaChiTiet) * tyLeGiamGia / 100);
             }
-
             model.addRow(new Object[]{
                 hdCT.getIDSanPham().getTenSanPham(),
                 hdCT.getSoLUongSanPHam(),

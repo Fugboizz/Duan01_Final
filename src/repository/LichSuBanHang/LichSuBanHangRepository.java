@@ -65,7 +65,7 @@ public class LichSuBanHangRepository implements LichSuBanHangInterface{
     try {
         con = jdbc.getConnection();
         pre = con.prepareStatement(sql);
-        pre.setString(1, IDHoaDon);
+        pre.setString(1, "%"+IDHoaDon+"%");
         res = pre.executeQuery();
         while (res.next()) {                
             HoaDonChiTiet hdCT = new HoaDonChiTiet();
