@@ -155,7 +155,7 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer{
             }
         });
 
-        jLabel4.setText("Họ và tên");
+        jLabel4.setText("Số Điện Thoại");
 
         jLabel3.setText("Trạng Thái");
 
