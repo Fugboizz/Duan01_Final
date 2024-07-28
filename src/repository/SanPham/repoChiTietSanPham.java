@@ -30,7 +30,6 @@ import until.jdbc;
  */
 public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
 
-    private List<SanPham> listctsp = new ArrayList<>();
     private List<SanPham> listsp = new ArrayList<>();
     private Connection con = null;
     private PreparedStatement pre = null;
@@ -38,6 +37,7 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
 
     @Override
     public List<SanPham> getAll() {
+        List<SanPham> listctsp = new ArrayList<>();
         String sql = "SELECT * FROM v_SanPham_PhanLoai";
         try {
             con = jdbc.getConnection();
@@ -74,12 +74,12 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
 
                 Float tyLeGiamGia = res.getFloat("TyLeGiamGia");
                 if (res.wasNull()) {
-                    tyLeGiamGia = 0.0f; 
+                    tyLeGiamGia = 0.0f;
                 }
                 gg.setTyLeGiamGia(tyLeGiamGia);
                 DaQuy dq = new DaQuy();
                 dq.setIDDaQuy(res.getString("IDDaQuy"));
-                
+
                 SanPham sp = new SanPham(
                         res.getString("IDSanPham"),
                         pl,
@@ -129,6 +129,7 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
     public List<SanPham> getAllWithConditional(GiaoDienSanPhamModel gdmd) {
         StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM v_SanPham_PhanLoai WHERE 1=1 ");
         List<Object> params = new ArrayList<>();
+        List<SanPham> listctsp = new ArrayList<>();
 
         int defaultIntValue = 0;
 
@@ -338,6 +339,7 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
 
     @Override
     public List<SanPham> getByID(String id) {
+        List<SanPham> listctsp = new ArrayList<>();
         String sql = "select * from v_SanPham_all where IDSanPham like ?";
         try {
             con = jdbc.getConnection();

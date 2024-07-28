@@ -12,12 +12,18 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/nhanvien/ThemMoiNhanVien.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/repository/taikhoan/RepositoryTaiKhoan.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/main/Main.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/nhanvien/CapNhatNhanVien.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/repository/SanPham/repoChiTietSanPham.java</file>
-            <file>file:/D:/WorkSpace/DA1/QuanLiTrangSucHung/src/view/nhanvien/GiaoDienNhanVien.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/repository/SanPham/repoChiTietSanPham.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/until/sampletable/TableHeaderAlignment.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/main/test.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/banhang/HoaDonChiTiet.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/khuyenmai/TableKhuyenMai.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/until/sampletable/CheckBoxTableHeaderRenderer.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/khuyenmai/ThemSanPhamGiamGia.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/banhang/GiaoDienBanHang.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/main/Main.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/khuyenmai/GiaoDienKhuyenMai.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/until/tabbedpane/ShadowRenderer.java</file>
+            <file>file:/E:/Du-An-1-BA/Duan01_Final/src/view/until/tabbedpane/MaterialTabbed.java</file>
         </group>
     </open-files>
 </project-private>
