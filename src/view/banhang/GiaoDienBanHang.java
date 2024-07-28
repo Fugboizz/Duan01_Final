@@ -10,6 +10,7 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import model.SanPham;
 import repository.SanPham.repoChiTietSanPham;
+import service.LichSuBanHang.LichSuBanHangService;
 import view.until.swing.event.EventItem;
 import view.until.swing.form.MainForm;
 
@@ -22,6 +23,8 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
     private repoChiTietSanPham rpct = new repoChiTietSanPham();
+    private LichSuBanHangService qlLSBanHang = new LichSuBanHangService();
+
     private MainForm mainForm;
 
    
@@ -30,6 +33,8 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         setFont();
         init();
         System.out.println(rpct.getAll().size());
+        qlLSBanHang.fillToTable(tbl_DanhSachHoaDon);
+        qlLSBanHang.doubleClick(tbl_DanhSachHoaDon);
 
     }
 
@@ -65,7 +70,18 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         panel_ThongTin.setBackground(color2);
         lbl_ThongTin.setForeground(color1);
     }
-
+    
+   
+    
+public String getIDHoaDon(){
+    int index = tbl_DanhSachHoaDon.getSelectedRow();
+    String IDHoaDon = null;
+    if (index >= 0) {
+        IDHoaDon = tbl_DanhSachHoaDon.getValueAt(index, 1).toString();
+    }
+    return IDHoaDon;
+}
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -363,7 +379,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                     .addComponent(txt_TongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txt_MaHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(63, 63, 63))
-            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 382, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -578,6 +594,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbl_DanhSachHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_DanhSachHoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_DanhSachHoaDon);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -626,7 +647,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE))
         );
 
-        tabbedPaneCustom1.addTab("Bán Hàng", jPanel1);
+        tabbedPaneCustom1.addTab("Lịch Sử Bán Hàng", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -643,6 +664,12 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     private void btn_TaoHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TaoHoaDonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_TaoHoaDonActionPerformed
+
+    private void tbl_DanhSachHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_DanhSachHoaDonMouseClicked
+        getIDHoaDon();
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbl_DanhSachHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
