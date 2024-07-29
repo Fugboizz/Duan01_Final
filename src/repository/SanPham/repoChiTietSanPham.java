@@ -154,12 +154,11 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
         }
 
         String sql = sqlBuilder.toString();
-        System.out.println(sql);
         try (Connection con = jdbc.getConnection(); PreparedStatement pre = con.prepareStatement(sql)) {
 
             for (int i = 0; i < params.size(); i++) {
                 pre.setObject(i + 1, params.get(i));
-                System.out.println(params.get(i));
+             
             }
 
             try (ResultSet res = pre.executeQuery()) {

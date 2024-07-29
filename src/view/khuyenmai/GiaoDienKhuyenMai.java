@@ -15,26 +15,33 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import model.GiamGia;
+import model.GiaoDien.GiaoDienKhuyenMaiModel;
 import model.Voucher;
 import raven.modal.ModalDialog;
 import raven.modal.Toast;
 import raven.modal.component.SimpleModalBorder;
+import repository.KhuyenMai.KhuyenMaiRepository;
+import service.observer.Observer;
 import view.main.Main;
 import view.until.sampletable.CheckBoxTableHeaderRenderer;
 import view.until.sampletable.TableHeaderAlignment;
 
-public class GiaoDienKhuyenMai extends javax.swing.JPanel {
+public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
 
+    private KhuyenMaiRepository rpkm = new KhuyenMaiRepository();
     private service.KhuyenMai.GiaoDienKhuyenMaiService qlKm = new service.KhuyenMai.GiaoDienKhuyenMaiService();
     private repository.KhuyenMai.KhuyenMaiRepository rpKM = new repository.KhuyenMai.KhuyenMaiRepository();
     private Main main;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
+    private static GiaoDienKhuyenMai instance;
 
     static {
         FlatRobotoFont.install();
@@ -48,6 +55,10 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         setFont();
         qlKm.fillToTable(tbl_Voucher);
         init();
+        qlKm.fillTableGiamGia(tbl_GiamGia);
+        qlKm.fillCbo(cbosMaGiamGia);
+        qlKm.fillTableGiamGiaSP(tbl_SPGiamGia);
+
     }
 
     private void init() {
@@ -115,7 +126,6 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
             dateKetThuc = dateFormat.parse(stringKetThuc);
         } catch (ParseException e) {
             e.printStackTrace();
-            // Xử lý ngoại lệ, có thể thông báo lỗi cho người dùng
             JOptionPane.showMessageDialog(null, "Định dạng ngày không hợp lệ. Vui lòng nhập lại.");
             return null;
         }
@@ -125,7 +135,6 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
             tyLe = Float.parseFloat(txt_TyLe.getText());
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            // Xử lý ngoại lệ, có thể thông báo lỗi cho người dùng
             JOptionPane.showMessageDialog(null, "Tỷ lệ không hợp lệ. Vui lòng nhập lại.");
             return null;
         }
@@ -133,26 +142,43 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         return new Voucher(lbl_MaVoucher.getText(), txt_TenVourcher.getText(), tyLe, dateBatDau, dateKetThuc, trangThai);
     }
 
+    public static GiaoDienKhuyenMai getInstance() {
+        if (instance == null) {
+            instance = new GiaoDienKhuyenMai();
+        }
+        return instance;
+    }
+
     public void clickHienThi() {
         int index = tbl_Voucher.getSelectedRow();
-        Voucher vc = rpKM.getAll().get(index);
-        String ngayBatDauFormatted = sdf.format(vc.getNgayBatDau());
-        String ngayKetThucFormatted = sdf.format(vc.getNgayKetThuc());
-        lbl_MaVoucher.setText(vc.getIDVoucher());
-        txt_TenVourcher.setText(vc.getTenVoucher());
-        txt_TyLe.setText(String.valueOf(vc.getTyLe()));
-        txt_NgayBatDau.setText(String.valueOf(ngayBatDauFormatted));
-        txt_NgayKetThuc.setText(String.valueOf(ngayKetThucFormatted));
-        if (vc.isTrangThai()) {
-            rdo_HoatDong.setSelected(true);
-            rdo_DungHoatDong.setSelected(false);
+        if (index != -1) {
+            String selectedID = tbl_Voucher.getValueAt(index, 0).toString();
+            List<Voucher> vouchers = rpKM.getAllByID(selectedID);
+            if (vouchers != null && !vouchers.isEmpty()) {
+                Voucher vc = vouchers.get(0);
+                String ngayBatDauFormatted = sdf.format(vc.getNgayBatDau());
+                String ngayKetThucFormatted = sdf.format(vc.getNgayKetThuc());
+                lbl_MaVoucher.setText(vc.getIDVoucher());
+                txt_TenVourcher.setText(vc.getTenVoucher());
+                txt_TyLe.setText(String.valueOf(vc.getTyLe()));
+                txt_NgayBatDau.setText(ngayBatDauFormatted);
+                txt_NgayKetThuc.setText(ngayKetThucFormatted);
+                if (vc.isTrangThai()) {
+                    rdo_HoatDong.setSelected(true);
+                    rdo_DungHoatDong.setSelected(false);
+                } else {
+                    rdo_HoatDong.setSelected(false);
+                    rdo_DungHoatDong.setSelected(true);
+                }
+            } else {
+                System.out.println("Không tìm thấy voucher với ID: " + selectedID);
+            }
+            vouchers.clear();
         } else {
-            rdo_HoatDong.setSelected(false);
-            rdo_DungHoatDong.setSelected(true);
+            System.out.println("Không có hàng nào được chọn trong bảng Voucher.");
         }
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -172,7 +198,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         rdo_HoatDong = new view.until.radiobutton.RadioButtonCustom();
         rdo_DungHoatDong = new view.until.radiobutton.RadioButtonCustom();
         jLabel6 = new javax.swing.JLabel();
-        textFieldSuggestion1 = new view.until.textfield.TextFieldSuggestion();
+        txt_timKiem = new view.until.textfield.TextFieldSuggestion();
         btn_TimKiemV = new view.until.button.Button();
         btn_LamMoi = new view.until.button.Button();
         btn_CapNhat = new view.until.button.Button();
@@ -190,20 +216,20 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         panel_SPGiamGia = new javax.swing.JPanel();
         scrollSPGG = new javax.swing.JScrollPane();
         tbl_SPGiamGia = new javax.swing.JTable();
-        comboBoxSuggestion1 = new view.until.combobox.ComboBoxSuggestion();
+        cbosMaGiamGia = new view.until.combobox.ComboBoxSuggestion();
         jLabel13 = new javax.swing.JLabel();
         btn_TimKiemSP = new view.until.button.Button();
         jLabel12 = new javax.swing.JLabel();
         lbl_tilte = new javax.swing.JLabel();
-        txt_MaGiamGiaSP = new view.until.textfield.TextFieldSuggestion();
+        txt_LoaiTS = new view.until.textfield.TextFieldSuggestion();
         btn_ThemSPGiamGia = new view.until.button.Button();
         btn_XoaSPGiamGia = new view.until.button.Button();
         pnl_ThemGiamGia = new javax.swing.JPanel();
         btn_Them1 = new view.until.button.Button();
         btn_CapNhat1 = new view.until.button.Button();
         btn_LamMoi1 = new view.until.button.Button();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        btnKT = new javax.swing.JRadioButton();
+        btnHD = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txt_NgayKetThucG = new view.until.textfield.TextFieldSuggestion();
@@ -212,13 +238,13 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         txt_TenGiamGia = new view.until.textfield.TextFieldSuggestion();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txt_TenGiamGia2 = new view.until.textfield.TextFieldSuggestion();
+        txt_TyLeGiamGia = new view.until.textfield.TextFieldSuggestion();
         lbl_MaGiamGia = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         scroll_GiamGia = new javax.swing.JScrollPane();
         tbl_GiamGia = new javax.swing.JTable();
-        textFieldSuggestion2 = new view.until.textfield.TextFieldSuggestion();
-        comboBoxSuggestion2 = new view.until.combobox.ComboBoxSuggestion();
+        txt_maGiamGia = new view.until.textfield.TextFieldSuggestion();
+        cbo__trangThai = new view.until.combobox.ComboBoxSuggestion();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         btn_TimKiemSP1 = new view.until.button.Button();
@@ -286,7 +312,23 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(153, 0, 0));
         jLabel6.setText("Danh Sách Voucher");
 
+        txt_timKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_timKiemActionPerformed(evt);
+            }
+        });
+
         btn_TimKiemV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/search.png"))); // NOI18N
+        btn_TimKiemV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_TimKiemVMouseClicked(evt);
+            }
+        });
+        btn_TimKiemV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_TimKiemVActionPerformed(evt);
+            }
+        });
 
         btn_LamMoi.setText("Làm Mới");
         btn_LamMoi.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -385,7 +427,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textFieldSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_timKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_TimKiemV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55))
@@ -429,7 +471,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(textFieldSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_timKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_TimKiemV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
@@ -496,7 +538,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SELECT", "#", "Mã Giảm Giá", "Mã Sản Phẩm", "Tên Sản Phẩm", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Tỷ Lệ Giảm Giá (%)"
+                "SELECT", "#", "Mã Giảm Giá", "Mã Sản Phẩm", "Tên Phân Loại", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Tỷ Lệ Giảm Giá (%)"
             }
         ) {
             Class[] types = new Class [] {
@@ -521,6 +563,8 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
             tbl_SPGiamGia.getColumnModel().getColumn(1).setMaxWidth(70);
         }
 
+        cbosMaGiamGia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả" }));
+
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel13.setText("Loại Trang Sức");
 
@@ -541,9 +585,19 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
 
         btn_ThemSPGiamGia.setText("Thêm");
         btn_ThemSPGiamGia.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
+        btn_ThemSPGiamGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ThemSPGiamGiaActionPerformed(evt);
+            }
+        });
 
         btn_XoaSPGiamGia.setText("Xóa");
         btn_XoaSPGiamGia.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
+        btn_XoaSPGiamGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_XoaSPGiamGiaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_SPGiamGiaLayout = new javax.swing.GroupLayout(panel_SPGiamGia);
         panel_SPGiamGia.setLayout(panel_SPGiamGiaLayout);
@@ -561,13 +615,13 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_SPGiamGiaLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(panel_SPGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_MaGiamGiaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_LoaiTS, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
                         .addGap(59, 59, 59)
                         .addGroup(panel_SPGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_tilte)
                             .addGroup(panel_SPGiamGiaLayout.createSequentialGroup()
-                                .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbosMaGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_TimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -587,8 +641,8 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                             .addComponent(lbl_tilte))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_SPGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_MaGiamGiaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbosMaGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_LoaiTS, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panel_SPGiamGiaLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(panel_SPGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -630,15 +684,15 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
             }
         });
 
-        buttonGroup2.add(jRadioButton2);
-        jRadioButton2.setText("Kết Thúc");
+        buttonGroup2.add(btnKT);
+        btnKT.setText("Kết Thúc");
 
-        buttonGroup2.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Hoạt Động");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup2.add(btnHD);
+        btnHD.setSelected(true);
+        btnHD.setText("Hoạt Động");
+        btnHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                btnHDActionPerformed(evt);
             }
         });
 
@@ -675,9 +729,9 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel8.setText("Tên Giảm Giá:");
 
-        txt_TenGiamGia2.addActionListener(new java.awt.event.ActionListener() {
+        txt_TyLeGiamGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_TenGiamGia2ActionPerformed(evt);
+                txt_TyLeGiamGiaActionPerformed(evt);
             }
         });
 
@@ -713,13 +767,17 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbl_GiamGia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_GiamGiaMouseClicked(evt);
+            }
+        });
         scroll_GiamGia.setViewportView(tbl_GiamGia);
 
-        textFieldSuggestion2.setText("textFieldSuggestion2");
-
-        comboBoxSuggestion2.addActionListener(new java.awt.event.ActionListener() {
+        cbo__trangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Hoạt Động", "Ngừng Hoạt Động" }));
+        cbo__trangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion2ActionPerformed(evt);
+                cbo__trangThaiActionPerformed(evt);
             }
         });
 
@@ -755,9 +813,9 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                             .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(40, 40, 40)
-                                .addComponent(jRadioButton1)
+                                .addComponent(btnHD)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
+                                .addComponent(btnKT))
                             .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                                 .addComponent(btn_LamMoi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
@@ -769,7 +827,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txt_TenGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_MaGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_TenGiamGia2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_TyLeGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_NgayBatDauG, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_NgayKetThucG, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(31, 31, 31)
@@ -780,17 +838,19 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                             .addComponent(jLabel16)
                             .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(textFieldSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txt_maGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(35, 35, 35)
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
                             .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel17)))
-                    .addComponent(scroll_GiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE))
-                .addContainerGap())
+                                .addComponent(cbo__trangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
+                        .addComponent(scroll_GiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         pnl_ThemGiamGiaLayout.setVerticalGroup(
             pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -808,7 +868,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                             .addComponent(jLabel8))
                         .addGap(12, 12, 12)
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_TenGiamGia2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_TyLeGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
                         .addGap(12, 12, 12)
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -821,8 +881,8 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(btnHD)
+                            .addComponent(btnKT))
                         .addGap(18, 18, 18)
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_Them1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -834,12 +894,12 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
                             .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(10, 10, 10)
-                                .addComponent(textFieldSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt_maGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                                 .addComponent(jLabel17)
-                                .addGap(9, 9, 9)
-                                .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbo__trangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scroll_GiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -882,25 +942,49 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_TimKiemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemSPActionPerformed
-        // TODO add your handling code here:
+        GiaoDienKhuyenMaiModel gdmd = new GiaoDienKhuyenMaiModel();
+        String tenPL = txt_LoaiTS.getText().trim();
+        boolean found = false;
+        for (GiamGia gg : rpKM.getAllGiamGia()) {
+            if (gg.getIDGIamGia().equals(cbosMaGiamGia.getSelectedItem())) {
+                gdmd.setMaGiamGiaGiamGia(gg.getIDGIamGia());
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            gdmd.setMaGiamGiaGiamGia("");
+        }
+        if (!tenPL.isEmpty() && tenPL != null) {
+            gdmd.setLoaiTrangSuc(tenPL);
+        }
+        qlKm.SearchGiamGiaSp(tbl_SPGiamGia, gdmd);
 
     }//GEN-LAST:event_btn_TimKiemSPActionPerformed
 
     private void btn_Them1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them1ActionPerformed
-        // TODO add your handling code here:
+        qlKm.addNewGG(txt_TenGiamGia, txt_TyLeGiamGia, txt_NgayBatDauG, txt_NgayKetThucG, btnHD, btnHD, jLabel1);
+        qlKm.fillTableGiamGia(tbl_GiamGia);
     }//GEN-LAST:event_btn_Them1ActionPerformed
 
     private void btn_CapNhat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CapNhat1ActionPerformed
-        // TODO add your handling code here:
+
+        qlKm.updateGG(txt_TenGiamGia, txt_TyLeGiamGia, txt_NgayBatDauG, txt_NgayKetThucG, btnHD, btnHD, lbl_MaGiamGia);
+        qlKm.fillTableGiamGia(tbl_GiamGia);
     }//GEN-LAST:event_btn_CapNhat1ActionPerformed
 
     private void btn_LamMoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoi1ActionPerformed
-        // TODO add your handling code here:
+        txt_NgayBatDauG.setText("");
+        txt_NgayKetThucG.setText("");
+        txt_TenGiamGia.setText("");
+        txt_maGiamGia.setText("");
+        txt_TyLeGiamGia.setText("");
+        rdo_HoatDong.setSelected(true);
     }//GEN-LAST:event_btn_LamMoi1ActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void btnHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_btnHDActionPerformed
 
     private void txt_NgayKetThucGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NgayKetThucGActionPerformed
         // TODO add your handling code here:
@@ -914,16 +998,23 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TenGiamGiaActionPerformed
 
-    private void txt_TenGiamGia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TenGiamGia2ActionPerformed
+    private void txt_TyLeGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TyLeGiamGiaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_TenGiamGia2ActionPerformed
+    }//GEN-LAST:event_txt_TyLeGiamGiaActionPerformed
 
-    private void comboBoxSuggestion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion2ActionPerformed
+    private void cbo__trangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo__trangThaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion2ActionPerformed
+    }//GEN-LAST:event_cbo__trangThaiActionPerformed
 
     private void btn_TimKiemSP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemSP1ActionPerformed
-        // TODO add your handling code here:
+        GiaoDienKhuyenMaiModel gdmd = new GiaoDienKhuyenMaiModel();
+        String mgg = txt_maGiamGia.getText().trim();
+        if (!mgg.isEmpty() && mgg != null) {
+            gdmd.setMaGiamGiaGiamGia(mgg);
+        }
+        gdmd.setTrangThai(cbo__trangThai.getSelectedIndex());
+        qlKm.SearchGiamGiaGG(tbl_GiamGia, gdmd);
+
     }//GEN-LAST:event_btn_TimKiemSP1ActionPerformed
 
     private void tbl_VoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_VoucherMouseClicked
@@ -946,20 +1037,69 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
 
     private void btn_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CapNhatActionPerformed
         qlKm.suaVourcher(redFrom());
-        // TODO add your handling code here:
+        GiaoDienKhuyenMai gdnv = GiaoDienKhuyenMai.getInstance();
+        if (gdnv != null) {
+            gdnv.update();
+        }
+
     }//GEN-LAST:event_btn_CapNhatActionPerformed
 
     private void btn_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemActionPerformed
         qlKm.themVourcher(redFrom());
-        // TODO add your handling code here:
+        GiaoDienKhuyenMai gdnv = GiaoDienKhuyenMai.getInstance();
+        if (gdnv != null) {
+            gdnv.update();
+        }
     }//GEN-LAST:event_btn_ThemActionPerformed
 
     private void txt_TyLeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TyLeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TyLeActionPerformed
 
+    private void txt_timKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_timKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_timKiemActionPerformed
+
+    private void btn_TimKiemVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemVActionPerformed
+
+    }//GEN-LAST:event_btn_TimKiemVActionPerformed
+
+    private void btn_TimKiemVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_TimKiemVMouseClicked
+        qlKm.fillToTableByID(tbl_Voucher, txt_timKiem.getText());
+    }//GEN-LAST:event_btn_TimKiemVMouseClicked
+
+    private void tbl_GiamGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_GiamGiaMouseClicked
+
+        qlKm.fillWhenClick(tbl_GiamGia, txt_TenGiamGia, txt_TyLeGiamGia, txt_NgayBatDauG, txt_NgayKetThucG, btnHD, btnKT, lbl_MaGiamGia);
+    }//GEN-LAST:event_tbl_GiamGiaMouseClicked
+
+    private void btn_ThemSPGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemSPGiamGiaActionPerformed
+        ThemSanPhamGiamGia tgg = new ThemSanPhamGiamGia(main, true);
+        tgg.setVisible(true);
+    }//GEN-LAST:event_btn_ThemSPGiamGiaActionPerformed
+
+    private void btn_XoaSPGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaSPGiamGiaActionPerformed
+        List<String> selectedRows = qlKm.checkSelectedRowsTB1(tbl_SPGiamGia);
+        System.out.println("Số lượng sản phẩm được chọn: " + selectedRows.size());
+        if (selectedRows.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Không có sản phẩm nào được chọn.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        boolean success = rpkm.updateNullIDGiamGiaForMultipleProducts(selectedRows);
+
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Cập nhật giảm giá thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Cập nhật giảm giá thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        qlKm.fillTableGiamGiaSP(tbl_SPGiamGia);
+    }//GEN-LAST:event_btn_XoaSPGiamGiaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton btnHD;
+    private javax.swing.JRadioButton btnKT;
     private view.until.button.Button btn_CapNhat;
     private view.until.button.Button btn_CapNhat1;
     private view.until.button.Button btn_LamMoi;
@@ -973,8 +1113,8 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
     private view.until.button.Button btn_XoaSPGiamGia;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion2;
+    private view.until.combobox.ComboBoxSuggestion cbo__trangThai;
+    private view.until.combobox.ComboBoxSuggestion cbosMaGiamGia;
     private com.raven.datechooser.DateChooser dateChooser1;
     private com.raven.datechooser.DateChooser dateChooser2;
     private com.raven.datechooser.DateChooser dateChooserEnd;
@@ -998,8 +1138,6 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_MaGiamGia;
     private javax.swing.JLabel lbl_MaVoucher;
@@ -1014,16 +1152,24 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel {
     private javax.swing.JTable tbl_GiamGia;
     private javax.swing.JTable tbl_SPGiamGia;
     private view.until.table.TableDark tbl_Voucher;
-    private view.until.textfield.TextFieldSuggestion textFieldSuggestion1;
-    private view.until.textfield.TextFieldSuggestion textFieldSuggestion2;
-    private view.until.textfield.TextFieldSuggestion txt_MaGiamGiaSP;
+    private view.until.textfield.TextFieldSuggestion txt_LoaiTS;
     private view.until.textfield.TextFieldSuggestion txt_NgayBatDau;
     private view.until.textfield.TextFieldSuggestion txt_NgayBatDauG;
     private view.until.textfield.TextFieldSuggestion txt_NgayKetThuc;
     private view.until.textfield.TextFieldSuggestion txt_NgayKetThucG;
     private view.until.textfield.TextFieldSuggestion txt_TenGiamGia;
-    private view.until.textfield.TextFieldSuggestion txt_TenGiamGia2;
     private view.until.textfield.TextFieldSuggestion txt_TenVourcher;
     private view.until.textfield.TextFieldSuggestion txt_TyLe;
+    private view.until.textfield.TextFieldSuggestion txt_TyLeGiamGia;
+    private view.until.textfield.TextFieldSuggestion txt_maGiamGia;
+    private view.until.textfield.TextFieldSuggestion txt_timKiem;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+        qlKm.fillTableGiamGiaSP(tbl_SPGiamGia);
+        qlKm.fillToTable(tbl_Voucher);
+        tbl_Voucher.revalidate();
+        tbl_Voucher.repaint();
+    }
 }

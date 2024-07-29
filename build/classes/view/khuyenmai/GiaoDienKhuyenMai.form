@@ -133,7 +133,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="textFieldSuggestion1" min="-2" pref="194" max="-2" attributes="0"/>
+                              <Component id="txt_timKiem" min="-2" pref="194" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btn_TimKiemV" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -190,7 +190,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldSuggestion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_timKiem" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_TimKiemV" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -276,7 +276,10 @@
                 <Property name="text" type="java.lang.String" value="Danh S&#xe1;ch Voucher"/>
               </Properties>
             </Component>
-            <Component class="view.until.textfield.TextFieldSuggestion" name="textFieldSuggestion1">
+            <Component class="view.until.textfield.TextFieldSuggestion" name="txt_timKiem">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_timKiemActionPerformed"/>
+              </Events>
             </Component>
             <Component class="view.until.button.Button" name="btn_TimKiemV">
               <Properties>
@@ -284,6 +287,10 @@
                   <Image iconType="3" name="/Icon/search.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_TimKiemVMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_TimKiemVActionPerformed"/>
+              </Events>
             </Component>
             <Component class="view.until.button.Button" name="btn_LamMoi">
               <Properties>
@@ -451,14 +458,14 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txt_MaGiamGiaSP" alignment="0" min="-2" pref="188" max="-2" attributes="0"/>
+                                      <Component id="txt_LoaiTS" alignment="0" min="-2" pref="188" max="-2" attributes="0"/>
                                       <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lbl_tilte" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="comboBoxSuggestion1" min="-2" pref="199" max="-2" attributes="0"/>
+                                          <Component id="cbosMaGiamGia" min="-2" pref="199" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="btn_TimKiemSP" min="-2" pref="32" max="-2" attributes="0"/>
                                       </Group>
@@ -485,8 +492,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="comboBoxSuggestion1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="txt_MaGiamGiaSP" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="cbosMaGiamGia" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txt_LoaiTS" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -533,7 +540,7 @@
                             <Column editable="false" title="#" type="java.lang.Object"/>
                             <Column editable="false" title="M&#xe3; Gi&#x1ea3;m Gi&#xe1;" type="java.lang.Object"/>
                             <Column editable="false" title="M&#xe3; S&#x1ea3;n Ph&#x1ea9;m" type="java.lang.Object"/>
-                            <Column editable="false" title="T&#xea;n S&#x1ea3;n Ph&#x1ea9;m" type="java.lang.Object"/>
+                            <Column editable="false" title="T&#xea;n Ph&#xe2;n Lo&#x1ea1;i" type="java.lang.Object"/>
                             <Column editable="false" title="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u" type="java.lang.Object"/>
                             <Column editable="false" title="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c" type="java.lang.Object"/>
                             <Column editable="false" title="T&#x1ef7; L&#x1ec7; Gi&#x1ea3;m Gi&#xe1; (%)" type="java.lang.Object"/>
@@ -590,7 +597,14 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="view.until.combobox.ComboBoxSuggestion" name="comboBoxSuggestion1">
+                <Component class="view.until.combobox.ComboBoxSuggestion" name="cbosMaGiamGia">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="1">
+                        <StringItem index="0" value="T&#x1ea5;t C&#x1ea3;"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel13">
                   <Properties>
@@ -632,7 +646,7 @@
                     <Property name="text" type="java.lang.String" value="M&#xe3; Gi&#x1ea3;m Gi&#xe1;"/>
                   </Properties>
                 </Component>
-                <Component class="view.until.textfield.TextFieldSuggestion" name="txt_MaGiamGiaSP">
+                <Component class="view.until.textfield.TextFieldSuggestion" name="txt_LoaiTS">
                 </Component>
                 <Component class="view.until.button.Button" name="btn_ThemSPGiamGia">
                   <Properties>
@@ -641,6 +655,9 @@
                       <Font name="Roboto" size="15" style="1"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThemSPGiamGiaActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="view.until.button.Button" name="btn_XoaSPGiamGia">
                   <Properties>
@@ -649,6 +666,9 @@
                       <Font name="Roboto" size="15" style="1"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_XoaSPGiamGiaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -680,9 +700,9 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnHD" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnKT" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="btn_LamMoi1" min="-2" max="-2" attributes="0"/>
@@ -698,7 +718,7 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="txt_TenGiamGia" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                                       <Component id="lbl_MaGiamGia" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
-                                      <Component id="txt_TenGiamGia2" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Component id="txt_TyLeGiamGia" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                                       <Component id="txt_NgayBatDauG" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                                       <Component id="txt_NgayKetThucG" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                                   </Group>
@@ -712,23 +732,26 @@
                                       <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="textFieldSuggestion2" min="-2" pref="169" max="-2" attributes="0"/>
+                                          <Component id="txt_maGiamGia" min="-2" pref="169" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="comboBoxSuggestion2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="cbo__trangThai" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                           <Component id="btn_TimKiemSP1" min="-2" pref="32" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
-                              <Component id="scroll_GiamGia" alignment="0" pref="589" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="scroll_GiamGia" pref="590" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -750,7 +773,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txt_TenGiamGia2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txt_TyLeGiamGia" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -766,8 +789,8 @@
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnHD" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnKT" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -782,14 +805,14 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="textFieldSuggestion2" min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="txt_maGiamGia" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="comboBoxSuggestion2" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
-                                              <Component id="btn_TimKiemSP1" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="cbo__trangThai" min="-2" pref="31" max="-2" attributes="0"/>
+                                              <Component id="btn_TimKiemSP1" min="-2" pref="32" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -836,7 +859,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LamMoi1ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+                <Component class="javax.swing.JRadioButton" name="btnKT">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup2"/>
@@ -844,7 +867,7 @@
                     <Property name="text" type="java.lang.String" value="K&#x1ebf;t Th&#xfa;c"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+                <Component class="javax.swing.JRadioButton" name="btnHD">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup2"/>
@@ -853,7 +876,7 @@
                     <Property name="text" type="java.lang.String" value="Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHDActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
@@ -911,9 +934,9 @@
                     <Property name="text" type="java.lang.String" value="T&#xea;n Gi&#x1ea3;m Gi&#xe1;:"/>
                   </Properties>
                 </Component>
-                <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TenGiamGia2">
+                <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TyLeGiamGia">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_TenGiamGia2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_TyLeGiamGiaActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_MaGiamGia">
@@ -953,17 +976,26 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_GiamGiaMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="view.until.textfield.TextFieldSuggestion" name="textFieldSuggestion2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="textFieldSuggestion2"/>
-                  </Properties>
+                <Component class="view.until.textfield.TextFieldSuggestion" name="txt_maGiamGia">
                 </Component>
-                <Component class="view.until.combobox.ComboBoxSuggestion" name="comboBoxSuggestion2">
+                <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo__trangThai">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="T&#x1ea5;t C&#x1ea3;"/>
+                        <StringItem index="1" value="Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
+                        <StringItem index="2" value="Ng&#x1eeb;ng Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxSuggestion2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbo__trangThaiActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">

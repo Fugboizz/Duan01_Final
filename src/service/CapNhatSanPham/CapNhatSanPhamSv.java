@@ -768,14 +768,15 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
 
         java.sql.Date ngayKiemDinhSql;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // Định dạng ngày
-            java.util.Date ngayKiemDinhUtil = sdf.parse(ngayKiemDinhStr); // Phân tích chuỗi thành java.util.Date
-            ngayKiemDinhSql = new java.sql.Date(ngayKiemDinhUtil.getTime()); // Chuyển đổi thành java.sql.Date
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+            java.util.Date ngayKiemDinhUtil = sdf.parse(ngayKiemDinhStr); 
+            ngayKiemDinhSql = new java.sql.Date(ngayKiemDinhUtil.getTime()); 
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Ngày kiểm định không hợp lệ. Định dạng ngày phải là dd-MM-yyyy.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        System.out.println("svKiemDinhstr" + ngayKiemDinhStr);
+         System.out.println("svKiemDinhsql" + ngayKiemDinhSql);
         KiemDinh kd = new KiemDinh();
         kd.setDonViKiemDinh(tenKiemDinh);
         kd.setNgayKiemDinh(ngayKiemDinhSql);

@@ -94,6 +94,7 @@ public class KiemDinhRepository implements KiemDinhInterface {
             pre.setString(1, kiemDinh.getDonViKiemDinh());
             pre.setDate(2, kiemDinh.getNgayKiemDinh());
             pre.setBoolean(3, kiemDinh.isTrangThai());
+            System.out.println("kiểm định rp" + kiemDinh.getNgayKiemDinh());
             int rowsInserted = pre.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {

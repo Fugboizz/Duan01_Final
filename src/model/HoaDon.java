@@ -120,10 +120,6 @@ public class HoaDon {
         this.TrangThaiTichDiem = TrangThaiTichDiem;
     }
 
-    public boolean equalsIgnoreCase(String selectedIDHoaDon) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     
     
 }

@@ -25,9 +25,11 @@ public class Main extends javax.swing.JFrame {
     public Main(int cuaSo) {
         this.cuaSo = cuaSo;
         subject = new Subject();
+        gdkm = GiaoDienKhuyenMai.getInstance();
         gdnv = GiaoDienNhanVien.getInstance();
         gdkh = GiaoDienKhachHang.getInstance();
         subject.addObserver(gdnv);
+        subject.addObserver(gdkm);
         subject.addObserver(gdkh);
         gpsp = GiaoDienSanPham.getInstance();
         subject.addObserver(gpsp);
@@ -50,7 +52,7 @@ public class Main extends javax.swing.JFrame {
 
                     showForm(new GiaoDienKhachHang().getInstance());
                 } else if (index == 5) {
-                    showForm(new GiaoDienKhuyenMai());
+                    showForm(new GiaoDienKhuyenMai().getInstance());
                 } else if (index == 8) {
                     System.out.println("Logout");
                 } else {

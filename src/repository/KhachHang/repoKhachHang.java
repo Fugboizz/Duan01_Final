@@ -130,7 +130,7 @@ public class repoKhachHang implements InterfaceRepoKhachHang {
         }
 
         if (gdmd.getHoTen() != null && !gdmd.getHoTen().isEmpty()) {
-            sqlBuilder.append(" AND HoTen LIKE ?");
+            sqlBuilder.append(" AND SoDienThoai LIKE ?");
             params.add("%" + gdmd.getHoTen() + "%");
         }
 
