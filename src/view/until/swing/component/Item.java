@@ -35,24 +35,23 @@ public class Item extends javax.swing.JPanel {
         setCursor(new Cursor(Cursor.HAND_CURSOR) {
         });
     }
-//    set thong tin của sản phẩm
     private SanPham sp;
 
     public void setData(SanPham sp) {
         this.sp = sp;
-        txt_MaSP.setText(sp.getTenSanPham());
+        txt_MaSP.setText(sp.getIDSanPham());
         lbl_GiaBan.setText(String.valueOf(sp.getGiaChiTiet()));
         if (sp.getIDGiamGia().getIDGIamGia() != null) {
-             lbl_GiaBan.setText(String.format("<html><strike>%s</strike></html>\"", String.valueOf(sp.getGiaChiTiet())));
-             lbl_GiaBan.setForeground(Color.GRAY);
-            double giaGiam = sp.getGiaChiTiet() - (sp.getGiaChiTiet() * sp.getIDGiamGia().getTyLeGiamGia()/100);
-            System.out.println("GiaGiam:"+giaGiam);
+            lbl_GiaBan.setText(String.format("<html><strike>%s</strike></html>\"", String.valueOf(sp.getGiaChiTiet())));
+            lbl_GiaBan.setForeground(Color.GRAY);
+            double giaGiam = sp.getGiaChiTiet() - (sp.getGiaChiTiet() * sp.getIDGiamGia().getTyLeGiamGia() / 100);
+            System.out.println("GiaGiam:" + giaGiam);
             txt_GiaGiam.setText(String.valueOf(giaGiam));
         } else {
             txt_GiaGiam.setText("");
             lbl_GiaGiam.setText("");
         }
-        txt_SoLuong.setText(sp.getSoLuongTonKho()==0?"Hết hàng":String.valueOf(sp.getSoLuongTonKho()));
+        txt_SoLuong.setText(sp.getSoLuongTonKho() == 0 ? "Hết hàng" : String.valueOf(sp.getSoLuongTonKho()));
         if (sp.getHinhAnhSanPham() == null) {
             anh.setImage(new ImageIcon(getClass().getResource("/Icon/noimage.png")));
         } else {

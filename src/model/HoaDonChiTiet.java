@@ -22,7 +22,11 @@ public class HoaDonChiTiet {
 
     public HoaDonChiTiet() {
     }
-
+    public HoaDonChiTiet(SanPham IDSanPham, HoaDon IDHoaDon, int SoLUongSanPHam) {
+        this.IDSanPham = IDSanPham;
+        this.IDHoaDon = IDHoaDon;
+        this.SoLUongSanPHam = SoLUongSanPHam;
+    }
     public HoaDonChiTiet(String IDHoaDonChiTiet, SanPham IDSanPham, HoaDon IDHoaDon, int SoLUongSanPHam, Date ThoiHanBaoHanh, Date NgayTao, Date NgaySua, boolean TrangThai) {
         this.IDHoaDonChiTiet = IDHoaDonChiTiet;
         this.IDSanPham = IDSanPham;
@@ -33,6 +37,7 @@ public class HoaDonChiTiet {
         this.NgaySua = NgaySua;
         this.TrangThai = TrangThai;
     }
+
 
     public String getIDHoaDonChiTiet() {
         return IDHoaDonChiTiet;
