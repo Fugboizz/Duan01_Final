@@ -13,7 +13,6 @@ import model.HoaDonChiTiet;
  * @author nguyentrikhoi
  */
 public interface LichSuBanHangInterface {
-    public List<HoaDon> getAll();
-    public List<HoaDonChiTiet> getData(String IDHoaDon);
+    public List<HoaDonChiTiet> getAll();
 
 }

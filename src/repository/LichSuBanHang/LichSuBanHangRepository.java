@@ -30,75 +30,64 @@ public class LichSuBanHangRepository implements LichSuBanHangInterface {
     private String sql = null;
 
     @Override
-    public List<HoaDon> getAll() {
-        List<HoaDon> listHD = new ArrayList<>();
-        sql = "SELECT * FROM View_HoaDon_ChiTiet";
+    public List<HoaDonChiTiet> getAll() {
+        List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+        sql = "SELECT * FROM v_showhoadon_hoadonchitiet where TrangThai = 1";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             res = pre.executeQuery();
             while (res.next()) {
-                HoaDon hd = new HoaDon();
-                hd.setIDHoaDon(res.getString("IDHoaDon"));
-                hd.setNgayTao(res.getDate("NgayTao"));
-                TaiKhoan tk = new TaiKhoan();
-                tk.setHoTen(res.getString("TaiKhoan_HoTen"));
-                hd.setIdTaiKhoan(tk);
-
                 KhachHang kh = new KhachHang();
-                kh.setHoTen(res.getString("KhachHang_HoTen"));
+                HoaDonChiTiet ct = new HoaDonChiTiet();
+                SanPham sp = new SanPham();
+                GiamGia gg = new GiamGia();
+                HoaDon hd = new HoaDon();
+                TaiKhoan tk = new TaiKhoan();
+                Voucher v = new Voucher();
+                hd.setIDHoaDon(res.getString("IDHoaDon"));
+                kh.setIDKhachHang(res.getString("IDKhachHang"));
+                kh.setHoTen(res.getString("KhachHangHoTen"));
+                tk.setIDTaiKhoan(res.getString("IDTaiKhoan"));
+                tk.setHoTen(res.getString("TaiKhoanHoTen"));
+                String idVoucher = res.getString("IDVoucher");
+                if (idVoucher != null) {
+                    v.setIDVoucher(idVoucher);
+                    v.setTyLe(res.getFloat("TyLe"));
+                } else {
+                    v.setIDVoucher(null);
+                    v.setTyLe(0); // Nếu không có giảm giá, tỷ lệ giảm giá là 0
+                }
+                v.setTenVoucher(res.getString("TenVoucher"));
+                hd.setIdTaiKhoan(tk);
                 hd.setIdKhachHang(kh);
-
+                hd.setIdVoucher(v);
+                hd.setNgayTao(res.getDate("NgayTao"));
+                hd.setTongTienTRuoc(res.getDouble("TongTienTruoc"));
                 hd.setTongTienSau(res.getDouble("TongTienSau"));
+                hd.setTrangThai(res.getBoolean("TrangThai"));
+                String idGiamGia = res.getString("IDGiamGia");
+                if (idGiamGia != null) {
+                    gg.setIDGIamGia(idGiamGia);
+                    gg.setTyLeGiamGia(res.getFloat("TyLeGiamGia"));
+                } else {
+                    gg.setIDGIamGia(null);
+                    gg.setTyLeGiamGia(0); // Nếu không có giảm giá, tỷ lệ giảm giá là 0
+                }
+                sp.setIDGiamGia(gg);
+                sp.setIDSanPham(res.getString("IDSanPham"));
+                sp.setTenSanPham(res.getString("TenSanPham"));
+                sp.setGiaChiTiet(res.getDouble("GiaChiTiet"));
+                ct.setIDSanPham(sp);
+                ct.setIDHoaDon(hd);
+                ct.setSoLUongSanPHam(res.getInt("SoLuongSanPham"));
+                listHDCT.add(ct);
 
-                listHD.add(hd);
             }
-            return listHD;
+            return listHDCT;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-
-    @Override
-    public List<HoaDonChiTiet> getData(String IDHoaDon) {
-        List<HoaDonChiTiet> listHDCT = new ArrayList<>();
-        String sql = "SELECT * FROM View_HoaDonChiTiet WHERE IDHoaDon = ?";
-
-        try (Connection con = jdbc.getConnection(); PreparedStatement pre = con.prepareStatement(sql)) {
-            pre.setString(1, IDHoaDon);
-
-            try (ResultSet res = pre.executeQuery()) {
-                while (res.next()) {
-                    HoaDonChiTiet hdCT = new HoaDonChiTiet();
-
-                    // Kiểm tra và xử lý trường hợp giá trị của GiamGia có thể là null
-                    GiamGia gg = new GiamGia();
-                    String idGiamGia = res.getString("IDGiamGia");
-                    if (idGiamGia != null) {
-                        gg.setIDGIamGia(idGiamGia);
-                        gg.setTyLeGiamGia(res.getFloat("TyLeGiamGia"));
-                    } else {
-                        gg.setIDGIamGia(null);
-                        gg.setTyLeGiamGia(0); // Nếu không có giảm giá, tỷ lệ giảm giá là 0
-                    }
-
-                    SanPham sp = new SanPham();
-                    sp.setIDGiamGia(gg);
-                    sp.setIDSanPham(res.getString("IDSanPham"));
-                    sp.setTenSanPham(res.getString("TenSanPham"));
-                    sp.setGiaChiTiet(res.getDouble("GiaChiTiet"));
-                    hdCT.setIDSanPham(sp);
-
-                    hdCT.setSoLUongSanPHam(res.getInt("SoLuongSanPham"));
-
-                    listHDCT.add(hdCT);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listHDCT;
-    }
-
 }
