@@ -13,6 +13,7 @@ import model.PhanLoai;
 import repository.PhanLoai.PhanLoaiRepo;
 import repository.hoadon.RepositoryHoaDon;
 import repository.hoadonchitiet.RepositoryHoaDonChiTiet;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -25,14 +26,17 @@ public class ServiceBanHang implements ServiceBanHangInterface {
     private repository.hoadonchitiet.RepositoryHoaDonChiTiet rpct;
 
     @Override
+
     public void fillHoaDonCho(JTable tbl) {
         rphd = new RepositoryHoaDon();
         DefaultTableModel modelTable = (DefaultTableModel) tbl.getModel();
         modelTable.setRowCount(0);
         int STT = 1;
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+
         for (HoaDon hd : rphd.getAllHDC()) {
-            modelTable.addRow(new Object[]{STT++, hd.getIDHoaDon(), hd.getNgayTao(),
-                hd.getTongTienTRuoc() == null ? "0" : hd.getTongTienTRuoc(),
+            String tongTienTruoc = hd.getTongTienTRuoc() == null ? "0" : df.format(hd.getTongTienTRuoc());
+            modelTable.addRow(new Object[]{STT++, hd.getIDHoaDon(), hd.getNgayTao(), tongTienTruoc,
                 hd.isTrangThai() ? "Đã Thanh Toán" : "Chờ Xử Lý"});
         }
     }
@@ -46,6 +50,7 @@ public class ServiceBanHang implements ServiceBanHangInterface {
     }
 
     @Override
+
     public void fillHoaDonChiTietBH(JTable tbl, String idHoaDon) {
         rpct = new RepositoryHoaDonChiTiet();
         DefaultTableModel modelTable = (DefaultTableModel) tbl.getModel();
@@ -53,24 +58,36 @@ public class ServiceBanHang implements ServiceBanHangInterface {
         int STT = 1;
         double giamGia;
         double tongTien;
-        for (HoaDonChiTiet ct : rpct.getData(idHoaDon)) {
-            System.out.println("Gia Chi Tiết: "
-                    +ct.getIDSanPham().getGiaChiTiet());
-            if (ct.getIDSanPham().getIDGiamGia().getIDGIamGia() != null) {
-                System.out.println(ct.getIDSanPham().getIDGiamGia().getIDGIamGia());
-                giamGia = ct.getIDSanPham().getGiaChiTiet() * ct.getIDSanPham().getIDGiamGia().getTyLeGiamGia() / 100;
-                tongTien = ct.getIDSanPham().getGiaChiTiet() * ct.getSoLUongSanPHam() - giamGia * ct.getSoLUongSanPHam();
 
+        // Tạo đối tượng DecimalFormat để định dạng số tiền
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+
+        for (HoaDonChiTiet ct : rpct.getData(idHoaDon)) {
+            double giaChiTiet = ct.getIDSanPham().getGiaChiTiet();
+            double tyLeGiamGia = ct.getIDSanPham().getIDGiamGia() != null ? ct.getIDSanPham().getIDGiamGia().getTyLeGiamGia() : 0;
+
+            if (tyLeGiamGia > 0) {
+                giamGia = giaChiTiet * tyLeGiamGia / 100;
+                tongTien = (giaChiTiet - giamGia) * ct.getSoLUongSanPHam();
             } else {
                 giamGia = 0;
-                tongTien = ct.getIDSanPham().getGiaChiTiet() * ct.getSoLUongSanPHam();
+                tongTien = giaChiTiet * ct.getSoLUongSanPHam();
             }
 
-            System.out.println(tongTien);
-            modelTable.addRow(new Object[]{STT++,
+            // Định dạng các giá trị tiền
+            String formattedGiaChiTiet = df.format(giaChiTiet);
+            String formattedGiamGia = df.format(giamGia);
+            String formattedTongTien = df.format(tongTien);
+
+            modelTable.addRow(new Object[]{
+                STT++,
                 ct.getIDSanPham().getTenSanPham(),
                 ct.getSoLUongSanPHam(),
-                ct.getIDSanPham().getGiaChiTiet(), giamGia, tongTien});
+                formattedGiaChiTiet,
+                formattedGiamGia,
+                formattedTongTien
+            });
         }
     }
+
 }

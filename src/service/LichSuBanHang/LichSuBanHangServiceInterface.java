@@ -13,5 +13,4 @@ import javax.swing.JTable;
 public interface LichSuBanHangServiceInterface {
     public void fillToTable(JTable tbl);
     public void doubleClick(JTable tbl);
-    public void fillToTableHDCT(JTable tbl,String IDHoaDon);
 }

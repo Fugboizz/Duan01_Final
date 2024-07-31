@@ -26,7 +26,7 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
     private GiaoDienBanHang gdBanHang;
     private repository.LichSuBanHang.LichSuBanHangRepository rpLSBanHang = new repository.LichSuBanHang.LichSuBanHangRepository();
     private Main main;
-    private view.banhang.HoaDonChiTiet hdct;
+    private view.banhang.HoaDonChiTietDialog hdct;
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     @Override
@@ -34,10 +34,14 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
         model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
         int stt = 0;
-        for (HoaDon hd : rpLSBanHang.getAll()) {
-            String ngayTaoHoaDon = sdf.format(hd.getNgayTao());
+        for (HoaDonChiTiet ct : rpLSBanHang.getAll()) {
+            String ngayTaoHoaDon = sdf.format(ct.getIDHoaDon().getNgayTao());
+            String maHoaDon = ct.getIDHoaDon().getIDHoaDon();
+            String tenNhanVien = ct.getIDHoaDon().getIdTaiKhoan().getHoTen();
+            String tenKhachHang = ct.getIDHoaDon().getIdKhachHang().getHoTen();
+            double tongTien = ct.getIDHoaDon().getTongTienSau();
             stt++;
-            model.addRow(new Object[]{stt, hd.getIDHoaDon(), ngayTaoHoaDon, hd.getIdTaiKhoan().getHoTen(), hd.getIdKhachHang().getHoTen(), hd.getTongTienSau()});
+            model.addRow(new Object[]{stt,maHoaDon,ngayTaoHoaDon,tenNhanVien,tenKhachHang,tongTien,ct.getIDHoaDon().isTrangThai()?"Đã Thanh Toán":""});
         }
     }
 
@@ -50,10 +54,11 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
                     int row = tbl.getSelectedRow();
                     if (row >= 0) {
 
-                        for (HoaDon hd : rpLSBanHang.getAll()) {
-                            if (hd.getIDHoaDon().equalsIgnoreCase(tbl.getValueAt(row, 1).toString())) {
-                                hdct = new view.banhang.HoaDonChiTiet(main, true);
+                        for (HoaDonChiTiet hd : rpLSBanHang.getAll()) {
+                            if (hd.getIDHoaDon().getIDHoaDon().equalsIgnoreCase(tbl.getValueAt(row, 1).toString())) {
+                                hdct = new view.banhang.HoaDonChiTietDialog(main, true);
                                 hdct.setData(hd);
+                                hdct.fillDataChiTiet(tbl.getValueAt(row, 1).toString());
                                 hdct.setVisible(true);
                                 break;
                             }
@@ -64,26 +69,26 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
         });
     }
 
-    @Override
-    public void fillToTableHDCT(JTable tbl, String IDHoaDon) {
-        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-        model.setRowCount(0);
-        for (HoaDonChiTiet hdCT : rpLSBanHang.getData(IDHoaDon)) {
-            System.out.println(hdCT.getSoLUongSanPHam());
-            double giaChiTiet = hdCT.getIDSanPham().getGiaChiTiet();
-            double tyLeGiamGia = 0.0;
-            if (hdCT.getIDSanPham().getIDGiamGia() != null) {
-                tyLeGiamGia = hdCT.getIDSanPham().getIDGiamGia().getTyLeGiamGia();
-            }
-            double tongTien = (hdCT.getSoLUongSanPHam() * giaChiTiet) - ((hdCT.getSoLUongSanPHam() * giaChiTiet) * tyLeGiamGia / 100);
-            model.addRow(new Object[]{
-                hdCT.getIDSanPham().getTenSanPham(),
-                hdCT.getSoLUongSanPHam(),
-                giaChiTiet,
-                tyLeGiamGia,
-                tongTien
-            });
-        }
-    }
+//    @Override
+//    public void fillToTableHDCT(JTable tbl, String IDHoaDon) {
+//        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
+//        model.setRowCount(0);
+//        for (HoaDonChiTiet hdCT : rpLSBanHang.getData(IDHoaDon)) {
+//            System.out.println(hdCT.getSoLUongSanPHam());
+//            double giaChiTiet = hdCT.getIDSanPham().getGiaChiTiet();
+//            double tyLeGiamGia = 0.0;
+//            if (hdCT.getIDSanPham().getIDGiamGia() != null) {
+//                tyLeGiamGia = hdCT.getIDSanPham().getIDGiamGia().getTyLeGiamGia();
+//            }
+//            double tongTien = (hdCT.getSoLUongSanPHam() * giaChiTiet) - ((hdCT.getSoLUongSanPHam() * giaChiTiet) * tyLeGiamGia / 100);
+//            model.addRow(new Object[]{
+//                hdCT.getIDSanPham().getTenSanPham(),
+//                hdCT.getSoLUongSanPHam(),
+//                giaChiTiet,
+//                tyLeGiamGia,
+//                tongTien
+//            });
+//        }
+//    }
 
 }
