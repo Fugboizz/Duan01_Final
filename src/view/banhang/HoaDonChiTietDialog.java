@@ -87,7 +87,7 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
         for (HoaDonChiTiet ct : rll.getAll()) {
             if (ct.getIDHoaDon().getIDHoaDon().equalsIgnoreCase(text)) {
                 if (ct.getIDSanPham().getIDGiamGia() != null && ct.getIDSanPham().getIDGiamGia().getIDGIamGia() != null) {
-                    giamGia = (ct.getIDSanPham().getGiaChiTiet() * ct.getIDSanPham().getIDGiamGia().getTyLeGiamGia()) / 100;
+                    giamGia = ((ct.getIDSanPham().getGiaChiTiet() * ct.getIDSanPham().getIDGiamGia().getTyLeGiamGia()) / 100) * ct.getSoLUongSanPHam();
                 } else {
                     giamGia = 0;
                 }
