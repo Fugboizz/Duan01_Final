@@ -6,7 +6,9 @@ package service.LichSuBanHang;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -29,21 +31,43 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
     private view.banhang.HoaDonChiTietDialog hdct;
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-    @Override
-    public void fillToTable(JTable tbl) {
-        model = (DefaultTableModel) tbl.getModel();
-        model.setRowCount(0);
-        int stt = 0;
-        for (HoaDonChiTiet ct : rpLSBanHang.getAll()) {
+@Override
+public void fillToTable(JTable tbl) {
+    model = (DefaultTableModel) tbl.getModel();
+    model.setRowCount(0);
+
+    // Danh sách lưu trữ các mã hóa đơn đã xử lý
+    List<String> processedInvoiceIds = new ArrayList<>();
+    int stt = 0;
+
+    for (HoaDonChiTiet ct : rpLSBanHang.getAll()) {
+        String maHoaDon = ct.getIDHoaDon().getIDHoaDon();
+        
+        // Kiểm tra nếu mã hóa đơn đã được xử lý chưa
+        if (!processedInvoiceIds.contains(maHoaDon)) {
             String ngayTaoHoaDon = sdf.format(ct.getIDHoaDon().getNgayTao());
-            String maHoaDon = ct.getIDHoaDon().getIDHoaDon();
             String tenNhanVien = ct.getIDHoaDon().getIdTaiKhoan().getHoTen();
             String tenKhachHang = ct.getIDHoaDon().getIdKhachHang().getHoTen();
-            double tongTien = ct.getIDHoaDon().getTongTienSau();
+            BigDecimal tongTien = new BigDecimal(ct.getIDHoaDon().getTongTienSau());
             stt++;
-            model.addRow(new Object[]{stt,maHoaDon,ngayTaoHoaDon,tenNhanVien,tenKhachHang,tongTien,ct.getIDHoaDon().isTrangThai()?"Đã Thanh Toán":""});
+            
+            // Thêm thông tin hóa đơn vào bảng
+            model.addRow(new Object[]{
+                stt,
+                maHoaDon,
+                ngayTaoHoaDon,
+                tenNhanVien,
+                tenKhachHang,
+                tongTien,
+                ct.getIDHoaDon().isTrangThai() ? "Đã Thanh Toán" : "Chưa Thanh Toán"
+            });
+
+            // Đánh dấu mã hóa đơn đã được xử lý
+            processedInvoiceIds.add(maHoaDon);
         }
     }
+}
+
 
     @Override
     public void doubleClick(JTable tbl) {
@@ -68,27 +92,5 @@ public class LichSuBanHangService implements LichSuBanHangServiceInterface {
             }
         });
     }
-
-//    @Override
-//    public void fillToTableHDCT(JTable tbl, String IDHoaDon) {
-//        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-//        model.setRowCount(0);
-//        for (HoaDonChiTiet hdCT : rpLSBanHang.getData(IDHoaDon)) {
-//            System.out.println(hdCT.getSoLUongSanPHam());
-//            double giaChiTiet = hdCT.getIDSanPham().getGiaChiTiet();
-//            double tyLeGiamGia = 0.0;
-//            if (hdCT.getIDSanPham().getIDGiamGia() != null) {
-//                tyLeGiamGia = hdCT.getIDSanPham().getIDGiamGia().getTyLeGiamGia();
-//            }
-//            double tongTien = (hdCT.getSoLUongSanPHam() * giaChiTiet) - ((hdCT.getSoLUongSanPHam() * giaChiTiet) * tyLeGiamGia / 100);
-//            model.addRow(new Object[]{
-//                hdCT.getIDSanPham().getTenSanPham(),
-//                hdCT.getSoLUongSanPHam(),
-//                giaChiTiet,
-//                tyLeGiamGia,
-//                tongTien
-//            });
-//        }
-//    }
 
 }

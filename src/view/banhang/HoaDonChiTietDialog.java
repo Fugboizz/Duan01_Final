@@ -1,6 +1,8 @@
 package view.banhang;
 
 import java.awt.Color;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -43,60 +45,67 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
     }
     String voucher;
 
-    public void setData(HoaDonChiTiet ct) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+public void setData(HoaDonChiTiet ct) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-        // Lấy thông tin hóa đơn
-        HoaDon hoaDon = ct.getIDHoaDon();
+    // Lấy thông tin hóa đơn
+    HoaDon hoaDon = ct.getIDHoaDon();
 
-        // Lấy thông tin khách hàng
-        String maHoaDon = hoaDon.getIDHoaDon();
-        String khachHang = hoaDon.getIdKhachHang().getHoTen();
-        String ngayTao = sdf.format(hoaDon.getNgayTao());
+    // Lấy thông tin khách hàng
+    String maHoaDon = hoaDon.getIDHoaDon();
+    String khachHang = hoaDon.getIdKhachHang().getHoTen();
+    String ngayTao = sdf.format(hoaDon.getNgayTao());
 
-        // Xử lý thông tin giảm giá và thanh toán
-        if (hoaDon.getIdVoucher() != null && hoaDon.getIdVoucher().getIDVoucher() != null) {
-            voucher = hoaDon.getIdVoucher().getTenVoucher();
-        } else {
-            voucher = "Không";
-        }
-
-        double tongTien = hoaDon.getTongTienTRuoc();
-        double thanhToan = hoaDon.getTongTienSau();
-        double chietKhau = tongTien - thanhToan;
-
-        // Định dạng số tiền
-        String tt = String.format("%.2f", tongTien);
-        String tToan = String.format("%.2f", thanhToan);
-        String ck = String.format("%.2f", chietKhau);
-
-        // Cập nhật giao diện
-        lbl_MaHoaDon.setText(maHoaDon);
-        lbl_HoTenKhachHang.setText(khachHang);
-        lbl_NgayTaoHoaDon.setText(ngayTao);
-        lbl_TenVoucher.setText(voucher);
-        lbl_ChietKhau.setText(ck);
-        lbl_TongTien.setText(tt);
-        lbl_ThanhToan.setText(tToan);
+    // Xử lý thông tin giảm giá và thanh toán
+    if (hoaDon.getIdVoucher() != null && hoaDon.getIdVoucher().getIDVoucher() != null) {
+        voucher = hoaDon.getIdVoucher().getTenVoucher();
+    } else {
+        voucher = "Không";
     }
+
+    // Chuyển đổi số tiền sang BigDecimal
+    BigDecimal tongTien = new BigDecimal(hoaDon.getTongTienTRuoc());
+    BigDecimal thanhToan = new BigDecimal(hoaDon.getTongTienSau());
+    BigDecimal chietKhau = tongTien.subtract(thanhToan);
+
+
+    // Cập nhật giao diện
+    lbl_MaHoaDon.setText(maHoaDon);
+    lbl_HoTenKhachHang.setText(khachHang);
+    lbl_NgayTaoHoaDon.setText(ngayTao);
+    lbl_TenVoucher.setText(voucher);
+    lbl_ChietKhau.setText(chietKhau.toString());
+    lbl_TongTien.setText(tongTien.toString());
+    lbl_ThanhToan.setText(thanhToan.toString());
+}
+
 
     public void fillDataChiTiet(String text) {
         DefaultTableModel model = (DefaultTableModel) tbl_HDCT.getModel();
         model.setRowCount(0);
-        double giamGia;
+
         for (HoaDonChiTiet ct : rll.getAll()) {
             if (ct.getIDHoaDon().getIDHoaDon().equalsIgnoreCase(text)) {
+                BigDecimal giaChiTiet = new BigDecimal(ct.getIDSanPham().getGiaChiTiet());
+                BigDecimal soLuong = new BigDecimal(ct.getSoLUongSanPHam());
+
+                BigDecimal giamGia;
+                BigDecimal tyLeGiamGia = BigDecimal.ZERO;
                 if (ct.getIDSanPham().getIDGiamGia() != null && ct.getIDSanPham().getIDGiamGia().getIDGIamGia() != null) {
-                    giamGia = ((ct.getIDSanPham().getGiaChiTiet() * ct.getIDSanPham().getIDGiamGia().getTyLeGiamGia()) / 100) * ct.getSoLUongSanPHam();
-                } else {
-                    giamGia = 0;
+                    tyLeGiamGia = new BigDecimal(ct.getIDSanPham().getIDGiamGia().getTyLeGiamGia());
                 }
+
+                BigDecimal giaGiam = giaChiTiet.multiply(tyLeGiamGia).divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
+                giamGia = giaGiam.multiply(soLuong);
+
+                BigDecimal thanhTien = giaChiTiet.multiply(soLuong).subtract(giamGia);
+
                 model.addRow(new Object[]{
                     ct.getIDSanPham().getTenSanPham(),
-                    ct.getSoLUongSanPHam(),
-                    ct.getIDSanPham().getGiaChiTiet(),
+                    soLuong,
+                    giaChiTiet,
                     giamGia,
-                    ct.getSoLUongSanPHam() * ct.getIDSanPham().getGiaChiTiet() - giamGia
+                    thanhTien
                 });
             }
         }

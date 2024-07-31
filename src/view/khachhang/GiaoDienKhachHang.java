@@ -137,7 +137,7 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer{
                 .addComponent(lbl_DanhSach)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(154, 154, 154))
+                .addGap(34, 34, 34))
         );
         panel_ThemMoiLayout.setVerticalGroup(
             panel_ThemMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
