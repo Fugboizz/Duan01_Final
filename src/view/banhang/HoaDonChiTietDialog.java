@@ -24,9 +24,9 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setFont();
-        System.out.println(rll.getAll().size()+" Model");
-        System.out.println(rll.getAll().get(1).getSoLUongSanPHam()+ "Soluong sanpham");
-        System.out.println(rll.getAll().get(1).getIDSanPham().getGiaChiTiet()+"Giá");
+        System.out.println(rll.getAll().size() + " Model");
+        System.out.println(rll.getAll().get(1).getSoLUongSanPHam() + "Soluong sanpham");
+        System.out.println(rll.getAll().get(1).getIDSanPham().getGiaChiTiet() + "Giá");
 
     }
 
@@ -83,12 +83,21 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
     public void fillDataChiTiet(String text) {
         DefaultTableModel model = (DefaultTableModel) tbl_HDCT.getModel();
         model.setRowCount(0);
+        double giamGia;
         for (HoaDonChiTiet ct : rll.getAll()) {
             if (ct.getIDHoaDon().getIDHoaDon().equalsIgnoreCase(text)) {
-                model.addRow(new Object[]{ct.getIDSanPham().getTenSanPham(), 
-                    ct.getSoLUongSanPHam(), 
+                if (ct.getIDSanPham().getIDGiamGia() != null && ct.getIDSanPham().getIDGiamGia().getIDGIamGia() != null) {
+                    giamGia = (ct.getIDSanPham().getGiaChiTiet() * ct.getIDSanPham().getIDGiamGia().getTyLeGiamGia()) / 100;
+                } else {
+                    giamGia = 0;
+                }
+                model.addRow(new Object[]{
+                    ct.getIDSanPham().getTenSanPham(),
+                    ct.getSoLUongSanPHam(),
                     ct.getIDSanPham().getGiaChiTiet(),
-                    ct.getSoLUongSanPHam() * ct.getIDSanPham().getGiaChiTiet()});
+                    giamGia,
+                    ct.getSoLUongSanPHam() * ct.getIDSanPham().getGiaChiTiet() - giamGia
+                });
             }
         }
     }
