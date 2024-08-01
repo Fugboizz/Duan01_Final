@@ -28,6 +28,7 @@ import raven.modal.Toast;
 import raven.modal.component.SimpleModalBorder;
 import repository.KhuyenMai.KhuyenMaiRepository;
 import service.observer.Observer;
+import view.doanhthu.JTableHeader;
 import view.main.Main;
 import view.until.sampletable.CheckBoxTableHeaderRenderer;
 import view.until.sampletable.TableHeaderAlignment;
@@ -73,7 +74,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         tkm.init(tbl_GiamGia, scroll_GiamGia);
         tbl_SPGiamGia.getColumnModel().getColumn(0).setHeaderRenderer(new CheckBoxTableHeaderRenderer(tbl_SPGiamGia, 0));
         tbl_SPGiamGia.getTableHeader().setDefaultRenderer(new TableHeaderAlignment(tbl_SPGiamGia));
-        tbl_GiamGia.getTableHeader().setDefaultRenderer(new TableHeaderAlignment(tbl_SPGiamGia));
+         tbl_GiamGia.getTableHeader().setDefaultRenderer(new JTableHeader(tbl_GiamGia));
 
     }
 

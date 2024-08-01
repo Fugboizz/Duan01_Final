@@ -38,7 +38,7 @@ import java.text.NumberFormat;
  * @author HUNGpYN
  */
 public class GiaoDienBanHang extends javax.swing.JPanel {
-
+    
     private Main main;
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
@@ -47,7 +47,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     private String IDHoaDon;
     private MainForm mainForm;
     private LichSuBanHangService lhsv;
-    
+
     //repo tạo hóa đơn:
     private repository.hoadon.RepositoryHoaDon rpbh = new RepositoryHoaDon();
     // service bán hàng
@@ -67,7 +67,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     public String getIdSanPham() {
         return idSanPham;
     }
-
+    
     public String getIdHoaDonBanHang() {
         if (tbl_HoaDonCho.getRowCount() == 1) {
             IDHoaDonBanHang = tbl_HoaDonCho.getValueAt(0, 1).toString();
@@ -76,20 +76,20 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         int index = tbl_HoaDonCho.getSelectedRow();
         if (index >= 0 && index < tbl_HoaDonCho.getRowCount()) {
             IDHoaDonBanHang = tbl_HoaDonCho.getValueAt(index, 1).toString();
-
+            
         }
         return IDHoaDonBanHang;
     }
-    
+
     //getter lấy hóa đơn để fill lên lịch sử bán hàng
-        public String getIDHoaDon() {
+    public String getIDHoaDon() {
         int index = tbl_DanhSachHoaDon.getSelectedRow();
         if (index >= 0) {
             IDHoaDon = tbl_DanhSachHoaDon.getValueAt(index, 1).toString();
         }
         return IDHoaDon;
     }
-
+    
     public GiaoDienBanHang() {
         initComponents();
         setFont();
@@ -97,12 +97,12 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         System.out.println(rpct.getAll().size());
         qlLSBanHang.fillToTable(tbl_DanhSachHoaDon);
         qlLSBanHang.doubleClick(tbl_DanhSachHoaDon);
- 
+
         // Bán Hàng
         sbh.fillHoaDonCho(tbl_HoaDonCho);
         sbh.fillHoaDonChiTietBH(tbl_GioHang, getidHoaDonChiTiet());
     }
-
+    
     private void init() {
         mainForm = new MainForm();
         SanPhamPanel.setLayout(new BorderLayout());
@@ -110,7 +110,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         testData();
         setDataThanhToan();
     }
-
+    
     private void testData() {
         mainForm.setEvent(new EventItem() {
             @Override
@@ -139,7 +139,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             }
         }
     }
-
+    
     void setFont() {
         btn_TimKiemHoaDon.setColor1(color2);
         btn_TimKiemHoaDon.setColor2(color1);
@@ -158,13 +158,13 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
     // Lấy IdHoaDonChiTiet
     private String idHoaDonChiTiet;
-
+    
     private String getidHoaDonChiTiet() {
         int i = tbl_GioHang.getSelectedRow();
         if (i >= 0) {
             String tenSP = tbl_GioHang.getValueAt(i, 1).toString();
             for (HoaDonChiTiet ct : rhdct.getData(getIdHoaDonBanHang())) {
-
+                
                 if (ct.getIDSanPham().getTenSanPham().equalsIgnoreCase(tenSP)) {
                     idHoaDonChiTiet = ct.getIDHoaDonChiTiet();
                 }
@@ -174,181 +174,175 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     }
     // lấy data tổng tiền
     private double tongTien;
-
+    
     private double gettongTien() {
         for (HoaDon hd : rpbh.getAllHDC()) {
             if (hd.getIDHoaDon().equals(getIdHoaDonBanHang())) {
                 tongTien = hd.getTongTienTRuoc();
             }
-
+            
         }
         return tongTien;
     }
+    
+    void setDataThanhToan() {
+        txt_MaHoaDon.setText(getIdHoaDonBanHang());
+        txt_TongTien.setText(formatCurrency(gettongTien()));
 
-
-
-void setDataThanhToan() {
-    txt_MaHoaDon.setText(getIdHoaDonBanHang());
-    txt_TongTien.setText(formatCurrency(gettongTien()));
-
-    // Thay đổi thông tin khách hàng khi số điện thoại thay đổi
-    txt_DienThoai.getDocument().addDocumentListener(new DocumentListener() {
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            updateCustomerInfo();
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            updateCustomerInfo();
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            // Không xử lý thay đổi này vì không có sự thay đổi định dạng văn bản
-        }
-
-        private void updateCustomerInfo() {
-            SwingUtilities.invokeLater(() -> {
-                String inputPhone = txt_DienThoai.getText();
-                List<KhachHang> customers = rpkh.getAll();
-                boolean found = false;
-
-                for (KhachHang kh : customers) {
-                    if (inputPhone.equals(kh.getSoDienThoai())) {
-                        txt_KhachHang.setText(kh.getHoTen());
-                        txt_TichDiem.setText(formatCurrency(kh.getTichDiem()));
-                        found = true;
-                        break; // Đã tìm thấy khách hàng, không cần kiểm tra thêm
-                    }
-                }
-
-                if (!found) {
-                    // Nếu không tìm thấy khách hàng, xóa thông tin
-                    txt_KhachHang.setText("");
-                    txt_TichDiem.setText("");
-                }
-
-                updateThanhTien();
-            });
-        }
-    });
-
-    // Thay đổi thông tin voucher khi mã voucher thay đổi
-    txt_Voucher1.getDocument().addDocumentListener(new DocumentListener() {
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            updateVoucherInfo();
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            updateVoucherInfo();
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            // Không xử lý thay đổi này vì không có sự thay đổi định dạng văn bản
-        }
-
-        private void updateVoucherInfo() {
-            SwingUtilities.invokeLater(() -> {
-                String inputVoucher = txt_Voucher1.getText();
-                List<Voucher> vouchers = kmrp.getAll();
-                boolean found = false;
-
-                for (Voucher vc : vouchers) {
-                    if (inputVoucher.equals(vc.getIDVoucher())) {
-                        if (vc.isTrangThai()) {
-                            lbl_TrangThaiVoucher.setText("Có thể sử dụng");
-                            lbl_TrangThaiVoucher.setForeground(Color.GREEN);
-                            double chietKhau = gettongTien() * vc.getTyLe() / 100;
-                            txt_ChietKhau.setText(formatCurrency(chietKhau));
-                        } else {
-                            lbl_TrangThaiVoucher.setText("Hết hạn sử dụng");
-                            lbl_TrangThaiVoucher.setForeground(Color.RED);
-                            txt_ChietKhau.setText(formatCurrency(0));
-                        }
-
-                        found = true;
-                        break; // Đã tìm thấy voucher, không cần kiểm tra thêm
-                    }
-                }
-
-                if (!found) {
-                    // Nếu không tìm thấy voucher, xóa thông tin
-                    lbl_TrangThaiVoucher.setText("Voucher không tồn tại");
-                    lbl_TrangThaiVoucher.setForeground(Color.RED);
-                    txt_ChietKhau.setText(formatCurrency(0));
-                }
-
-                updateThanhTien();
-            });
-        }
-    });
-
-    // Lưu giá trị ban đầu của tích điểm
-    final String[] originalTichDiem = {txt_TichDiem.getText()};
-
-    // Thay đổi thành tiền khi trạng thái của checkbox thay đổi
-    check_SuDung.addItemListener(new ItemListener() {
-        @Override
-        public void itemStateChanged(ItemEvent e) {
-            if (check_SuDung.isSelected()) {
-                // Lưu giá trị ban đầu
-                originalTichDiem[0] = txt_TichDiem.getText();
-                txt_TichDiem.setText(formatCurrency(0));
-            } else {
-                // Hồi lại giá trị ban đầu
-                txt_TichDiem.setText(originalTichDiem[0]);
+        // Thay đổi thông tin khách hàng khi số điện thoại thay đổi
+        txt_DienThoai.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCustomerInfo();
             }
-            updateThanhTien();
-        }
-    });
+            
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCustomerInfo();
+            }
+            
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Không xử lý thay đổi này vì không có sự thay đổi định dạng văn bản
+            }
+            
+            private void updateCustomerInfo() {
+                SwingUtilities.invokeLater(() -> {
+                    String inputPhone = txt_DienThoai.getText();
+                    List<KhachHang> customers = rpkh.getAll();
+                    boolean found = false;
+                    
+                    for (KhachHang kh : customers) {
+                        if (inputPhone.equals(kh.getSoDienThoai())) {
+                            txt_KhachHang.setText(kh.getHoTen());
+                            txt_TichDiem.setText(formatCurrency(kh.getTichDiem()));
+                            found = true;
+                            break; // Đã tìm thấy khách hàng, không cần kiểm tra thêm
+                        }
+                    }
+                    
+                    if (!found) {
+                        // Nếu không tìm thấy khách hàng, xóa thông tin
+                        txt_KhachHang.setText("");
+                        txt_TichDiem.setText("");
+                    }
+                    
+                    updateThanhTien();
+                });
+            }
+        });
 
-    // Cập nhật thành tiền lần đầu khi dữ liệu được thiết lập
-    updateThanhTien();
-}
+        // Thay đổi thông tin voucher khi mã voucher thay đổi
+        txt_Voucher1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateVoucherInfo();
+            }
+            
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateVoucherInfo();
+            }
+            
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Không xử lý thay đổi này vì không có sự thay đổi định dạng văn bản
+            }
+            
+            private void updateVoucherInfo() {
+                SwingUtilities.invokeLater(() -> {
+                    String inputVoucher = txt_Voucher1.getText();
+                    List<Voucher> vouchers = kmrp.getAll();
+                    boolean found = false;
+                    
+                    for (Voucher vc : vouchers) {
+                        if (inputVoucher.equals(vc.getIDVoucher())) {
+                            if (vc.isTrangThai()) {
+                                lbl_TrangThaiVoucher.setText("Có thể sử dụng");
+                                lbl_TrangThaiVoucher.setForeground(Color.GREEN);
+                                double chietKhau = gettongTien() * vc.getTyLe() / 100;
+                                txt_ChietKhau.setText(formatCurrency(chietKhau));
+                            } else {
+                                lbl_TrangThaiVoucher.setText("Hết hạn sử dụng");
+                                lbl_TrangThaiVoucher.setForeground(Color.RED);
+                                txt_ChietKhau.setText(formatCurrency(0));
+                            }
+                            
+                            found = true;
+                            break; // Đã tìm thấy voucher, không cần kiểm tra thêm
+                        }
+                    }
+                    
+                    if (!found) {
+                        // Nếu không tìm thấy voucher, xóa thông tin
+                        lbl_TrangThaiVoucher.setText("Voucher không tồn tại");
+                        lbl_TrangThaiVoucher.setForeground(Color.RED);
+                        txt_ChietKhau.setText(formatCurrency(0));
+                    }
+                    
+                    updateThanhTien();
+                });
+            }
+        });
 
-void updateThanhTien() {
-    double tongTien = gettongTien();
-    double chietKhau = 0;
-    double tichDiem = 0;
+        // Lưu giá trị ban đầu của tích điểm
+        final String[] originalTichDiem = {txt_TichDiem.getText()};
 
-    // Cập nhật giá trị chiết khấu
-    if (!txt_ChietKhau.getText().isEmpty()) {
-        try {
-            chietKhau = Double.parseDouble(txt_ChietKhau.getText().replaceAll(",", ""));
-        } catch (NumberFormatException e) {
-            chietKhau = 0;
-        }
+        // Thay đổi thành tiền khi trạng thái của checkbox thay đổi
+        check_SuDung.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (check_SuDung.isSelected()) {
+                    // Lưu giá trị ban đầu
+                    originalTichDiem[0] = txt_TichDiem.getText();
+                    txt_TichDiem.setText(formatCurrency(0));
+                } else {
+                    // Hồi lại giá trị ban đầu
+                    txt_TichDiem.setText(originalTichDiem[0]);
+                }
+                updateThanhTien();
+            }
+        });
+
+        // Cập nhật thành tiền lần đầu khi dữ liệu được thiết lập
+        updateThanhTien();
     }
+    
+    void updateThanhTien() {
+        double tongTien = gettongTien();
+        double chietKhau = 0;
+        double tichDiem = 0;
 
-    // Cập nhật giá trị tích điểm nếu checkbox được chọn
-    if (check_SuDung.isSelected()) {
-        tichDiem = 0;
-    } else if (!txt_TichDiem.getText().isEmpty()) {
-        try {
-            tichDiem = Double.parseDouble(txt_TichDiem.getText().replaceAll(",", ""));
-        } catch (NumberFormatException e) {
+        // Cập nhật giá trị chiết khấu
+        if (!txt_ChietKhau.getText().isEmpty()) {
+            try {
+                chietKhau = Double.parseDouble(txt_ChietKhau.getText().replaceAll(",", ""));
+            } catch (NumberFormatException e) {
+                chietKhau = 0;
+            }
+        }
+
+        // Cập nhật giá trị tích điểm nếu checkbox được chọn
+        if (check_SuDung.isSelected()) {
             tichDiem = 0;
+        } else if (!txt_TichDiem.getText().isEmpty()) {
+            try {
+                tichDiem = Double.parseDouble(txt_TichDiem.getText().replaceAll(",", ""));
+            } catch (NumberFormatException e) {
+                tichDiem = 0;
+            }
         }
+
+        // Tính toán giá trị thành tiền
+        double thanhTien = tongTien - chietKhau - tichDiem;
+        txt_ThanhTien.setText(formatCurrency(thanhTien));
     }
-
-    // Tính toán giá trị thành tiền
-    double thanhTien = tongTien - chietKhau - tichDiem;
-    txt_ThanhTien.setText(formatCurrency(thanhTien));
-}
-
-private String formatCurrency(double value) {
-    DecimalFormat df = new DecimalFormat("#,##0.00");
-    return df.format(value);
-}
-
-
-
-
-
+    
+    private String formatCurrency(double value) {
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        return df.format(value);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -953,7 +947,7 @@ private String formatCurrency(double value) {
         rpbh.create();
         JOptionPane.showMessageDialog(null, "Tạo hóa đơn thành công");
         sbh.fillHoaDonCho(tbl_HoaDonCho);    }//GEN-LAST:event_btn_TaoHoaDonActionPerformed
-
+    
 
     private void tbl_DanhSachHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_DanhSachHoaDonMouseClicked
 
@@ -965,6 +959,7 @@ private String formatCurrency(double value) {
     }//GEN-LAST:event_tbl_HoaDonChoMouseClicked
 
     private void btn_XoaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaCTActionPerformed
+
         rhdct.delete(getidHoaDonChiTiet());
         sbh.fillHoaDonCho(tbl_HoaDonCho);
         sbh.fillHoaDonChiTietBH(tbl_GioHang, getIdHoaDonBanHang());
@@ -977,8 +972,26 @@ private String formatCurrency(double value) {
         JOptionPane.showMessageDialog(null, "Hủy Hóa Đơn Thành Công");    }//GEN-LAST:event_button2ActionPerformed
 
     private void btn_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThanhToanActionPerformed
-        rpbh.update(getIKhacHang(), getIDVoucher(), Double.parseDouble(txt_TongTien.getText()), Double.parseDouble(txt_ThanhTien.getText()), txt_MaHoaDon.getText());
-        JOptionPane.showMessageDialog(null, "The thanh cong");
+        // Replace commas and parse the number
+// Xử lý số liệu từ các trường text
+        double tongTien = Double.parseDouble(txt_TongTien.getText().replace(",", ""));
+        double thanhTien = Double.parseDouble(txt_ThanhTien.getText().replace(",", ""));
+
+// Cập nhật thông tin với các giá trị đã được xử lý
+        rpbh.update(getIKhacHang(), getIDVoucher(), tongTien, thanhTien, txt_MaHoaDon.getText());
+
+// Hiển thị thông báo thành công
+        JOptionPane.showMessageDialog(null, "Thao tác thành công");
+        txt_ChietKhau.setText("");
+        txt_DienThoai.setText("");
+        txt_KhachHang.setText("");
+        txt_TichDiem.setText("");
+        txt_MaHoaDon.setText("");
+        txt_ThanhTien.setText("");
+        txt_TongTien.setText("");
+        txt_Voucher1.setText("");
+        txt_ThanhTien.setText("");
+        check_SuDung.setSelected(false);
         sbh.fillHoaDonCho(tbl_HoaDonCho);
     }//GEN-LAST:event_btn_ThanhToanActionPerformed
 
@@ -988,7 +1001,7 @@ private String formatCurrency(double value) {
         tmkh.setVisible(true);
     }//GEN-LAST:event_btn_TimKHActionPerformed
     String IDKhachHang;
-
+    
     private String getIKhacHang() {
         for (KhachHang kh : rpkh.getAll()) {
             if (kh.getSoDienThoai().equals(txt_DienThoai.getText())) {
@@ -998,7 +1011,7 @@ private String formatCurrency(double value) {
         return IDKhachHang;
     }
     String IDVoucer;
-
+    
     private String getIDVoucher() {
         for (Voucher vc : kmrp.getAll()) {
             if (vc.getIDVoucher().equals(txt_Voucher1.getText()) && vc.isTrangThai()) {
