@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Component;
 import service.observer.Subject;
 import view.banhang.GiaoDienBanHang;
+import view.baohanh.GiaoDienBaoHanh;
 import view.khachhang.GiaoDienKhachHang;
 import view.khuyenmai.GiaoDienKhuyenMai;
 import view.nhanvien.GiaoDienNhanVien;
@@ -53,7 +54,9 @@ public class Main extends javax.swing.JFrame {
                     showForm(new GiaoDienKhachHang().getInstance());
                 } else if (index == 5) {
                     showForm(new GiaoDienKhuyenMai().getInstance());
-                } else if (index == 8) {
+                }else if (index == 7) {
+                    showForm(new GiaoDienBaoHanh());
+                }else if (index == 8) {
                     System.out.println("Logout");
                 } else {
                     showForm(new Form(index));

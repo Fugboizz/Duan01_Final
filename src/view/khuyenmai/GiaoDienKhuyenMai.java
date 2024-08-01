@@ -28,7 +28,7 @@ import raven.modal.Toast;
 import raven.modal.component.SimpleModalBorder;
 import repository.KhuyenMai.KhuyenMaiRepository;
 import service.observer.Observer;
-import view.doanhthu.JTableHeader;
+import view.form.JTableHeader;
 import view.main.Main;
 import view.until.sampletable.CheckBoxTableHeaderRenderer;
 import view.until.sampletable.TableHeaderAlignment;
