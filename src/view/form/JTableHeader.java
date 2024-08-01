@@ -1,6 +1,5 @@
 package view.form;
 
-import view.doanhthu.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import view.until.sampletable.*;
 import java.awt.Component;

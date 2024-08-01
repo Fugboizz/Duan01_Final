@@ -11,14 +11,16 @@ import java.util.Date;
  * @author WINDOWS10
  */
 public class BaoHanh {
-    private String IDBaoHanh ;
+    private String IDBaoHanh;
     private KhachHang IDKhachHang;
     private HoaDonChiTiet IDHoaDonChiTiet;
-    private Date NgayYeuCau ;
-    private String GhiChu ;
-    private Date NgayTao; 
-    private Date NgaySua ;
-    private boolean TrangThai ;
+    private Date NgayYeuCau;
+    private String GhiChu;
+    private Date NgayTao;
+    private Date NgaySua;
+    private boolean TrangThai;
+    private SanPham sanPham;
+    private KhachHang khachHang;
 
     public BaoHanh() {
     }
@@ -97,5 +99,20 @@ public class BaoHanh {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
+
+    public SanPham getSanPham() {
+        return sanPham;
+    }
+
+    public void setSanPham(SanPham sanPham) {
+        this.sanPham = sanPham;
+    }
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
+    }
 }
