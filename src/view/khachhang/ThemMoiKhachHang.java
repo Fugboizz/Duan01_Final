@@ -5,7 +5,7 @@
 package view.khachhang;
 
 
-import com.sun.java.swing.plaf.windows.resources.windows;
+//import com.sun.java.swing.plaf.windows.resources.windows;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Window;
