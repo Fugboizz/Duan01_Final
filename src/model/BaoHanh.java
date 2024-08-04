@@ -21,6 +21,8 @@ public class BaoHanh {
     private boolean TrangThai;
     private SanPham sanPham;
     private KhachHang khachHang;
+    
+    private HoaDonChiTiet hoaDonChiTiet;
 
     public BaoHanh() {
     }

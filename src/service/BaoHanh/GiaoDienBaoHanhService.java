@@ -4,11 +4,13 @@
  */
 package service.BaoHanh;
 
-import com.sun.org.apache.xalan.internal.XalanConstants;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.BaoHanh;
+import model.HoaDonChiTiet;
 import model.KhachHang;
 import model.SanPham;
 
@@ -16,7 +18,7 @@ import model.SanPham;
  *
  * @author nguyentrikhoi
  */
-public class GiaoDienSanPhamService implements GiaoDienBaoHanhServicInterface {
+public class GiaoDienBaoHanhService implements GiaoDienBaoHanhServicInterface {
 
     private DefaultTableModel model;
     private repository.BaoHanh.repoBaoHanh rpBH = new repository.BaoHanh.repoBaoHanh();
@@ -24,11 +26,11 @@ public class GiaoDienSanPhamService implements GiaoDienBaoHanhServicInterface {
     @Override
     public void fillToTable(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-        model.setRowCount(0);  // Xóa dữ liệu hiện tại trong bảng
+        model.setRowCount(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         int stt = 1;
         for (BaoHanh bh : rpBH.getAll()) {
-            // Lấy thông tin từ đối tượng BaoHanh
             String idBaoHanh = bh.getIDBaoHanh();
             KhachHang kh = bh.getKhachHang();
             String tenKhachHang = kh != null ? kh.getHoTen() : "";
@@ -38,9 +40,11 @@ public class GiaoDienSanPhamService implements GiaoDienBaoHanhServicInterface {
             String tenSanPham = sp != null ? sp.getTenSanPham() : "";
             String ghiChu = bh.getGhiChu();
             Date ngayTao = bh.getNgayYeuCau();
+            String formattedDate = sdf.format(ngayTao);
+
             boolean trangThai = bh.isTrangThai();
 
-            model.addRow(new Object[]{stt++, idBaoHanh, tenKhachHang, soDienThoai, diaChi, tenSanPham, ghiChu, ngayTao, trangThai ? "Đã Nhận" : "Đã Trả"});
+            model.addRow(new Object[]{stt++, idBaoHanh, tenKhachHang, soDienThoai, diaChi, tenSanPham, ghiChu, formattedDate, trangThai ? "Đã Nhận" : "Đã Trả"});
         }
     }
 

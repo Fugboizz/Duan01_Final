@@ -1,22 +1,63 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package view.baohanh;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.HoaDonChiTiet;
+
 /**
  *
- * @author HUNGpYN
+ * @author nguyentrikhoi
  */
-public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
+public class DanhSachSPBaoHanh extends javax.swing.JDialog {
+
+    private GiaoDienBaoHanh gdBH = new GiaoDienBaoHanh();
 
     /**
-     * Creates new form DanhSachBaoHanh
+     * Creates new form DanhSachSPBaoHanh
      */
-    public DanhSachSanPhamBaoHanh() {
+    public DanhSachSPBaoHanh(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+
     }
 
+    public void fillToTableSPBH(List<HoaDonChiTiet> lisdHDCT) {
+        DefaultTableModel model = (DefaultTableModel) tbl_SanPhamBaoHanh.getModel();
+        model.setRowCount(0);
+        int stt = 1;
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
+        for (HoaDonChiTiet hdCT : lisdHDCT) {
+            Date thoiHanBaoHanh = hdCT.getThoiHanBaoHanh();
+            boolean trangThai = thoiHanBaoHanh.after(currentDate);
+            String formattedDate = sdf.format(thoiHanBaoHanh);
+
+            model.addRow(new Object[]{stt++, hdCT.getIDSanPham().getIDSanPham(), hdCT.getIDSanPham().getTenSanPham(), formattedDate, trangThai ? "Còn Bảo Hành" : "Hết Hạn Bảo Hành"});
+        }
+    }
+    public String SanPhamDCBaoHanh() {
+        int index = tbl_SanPhamBaoHanh.getSelectedRow();
+        String tenSanPham = null;
+        if (index != -1) {
+            tenSanPham = tbl_SanPhamBaoHanh.getValueAt(index, 2).toString();
+            
+        }
+        return tenSanPham;
+    }
+    
+    public String layTenSanPhamDaChon() {
+    return SanPhamDCBaoHanh();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,11 +71,11 @@ public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         background1 = new view.until.swing.Background();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        button1 = new view.until.button.Button();
-        button2 = new view.until.button.Button();
+        tbl_SanPhamBaoHanh = new javax.swing.JTable();
+        btn_Chon = new view.until.button.Button();
+        btn_Huy = new view.until.button.Button();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Danh Sách Sản Phẩm Bảo Hành");
 
@@ -54,7 +95,7 @@ public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_SanPhamBaoHanh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -73,15 +114,27 @@ public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
-        }
+        tbl_SanPhamBaoHanh.getTableHeader().setReorderingAllowed(false);
+        tbl_SanPhamBaoHanh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_SanPhamBaoHanhMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_SanPhamBaoHanh);
 
-        button1.setText("Hủy");
+        btn_Chon.setText("Chọn");
+        btn_Chon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ChonActionPerformed(evt);
+            }
+        });
 
-        button2.setText("Chọn");
+        btn_Huy.setText("Hủy");
+        btn_Huy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_HuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout background1Layout = new javax.swing.GroupLayout(background1);
         background1.setLayout(background1Layout);
@@ -89,12 +142,12 @@ public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(background1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE))
             .addGroup(background1Layout.createSequentialGroup()
-                .addGap(222, 222, 222)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(192, 192, 192)
+                .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130)
+                .addComponent(btn_Chon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         background1Layout.setVerticalGroup(
@@ -103,10 +156,10 @@ public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Chon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -131,6 +184,22 @@ public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_ChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ChonActionPerformed
+        SanPhamDCBaoHanh();
+        dispose();
+            // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ChonActionPerformed
+
+    private void tbl_SanPhamBaoHanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_SanPhamBaoHanhMouseClicked
+        SanPhamDCBaoHanh();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbl_SanPhamBaoHanhMouseClicked
+
+    private void btn_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_HuyActionPerformed
+       dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_HuyActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -148,32 +217,38 @@ public class DanhSachSanPhamBaoHanh extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DanhSachSanPhamBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachSPBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DanhSachSanPhamBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachSPBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DanhSachSanPhamBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachSPBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DanhSachSanPhamBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachSPBaoHanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DanhSachSanPhamBaoHanh().setVisible(true);
+                DanhSachSPBaoHanh dialog = new DanhSachSPBaoHanh(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.until.swing.Background background1;
-    private view.until.button.Button button1;
-    private view.until.button.Button button2;
+    private view.until.button.Button btn_Chon;
+    private view.until.button.Button btn_Huy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbl_SanPhamBaoHanh;
     // End of variables declaration//GEN-END:variables
 }
