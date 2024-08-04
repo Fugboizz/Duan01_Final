@@ -6,6 +6,7 @@ package repository.BaoHanh;
 
 import java.util.List;
 import model.BaoHanh;
+import model.HoaDonChiTiet;
 
 /**
  *
@@ -13,7 +14,9 @@ import model.BaoHanh;
  */
 public interface InterfaceRepoBaoHanh {
     public List<BaoHanh> getAll();
-
+    
+    public List<HoaDonChiTiet> getSanPhamBaoHanh(String SoDienThoaiBaoHanh);
+    
     public int them(BaoHanh bh);
 
     public int capNhat(BaoHanh bh);

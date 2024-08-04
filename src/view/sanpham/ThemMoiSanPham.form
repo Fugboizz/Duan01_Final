@@ -82,7 +82,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabbedPaneCustom1" alignment="0" pref="787" max="32767" attributes="0"/>
+          <Component id="tabbedPaneCustom1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -94,9 +94,6 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
-        </Property>
-        <Property name="selectedColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="ff" red="ff" type="rgb"/>
         </Property>
       </Properties>
 
@@ -132,83 +129,114 @@
                       </Group>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txt_TonKho" max="32767" attributes="0"/>
-                                          <Component id="txt_GiaBan" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txt_KichThuocDa1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cbos_Size" alignment="0" pref="183" max="32767" attributes="0"/>
-                                          <Component id="cbo_MauSac" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cbo_KiemDinh" min="-2" pref="404" max="-2" attributes="0"/>
+                                          <Component id="cbo_LoaiDa1" min="-2" pref="162" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="rdoKinhDoanh" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                              <Component id="rdoNam" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                              <Component id="rdoNu" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="cbo_ChatLieu" min="-2" pref="202" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                              <Component id="txt_SoLuongDa" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="txt_TrongLuong" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="cbo_PhanLoai" alignment="0" pref="202" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace pref="76" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                      <Component id="rdoNam" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                      <Component id="rdoNu" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="txt_TenTrangSuc" min="-2" pref="444" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbo_LoaiDa1" min="-2" pref="183" max="-2" attributes="0"/>
-                                  <Component id="cbo_KiemDinh" min="-2" pref="438" max="-2" attributes="0"/>
-                                  <Component id="cbo_NhaCungCap" min="-2" pref="438" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="btnHuy" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                                       <Component id="btnLuu" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="cbo_NhaCungCap" min="-2" pref="404" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="txt_TonKho" min="-2" pref="162" max="-2" attributes="0"/>
+                                                      <Component id="txt_GiaBan" alignment="1" min="-2" pref="162" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="txt_KichThuocDa1" min="-2" pref="162" max="-2" attributes="0"/>
+                                                  <Component id="cbos_Size" min="-2" pref="162" max="-2" attributes="0"/>
+                                                  <Component id="cbo_MauSac" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="rdoKinhDoanh" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="rdoNgungKinhDoanh" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                                      <Component id="txt_SoLuongDa" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="cbo_ChatLieu" alignment="1" min="-2" pref="186" max="-2" attributes="0"/>
+                                                          <Component id="cbo_PhanLoai" alignment="1" min="-2" pref="186" max="-2" attributes="0"/>
+                                                          <Component id="txt_TrongLuong" alignment="1" min="-2" pref="186" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="txt_TenTrangSuc" min="-2" pref="414" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
                   </Group>
                   <Component id="pnl_ThemMoi" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -222,7 +250,7 @@
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txt_TenTrangSuc" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="txt_TenTrangSuc" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -230,28 +258,26 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="txt_GiaBan" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txt_TonKho" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                          <Component id="txt_SoLuongDa" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="txt_GiaBan" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="rdoNam" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="rdoNu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rdoNam" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txt_TonKho" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_SoLuongDa" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -260,12 +286,10 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txt_KichThuocDa1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="btn_ThemAnh" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txt_TrongLuong" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txt_TrongLuong" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_KichThuocDa1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_ThemAnh" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -274,8 +298,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbos_Size" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="cbo_PhanLoai" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="cbos_Size" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbo_PhanLoai" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -284,8 +308,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbo_MauSac" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="cbo_ChatLieu" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="cbo_MauSac" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbo_ChatLieu" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -293,25 +317,29 @@
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbo_LoaiDa1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="rdoKinhDoanh" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="cbo_LoaiDa1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="rdoNgungKinhDoanh" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rdoKinhDoanh" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cbo_KiemDinh" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="cbo_KiemDinh" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cbo_NhaCungCap" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="cbo_NhaCungCap" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnHuy" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnLuu" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -339,7 +367,7 @@
                 <Component class="javax.swing.JLabel" name="lbl_ThemMoi">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="18" style="1"/>
+                      <Font name="Tahoma" size="14" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Th&#xea;m M&#x1edb;i Trang S&#x1ee9;c"/>
@@ -349,224 +377,162 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="T&#xea;n Trang S&#x1ee9;c"/>
               </Properties>
             </Component>
             <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TenTrangSuc">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_TenTrangSucActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Gi&#xe1; B&#xe1;n"/>
               </Properties>
             </Component>
             <Component class="view.until.textfield.TextFieldSuggestion" name="txt_GiaBan">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh"/>
+              </Properties>
+            </Component>
+            <Component class="view.until.radiobutton.RadioButtonCustom" name="rdoNu">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
+              </Properties>
+            </Component>
+            <Component class="view.until.radiobutton.RadioButtonCustom" name="rdoNam">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nam"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="T&#x1ed3;n Kho"/>
               </Properties>
             </Component>
             <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TrongLuong">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1ed1; L&#x1b0;&#x1ee3;ng &#x110;&#xe1; Qu&#xfd;"/>
               </Properties>
             </Component>
             <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TonKho">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="K&#xed;ch Th&#x1b0;&#x1edb;c &#x110;&#xe1; Qu&#xfd;"/>
               </Properties>
             </Component>
             <Component class="view.until.textfield.TextFieldSuggestion" name="txt_SoLuongDa">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Tr&#x1ecd;ng L&#x1b0;&#x1ee3;ng"/>
               </Properties>
             </Component>
             <Component class="view.until.textfield.TextFieldSuggestion" name="txt_KichThuocDa1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Size"/>
               </Properties>
             </Component>
             <Component class="view.until.combobox.ComboBoxSuggestion" name="cbos_Size">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Ph&#xe2;n Lo&#x1ea1;i"/>
               </Properties>
             </Component>
             <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo_PhanLoai">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="M&#xe0;u S&#x1eaf;c"/>
               </Properties>
             </Component>
             <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo_KiemDinh">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Ch&#x1ea5;t Li&#x1ec7;u"/>
               </Properties>
             </Component>
             <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo_MauSac">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i &#x110;&#xe1;"/>
               </Properties>
             </Component>
             <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo_ChatLieu">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Ki&#x1ec3;m &#x110;&#x1ecb;nh"/>
               </Properties>
             </Component>
             <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo_LoaiDa1">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Nh&#xe0; Cung C&#x1ea5;p"/>
               </Properties>
             </Component>
             <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo_NhaCungCap">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i"/>
               </Properties>
+            </Component>
+            <Component class="view.until.radiobutton.RadioButtonCustom" name="rdoNgungKinhDoanh">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup2"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ng&#x1eeb;ng Kinh Doanh"/>
+              </Properties>
+            </Component>
+            <Component class="view.until.radiobutton.RadioButtonCustom" name="rdoKinhDoanh">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroup2"/>
+                </Property>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Kinh Doanh"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoKinhDoanhActionPerformed"/>
+              </Events>
             </Component>
             <Component class="view.until.button.Button" name="btn_ThemAnh">
               <Properties>
@@ -606,51 +572,6 @@
                 <Property name="text" type="java.lang.String" value="jLabel20"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="rdoNam">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Nam"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="rdoNu">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="rdoKinhDoanh">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup2"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Kinh Doanh"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton4">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup2"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Ng&#x1eeb;ng Kinh Doanh"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="Panel_ThemThuocTinh">
@@ -677,7 +598,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="materialTabbed1" pref="745" max="32767" attributes="0"/>
+                      <Component id="materialTabbed1" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -767,7 +688,7 @@
                                   <Component id="btnUpdatePL" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnAddPL" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="17" max="32767" attributes="0"/>
+                              <EmptySpace pref="58" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="374" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -952,7 +873,7 @@
                                   <Component id="btn_ThemCL" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" pref="284" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="325" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1122,7 +1043,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                               <Component id="btn_ThemS" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace pref="257" max="32767" attributes="0"/>
+                              <EmptySpace pref="247" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -1150,7 +1071,7 @@
                                   <Component id="btn_ThemS" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btn_UpdateSize" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="44" max="32767" attributes="0"/>
+                              <EmptySpace pref="85" max="32767" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" pref="329" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1298,7 +1219,7 @@
                                                       <Component id="txt_TenNhaCungCap" min="-2" pref="188" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace pref="80" max="32767" attributes="0"/>
+                                              <EmptySpace pref="70" max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1391,7 +1312,7 @@
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="18" pref="66" max="32767" attributes="0"/>
+                                      <EmptySpace min="18" pref="107" max="32767" attributes="0"/>
                                       <Component id="jScrollPane6" min="-2" pref="301" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -1629,7 +1550,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="253" max="32767" attributes="0"/>
+                              <EmptySpace pref="243" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1651,7 +1572,7 @@
                                   <Component id="rdo_HMS" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="rdo_NMS" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="43" max="32767" attributes="0"/>
+                              <EmptySpace pref="84" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btn_AddMS" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btn_UpdateMS" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1849,7 +1770,7 @@
                                   <Component id="btn_CapNhatNhaCungCap2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btn_DaQuy_them" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <EmptySpace pref="74" max="32767" attributes="0"/>
                               <Component id="jScrollPane9" min="-2" pref="345" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2013,7 +1934,7 @@
                                       <Component id="rdo_NKD" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="235" max="32767" attributes="0"/>
+                              <EmptySpace pref="225" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2036,7 +1957,7 @@
                               <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="24" pref="41" max="32767" attributes="0"/>
+                                      <EmptySpace min="24" pref="82" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="btn_CapNhatNhaCungCap3" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="bnt_Them_KiemDinh" alignment="3" min="-2" max="-2" attributes="0"/>
