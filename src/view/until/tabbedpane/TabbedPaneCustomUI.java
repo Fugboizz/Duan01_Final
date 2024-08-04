@@ -1,6 +1,5 @@
 package view.until.tabbedpane;
 
-import com.formdev.flatlaf.ui.FlatTabbedPaneUI;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -21,7 +20,7 @@ import view.until.tabbedpane.TabbedPaneCustom;
  *
  * @author RAVEN
  */
-public class TabbedPaneCustomUI extends FlatTabbedPaneUI {
+public class TabbedPaneCustomUI extends BasicTabbedPaneUI {
 
     private final TabbedPaneCustom tab;
 

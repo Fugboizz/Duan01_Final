@@ -14,4 +14,5 @@ import javax.swing.JTextField;
  */
 public interface GiaoDienBaoHanhServicInterface {
     public void fillToTable(JTable tbl);
+    
 }

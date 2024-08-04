@@ -1,5 +1,0 @@
-javaswingdev.SimpleButtonBar$1
-javaswingdev.SimpleButtonBar
-javaswingdev.SimpleButtonBar$4
-javaswingdev.SimpleButtonBar$2
-javaswingdev.SimpleButtonBar$3
