@@ -29,6 +29,11 @@ public class TaiKhoan {
     public TaiKhoan() {
     }
 
+    public TaiKhoan(String TaiKhoan, String SoDienThoai, String Email) {
+        this.TaiKhoan = TaiKhoan;
+        this.SoDienThoai = SoDienThoai;
+        this.Email = Email;
+    }
     public TaiKhoan(String IDTaiKhoan, String TaiKhoan, String MatKhau, String HoTen, String DiaChi, String SoDienThoai, String Email, Date NgaySinh, String HinhAnh, boolean ChucVu, boolean GioiTinh, Date NgayTao, Date NgaySua, boolean TrangThai) {
         this.IDTaiKhoan = IDTaiKhoan;
         this.TaiKhoan = TaiKhoan;
