@@ -30,7 +30,6 @@ public class test extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         tabbedPaneCustom1 = new view.until.tabbedpane.TabbedPaneCustom();
         jPanel5 = new javax.swing.JPanel();
-        giaoDienBaoHanh1 = new view.baohanh.GiaoDienBaoHanh();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -51,17 +50,11 @@ public class test extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(giaoDienBaoHanh1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 1016, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(giaoDienBaoHanh1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 572, Short.MAX_VALUE)
         );
 
         tabbedPaneCustom1.addTab("tab2", jPanel5);
@@ -120,7 +113,6 @@ public class test extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.baohanh.GiaoDienBaoHanh giaoDienBaoHanh1;
     private view.sanpham.GiaoDienSanPham giaoDienSanPham1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
