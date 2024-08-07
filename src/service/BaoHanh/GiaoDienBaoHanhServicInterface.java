@@ -4,8 +4,10 @@
  */
 package service.BaoHanh;
 
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -14,5 +16,6 @@ import javax.swing.JTextField;
  */
 public interface GiaoDienBaoHanhServicInterface {
     public void fillToTable(JTable tbl);
-    
+    public void addBaoHanh(JTextField TenKH,String SeriSp,String IDSp,String IDHDCT,JTextArea GhiChu, JTextField NgayTao, JRadioButton rdo1);
+    public void CapNhatBaoHanh(JLabel idBaoHanh, JTextArea GhiChuArea,JRadioButton rdo);
 }

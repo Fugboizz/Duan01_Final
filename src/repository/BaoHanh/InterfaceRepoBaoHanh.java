@@ -6,7 +6,6 @@ package repository.BaoHanh;
 
 import java.util.List;
 import model.BaoHanh;
-import model.HoaDonChiTiet;
 
 /**
  *
@@ -15,10 +14,11 @@ import model.HoaDonChiTiet;
 public interface InterfaceRepoBaoHanh {
     public List<BaoHanh> getAll();
     
-    public List<HoaDonChiTiet> getSanPhamBaoHanh(String SoDienThoaiBaoHanh);
+    public List<BaoHanh> getSanPhamBaoHanh(String soDienThoaiBaoHanh) ;
     
-    public int them(BaoHanh bh);
-
     public int capNhat(BaoHanh bh);
     
+    public boolean themBaoHanh(String idKhachHang,String SeriSp,String IDSanPham ,String idHoaDonChiTiet, java.sql.Date ngayYeuCau, String ghiChu, boolean trangThai);
+    
+    public boolean capNhatBaoHanh(String idBaoHanh, String ghiChu, boolean trangThai);
 }

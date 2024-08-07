@@ -13,29 +13,27 @@ import java.util.Date;
 public class BaoHanh {
     private String IDBaoHanh;
     private KhachHang IDKhachHang;
+    private SanPham IDSanPham ;
     private HoaDonChiTiet IDHoaDonChiTiet;
     private Date NgayYeuCau;
+    private Date NgayHenTra ;
     private String GhiChu;
-    private Date NgayTao;
-    private Date NgaySua;
     private boolean TrangThai;
-    private SanPham sanPham;
-    private KhachHang khachHang;
-    
-    private HoaDonChiTiet hoaDonChiTiet;
+    private SerialNumber IDSerialNumber;
 
     public BaoHanh() {
     }
 
-    public BaoHanh(String IDBaoHanh, KhachHang IDKhachHang, HoaDonChiTiet IDHoaDonChiTiet, Date NgayYeuCau, String GhiChu, Date NgayTao, Date NgaySua, boolean TrangThai) {
+    public BaoHanh(String IDBaoHanh, KhachHang IDKhachHang, SanPham IDSanPham, HoaDonChiTiet IDHoaDonChiTiet, Date NgayYeuCau, Date NgayHenTra, String GhiChu, boolean TrangThai, SerialNumber IDSerialNumber) {
         this.IDBaoHanh = IDBaoHanh;
         this.IDKhachHang = IDKhachHang;
+        this.IDSanPham = IDSanPham;
         this.IDHoaDonChiTiet = IDHoaDonChiTiet;
         this.NgayYeuCau = NgayYeuCau;
+        this.NgayHenTra = NgayHenTra;
         this.GhiChu = GhiChu;
-        this.NgayTao = NgayTao;
-        this.NgaySua = NgaySua;
         this.TrangThai = TrangThai;
+        this.IDSerialNumber = IDSerialNumber;
     }
 
     public String getIDBaoHanh() {
@@ -54,6 +52,14 @@ public class BaoHanh {
         this.IDKhachHang = IDKhachHang;
     }
 
+    public SanPham getIDSanPham() {
+        return IDSanPham;
+    }
+
+    public void setIDSanPham(SanPham IDSanPham) {
+        this.IDSanPham = IDSanPham;
+    }
+
     public HoaDonChiTiet getIDHoaDonChiTiet() {
         return IDHoaDonChiTiet;
     }
@@ -70,28 +76,20 @@ public class BaoHanh {
         this.NgayYeuCau = NgayYeuCau;
     }
 
+    public Date getNgayHenTra() {
+        return NgayHenTra;
+    }
+
+    public void setNgayHenTra(Date NgayHenTra) {
+        this.NgayHenTra = NgayHenTra;
+    }
+
     public String getGhiChu() {
         return GhiChu;
     }
 
     public void setGhiChu(String GhiChu) {
         this.GhiChu = GhiChu;
-    }
-
-    public Date getNgayTao() {
-        return NgayTao;
-    }
-
-    public void setNgayTao(Date NgayTao) {
-        this.NgayTao = NgayTao;
-    }
-
-    public Date getNgaySua() {
-        return NgaySua;
-    }
-
-    public void setNgaySua(Date NgaySua) {
-        this.NgaySua = NgaySua;
     }
 
     public boolean isTrangThai() {
@@ -102,19 +100,15 @@ public class BaoHanh {
         this.TrangThai = TrangThai;
     }
 
-    public SanPham getSanPham() {
-        return sanPham;
+    public SerialNumber getIDSerialNumber() {
+        return IDSerialNumber;
     }
 
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
+    public void setIDSerialNumber(SerialNumber IDSerialNumber) {
+        this.IDSerialNumber = IDSerialNumber;
     }
+    
+    
 
-    public KhachHang getKhachHang() {
-        return khachHang;
-    }
-
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
-    }
+   
 }

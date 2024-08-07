@@ -11,9 +11,8 @@ import java.sql.Date;
  * @author Admin
  */
 public class SanPham {
-
     private String IDSanPham;
-    private PhanLoai IDPhanLoai;
+    private PhanLoai IDPhanLoai ;
     private KiemDinh IDKIemDinh;
     private MauSac IDMauSac;
     private Size IDSize;
@@ -26,8 +25,8 @@ public class SanPham {
     private NhaCungCap IDNhaCungCap;
     private int SoLuongDaQuy;
     private float KichThuocDa;
-    private float TrongLuong;
-    private String HinhAnhSanPham;
+    private float TrongLuong ;
+    private String HinhAnhSanPham ;
     private DaQuy IDDaQuy;
     private Date NgaySua;
     private Date NgayTao;
@@ -58,7 +57,7 @@ public class SanPham {
         this.NgayTao = NgayTao;
         this.TrangThai = TrangThai;
     }
-
+    
 //    public SanPham(String TenSanPham, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
 //        this.TenSanPham = TenSanPham;
 //        this.SoLuongTonKho = SoLuongTonKho;
@@ -66,6 +65,7 @@ public class SanPham {
 //        this.IDGiamGia = IDGiamGia;
 //        this.HinhAnhSanPham = HinhAnhSanPham;
 //    }
+
     public SanPham(String IDSanPham, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
         this.IDSanPham = IDSanPham;
         this.SoLuongTonKho = SoLuongTonKho;
@@ -73,6 +73,8 @@ public class SanPham {
         this.IDGiamGia = IDGiamGia;
         this.HinhAnhSanPham = HinhAnhSanPham;
     }
+    
+    
 
     public String getIDSanPham() {
         return IDSanPham;
@@ -234,5 +236,6 @@ public class SanPham {
         this.TrangThai = TrangThai;
     }
 
-
+    
+    
 }

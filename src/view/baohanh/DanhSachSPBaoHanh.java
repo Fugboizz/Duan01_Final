@@ -6,9 +6,14 @@ package view.baohanh;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import model.BaoHanh;
 import model.HoaDonChiTiet;
 
 /**
@@ -29,35 +34,70 @@ public class DanhSachSPBaoHanh extends javax.swing.JDialog {
 
     }
 
-    public void fillToTableSPBH(List<HoaDonChiTiet> lisdHDCT) {
+    public void fillToTableSPBH(List<BaoHanh> lstbh) {
         DefaultTableModel model = (DefaultTableModel) tbl_SanPhamBaoHanh.getModel();
         model.setRowCount(0);
-        int stt = 1;
-        Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-
-        for (HoaDonChiTiet hdCT : lisdHDCT) {
-            Date thoiHanBaoHanh = hdCT.getThoiHanBaoHanh();
-            boolean trangThai = thoiHanBaoHanh.after(currentDate);
+        for (BaoHanh bh : lstbh) {
+            Date thoiHanBaoHanh = bh.getIDSerialNumber().getThoiGianBaoHanh();
+            Date ngayMua = bh.getIDHoaDonChiTiet().getNgayTao();
             String formattedDate = sdf.format(thoiHanBaoHanh);
-
-            model.addRow(new Object[]{stt++, hdCT.getIDSanPham().getIDSanPham(), hdCT.getIDSanPham().getTenSanPham(), formattedDate, trangThai ? "Còn Bảo Hành" : "Hết Hạn Bảo Hành"});
+            String formattedDate2 = sdf.format(ngayMua);
+            model.addRow(new Object[]{ bh.getIDHoaDonChiTiet().getIDHoaDonChiTiet(), bh.getIDSerialNumber().getIDSerialNumber(),bh.getIDSanPham().getIDSanPham(),bh.getIDSanPham().getTenSanPham(), formattedDate,formattedDate2 ,bh.getIDSerialNumber().getTrangThai() ? "Còn Bảo Hành" : "Hết Hạn Bảo Hành"});
         }
     }
+
     public String SanPhamDCBaoHanh() {
         int index = tbl_SanPhamBaoHanh.getSelectedRow();
-        String tenSanPham = null;
-        if (index != -1) {
-            tenSanPham = tbl_SanPhamBaoHanh.getValueAt(index, 2).toString();
-            
+        String maSanPham = null;
+        if (index == -1) {
+            return null;
         }
-        return tenSanPham;
+        String trangThaiBaoHanh = tbl_SanPhamBaoHanh.getValueAt(index, 6).toString();
+        if (trangThaiBaoHanh.equals("Hết Hạn Bảo Hành")) {
+            JOptionPane.showMessageDialog(this, "Sản phẩm đã hết hạn không được chọn.");
+            tbl_SanPhamBaoHanh.clearSelection();
+
+        } else {
+            maSanPham = tbl_SanPhamBaoHanh.getValueAt(index, 2).toString();
+        }
+        return maSanPham;
+    }
+    public String HDCTBaoHanh() {
+        int index = tbl_SanPhamBaoHanh.getSelectedRow();
+        String maHDCT = null;
+        if (index == -1) {
+            return null;
+        }
+        String trangThaiBaoHanh = tbl_SanPhamBaoHanh.getValueAt(index, 6).toString();
+        if (trangThaiBaoHanh.equals("Hết Hạn Bảo Hành")) {
+            return null;
+
+        } else {
+            maHDCT = tbl_SanPhamBaoHanh.getValueAt(index, 0).toString();
+        }
+        return maHDCT;
     }
     
+       public String SeriBaoHanh() {
+        int index = tbl_SanPhamBaoHanh.getSelectedRow();
+        String maSeri = null;
+        if (index == -1) {
+            return null;
+        }
+        String trangThaiBaoHanh = tbl_SanPhamBaoHanh.getValueAt(index, 6).toString();
+        if (trangThaiBaoHanh.equals("Hết Hạn Bảo Hành")) {
+            return null;
+
+        } else {
+            maSeri = tbl_SanPhamBaoHanh.getValueAt(index, 1).toString();
+        }
+        return maSeri;
+    }
     public String layTenSanPhamDaChon() {
-    return SanPhamDCBaoHanh();
-}
+        return SanPhamDCBaoHanh();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,17 +137,17 @@ public class DanhSachSPBaoHanh extends javax.swing.JDialog {
 
         tbl_SanPhamBaoHanh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Thời Hạn Bảo Hành", "Trạng Thái"
+                "Mã Hoá Đơn Chi Tiết", "Mã Seri Sản Phẩm", "Mã Sản Phẩm", "Tên Sản Phẩm", "Thời Hạn Bảo Hành", "Ngày Mua", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -141,14 +181,15 @@ public class DanhSachSPBaoHanh extends javax.swing.JDialog {
         background1Layout.setHorizontalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(background1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE))
-            .addGroup(background1Layout.createSequentialGroup()
-                .addGap(192, 192, 192)
+                .addContainerGap(292, Short.MAX_VALUE)
                 .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
+                .addGap(251, 251, 251)
                 .addComponent(btn_Chon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(246, 246, 246))
+            .addGroup(background1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         background1Layout.setVerticalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,9 +226,9 @@ public class DanhSachSPBaoHanh extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ChonActionPerformed
-        SanPhamDCBaoHanh();
+//        SanPhamDCBaoHanh();
         dispose();
-            // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_btn_ChonActionPerformed
 
     private void tbl_SanPhamBaoHanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_SanPhamBaoHanhMouseClicked
@@ -196,7 +237,7 @@ public class DanhSachSPBaoHanh extends javax.swing.JDialog {
     }//GEN-LAST:event_tbl_SanPhamBaoHanhMouseClicked
 
     private void btn_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_HuyActionPerformed
-       dispose();
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_HuyActionPerformed
 

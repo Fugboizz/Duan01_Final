@@ -137,10 +137,18 @@ public class LineChart extends javax.swing.JPanel {
     public void addData(ModelChart data) {
         model.add(data);
         blankPlotChart.setLabelCount(model.size());
-        double max = data.getMaxValues();
-        if (max > blankPlotChart.getMaxValues()) {
-            blankPlotChart.setMaxValues(max);
+        updateYAxis(); // Cập nhật lại trục Y sau khi thêm dữ liệu
+    }
+
+    public void updateYAxis() {
+        double max = 0;
+        for (ModelChart data : model) {
+            double maxValue = data.getMaxValues();
+            if (maxValue > max) {
+                max = maxValue;
+            }
         }
+        blankPlotChart.setMaxValues(max);
     }
 
     public void clear() {
@@ -153,6 +161,7 @@ public class LineChart extends javax.swing.JPanel {
 
     public void start() {
         showLabel = null;
+        updateYAxis(); // Cập nhật lại trục Y khi bắt đầu
         if (!animator.isRunning()) {
             animator.start();
         }

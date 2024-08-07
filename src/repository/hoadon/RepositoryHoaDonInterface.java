@@ -5,6 +5,7 @@
 package repository.hoadon;
 
 import java.util.List;
+import model.GiaoDien.DoanhThuModel;
 import model.HoaDon;
 
 /**
@@ -16,4 +17,8 @@ public interface RepositoryHoaDonInterface {
       public int create();
        public int update(String idkhach, String IDvoucher ,double tongTienTruoc,double tongTienSau,String idhoadon);
       public int delete(String text);
+      public List<HoaDon> getAllDT();
+      public List<HoaDon> getDoanhThuTheoKhoangThoiGian(DoanhThuModel dtmd);
+      public List<DoanhThuModel> findByDate(DoanhThuModel dtmd) ;
+       public List<DoanhThuModel> getDoanhThuByMonthAndYear();
 }

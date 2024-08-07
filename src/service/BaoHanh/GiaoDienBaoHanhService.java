@@ -4,15 +4,22 @@
  */
 package service.BaoHanh;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.BaoHanh;
 import model.HoaDonChiTiet;
 import model.KhachHang;
 import model.SanPham;
+import repository.KhachHang.repoKhachHang;
 
 /**
  *
@@ -20,6 +27,7 @@ import model.SanPham;
  */
 public class GiaoDienBaoHanhService implements GiaoDienBaoHanhServicInterface {
 
+    private repository.KhachHang.repoKhachHang rpKh = new repoKhachHang();
     private DefaultTableModel model;
     private repository.BaoHanh.repoBaoHanh rpBH = new repository.BaoHanh.repoBaoHanh();
 
@@ -32,19 +40,104 @@ public class GiaoDienBaoHanhService implements GiaoDienBaoHanhServicInterface {
         int stt = 1;
         for (BaoHanh bh : rpBH.getAll()) {
             String idBaoHanh = bh.getIDBaoHanh();
-            KhachHang kh = bh.getKhachHang();
+            KhachHang kh = bh.getIDKhachHang();
             String tenKhachHang = kh != null ? kh.getHoTen() : "";
             String soDienThoai = kh != null ? kh.getSoDienThoai() : "";
             String diaChi = kh != null ? kh.getDiaChi() : "";
-            SanPham sp = bh.getSanPham();
+            SanPham sp = bh.getIDSanPham();
             String tenSanPham = sp != null ? sp.getTenSanPham() : "";
             String ghiChu = bh.getGhiChu();
             Date ngayTao = bh.getNgayYeuCau();
-            String formattedDate = sdf.format(ngayTao);
-
+            String formattedDate1 = sdf.format(ngayTao);
             boolean trangThai = bh.isTrangThai();
 
-            model.addRow(new Object[]{stt++, idBaoHanh, tenKhachHang, soDienThoai, diaChi, tenSanPham, ghiChu, formattedDate, trangThai ? "Đã Nhận" : "Đã Trả"});
+            model.addRow(new Object[]{stt++, idBaoHanh, tenKhachHang, soDienThoai, diaChi, tenSanPham, ghiChu, formattedDate1, trangThai ? "Đã Trả" : "Đã Nhận"});
+        }
+    }
+
+    @Override
+    public void addBaoHanh(JTextField TenKH, String SeriSp, String IDSp, String IDHDCT, JTextArea GhiChu, JTextField NgayTao, JRadioButton rdo1) {
+        // Kiểm tra tên khách hàng
+        if (TenKH.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên khách hàng không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Kiểm tra ngày tạo
+        if (NgayTao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ngày tạo không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Tìm ID khách hàng dựa trên tên
+        String IDKH = null;
+        for (KhachHang kh : rpKh.getAll()) {
+            if (TenKH.getText().trim().equals(kh.getHoTen())) {
+                IDKH = kh.getIDKhachHang();
+                break;
+            }
+        }
+
+        if (IDKH == null) {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy khách hàng với tên này.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Chuyển đổi ngày từ String sang java.sql.Date
+        java.sql.Date NgayTaoSql = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            dateFormat.setLenient(false);
+            java.util.Date utilDateStart1 = dateFormat.parse(NgayTao.getText().trim());
+            NgayTaoSql = new java.sql.Date(utilDateStart1.getTime());
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Ngày không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Thực hiện thêm bảo hành
+        boolean isSuccess = rpBH.themBaoHanh(
+                IDKH, SeriSp, IDSp,
+                IDHDCT,
+                NgayTaoSql,
+                GhiChu.getText(),
+                rdo1.isSelected()
+        );
+
+        if (isSuccess) {
+            JOptionPane.showMessageDialog(null, "Thêm bảo hành thành công.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm bảo hành thất bại.");
+        }
+    }
+
+    @Override
+    public void CapNhatBaoHanh(JLabel idBaoHanh, JTextArea GhiChuArea, JRadioButton rdo) {
+        String idBaoHanhText = idBaoHanh.getText().trim();
+        String ghiChuText = GhiChuArea.getText().trim();
+        boolean trangThai = rdo.isSelected() ? true : false;
+
+        // Kiểm tra idBaoHanh không được rỗng và có độ dài hợp lệ (ví dụ: 6 ký tự)
+        if (idBaoHanhText.isEmpty() || idBaoHanhText.length() != 6) {
+            JOptionPane.showMessageDialog(null, "ID Bảo Hành không hợp lệ. Vui lòng nhập ID có độ dài 6 ký tự.");
+            return;
+        }
+
+        // Kiểm tra ghi chú không được rỗng và độ dài không vượt quá 100 ký tự
+        if (ghiChuText.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ghi Chú không được để trống.");
+            return;
+        }
+        if (ghiChuText.length() > 100) {
+            JOptionPane.showMessageDialog(null, "Ghi Chú quá dài. Vui lòng nhập ít hơn 100 ký tự.");
+            return;
+        }
+
+        boolean isSuccess = rpBH.capNhatBaoHanh(idBaoHanhText, ghiChuText, trangThai);
+        if (isSuccess) {
+            JOptionPane.showMessageDialog(null, "Cập Nhật bảo hành thành công.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Cập Nhật bảo hành thất bại.");
         }
     }
 

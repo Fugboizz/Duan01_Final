@@ -32,7 +32,7 @@ public class ModelChart {
     public double getMaxValues() {
         double max = 0;
         for (double v : values) {
-            if (v > max) {
+            if (v >= max) {
                 max = v;
             }
         }

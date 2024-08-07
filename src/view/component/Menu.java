@@ -41,9 +41,7 @@ public class Menu extends javax.swing.JPanel {
         addEmpty();
         addMenu(new ImageIcon(getClass().getResource("/Icon/sale.png")), "Giảm Giá", 5);
         addEmpty();
-        addMenu(new ImageIcon(getClass().getResource("/Icon/yeucau.png")), "Hàng Yêu Cầu", 6);
-        addEmpty();
-        addMenu(new ImageIcon(getClass().getResource("/Icon/baohanh.png")), "Bảo Hành", 7);
+        addMenu(new ImageIcon(getClass().getResource("/Icon/baohanh.png")), "Bảo Hành", 6);
         addEmpty();
        }
 

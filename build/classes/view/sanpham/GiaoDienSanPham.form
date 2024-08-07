@@ -33,7 +33,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" pref="443" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" pref="446" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,7 +82,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="T&#x1ea1;o M&#x1edb;i"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="1"/>
+              <Font name="Roboto" size="14" style="1"/>
             </Property>
           </Properties>
           <Events>
@@ -128,7 +128,7 @@
                       </Group>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -143,13 +143,17 @@
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbosLoaiTrangSuc" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbosTrangThai" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbosGioiTinh" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_TimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_TimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_Excel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btn_TimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_Excel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="txt_TimKiem" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="cbosLoaiTrangSuc" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="cbosGioiTinh" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="cbosTrangThai" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
@@ -159,16 +163,25 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="12" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i Trang S&#x1ee9;c"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="12" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="12" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i"/>
           </Properties>
         </Component>
@@ -217,6 +230,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="12" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="T&#xea;n Trang S&#x1ee9;c"/>
           </Properties>
         </Component>
@@ -229,7 +245,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#xec;m Ki&#x1ebf;m"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="1"/>
+              <Font name="Roboto" size="12" style="1"/>
             </Property>
           </Properties>
           <Events>

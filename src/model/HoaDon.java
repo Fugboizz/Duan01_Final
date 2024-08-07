@@ -22,7 +22,8 @@ public class HoaDon {
     private Date NgaySua;
     private boolean TrangThai;
     private boolean TrangThaiTichDiem;
-   
+    private int SoLuongDon;
+    private double GiamGiaSanPham;
 
     public HoaDon() {
     }
@@ -116,6 +117,23 @@ public class HoaDon {
         return TrangThaiTichDiem;
     }
 
+    public int getSoLuongDon() {
+        return SoLuongDon;
+    }
+
+    public void setSoLuongDon(int SoLuongDon) {
+        this.SoLuongDon = SoLuongDon;
+    }
+
+    public double getGiamGiaSanPham() {
+        return GiamGiaSanPham;
+    }
+
+    public void setGiamGiaSanPham(double GiamGiaSanPham) {
+        this.GiamGiaSanPham = GiamGiaSanPham;
+    }
+    
+    
     public void setTrangThaiTichDiem(boolean TrangThaiTichDiem) {
         this.TrangThaiTichDiem = TrangThaiTichDiem;
     }
