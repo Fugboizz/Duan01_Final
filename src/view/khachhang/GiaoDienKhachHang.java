@@ -134,11 +134,12 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
         jLabel3 = new javax.swing.JLabel();
         cboxTrangThai = new view.until.combobox.ComboBoxSuggestion();
         btn_TimKiem = new view.until.button.Button();
-        btn_Excel = new view.until.button.Button();
+        btn_LamMoi = new view.until.button.Button();
         jSeparator1 = new javax.swing.JSeparator();
         scrollKH = new javax.swing.JScrollPane();
         tbl_KhachHang = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        btn_Excel1 = new view.until.button.Button();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1013, 612));
@@ -178,7 +179,6 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        txt_TimKiem.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_TimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_TimKiemActionPerformed(evt);
@@ -193,7 +193,6 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
 
         cboxTrangThai.setEditable(false);
         cboxTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Hoạt Động", "Ngừng Hoạt Động" }));
-        cboxTrangThai.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         cboxTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxTrangThaiActionPerformed(evt);
@@ -210,12 +209,12 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
             }
         });
 
-        btn_Excel.setBorder(null);
-        btn_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
-        btn_Excel.setColor1(new java.awt.Color(16, 24, 32));
-        btn_Excel.addActionListener(new java.awt.event.ActionListener() {
+        btn_LamMoi.setBorder(null);
+        btn_LamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lammoi.png"))); // NOI18N
+        btn_LamMoi.setColor1(new java.awt.Color(16, 24, 32));
+        btn_LamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ExcelActionPerformed(evt);
+                btn_LamMoiActionPerformed(evt);
             }
         });
 
@@ -249,6 +248,15 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel5.setText("Danh Sách Khách Hàng");
 
+        btn_Excel1.setBorder(null);
+        btn_Excel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
+        btn_Excel1.setColor1(new java.awt.Color(16, 24, 32));
+        btn_Excel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Excel1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,16 +277,18 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
                                         .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(76, 76, 76)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addComponent(cboxTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(69, 69, 69)
+                                        .addGap(32, 32, 32)
                                         .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3)))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_Excel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 285, Short.MAX_VALUE)))
+                        .addGap(0, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -295,16 +305,20 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cboxTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(cboxTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_Excel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btn_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollKH, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(scrollKH, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -326,9 +340,12 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxTrangThaiActionPerformed
 
-    private void btn_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcelActionPerformed
+    private void btn_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_ExcelActionPerformed
+        cboxTrangThai.setSelectedIndex(1);
+        txt_TimKiem.setText("");
+        khsv.fillToTable(tbl_KhachHang);
+    }//GEN-LAST:event_btn_LamMoiActionPerformed
 
     private void btn_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemActionPerformed
         GiaoDienKhachHangModel gdmd = new GiaoDienKhachHangModel();
@@ -339,9 +356,14 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
         khsv.fillToCheck(tbl_KhachHang, gdmd);
     }//GEN-LAST:event_btn_TimKiemActionPerformed
 
+    private void btn_Excel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Excel1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Excel1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.until.button.Button btn_Excel;
+    private view.until.button.Button btn_Excel1;
+    private view.until.button.Button btn_LamMoi;
     private view.until.button.Button btn_TaoMoi;
     private view.until.button.Button btn_TimKiem;
     private view.until.combobox.ComboBoxSuggestion cboxTrangThai;

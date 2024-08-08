@@ -227,6 +227,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         jLabel18 = new javax.swing.JLabel();
         rdo_DungHoatDong = new javax.swing.JRadioButton();
         rdo_HoatDong = new javax.swing.JRadioButton();
+        btn_LamMoiTimKiem = new view.until.button.Button();
         jPanel2 = new javax.swing.JPanel();
         panel_SPGiamGia = new javax.swing.JPanel();
         scrollSPGG = new javax.swing.JScrollPane();
@@ -239,6 +240,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         txt_LoaiTS = new view.until.textfield.TextFieldSuggestion();
         btn_ThemSPGiamGia = new view.until.button.Button();
         btn_XoaSPGiamGia = new view.until.button.Button();
+        btn_LamMoiGiamGia = new view.until.button.Button();
         pnl_ThemGiamGia = new javax.swing.JPanel();
         btn_Them1 = new view.until.button.Button();
         btn_CapNhat1 = new view.until.button.Button();
@@ -264,6 +266,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         btn_TimKiemSP1 = new view.until.button.Button();
         txt_TenGiamGia = new view.until.textfield.TextFieldSuggestion();
         jLabel19 = new javax.swing.JLabel();
+        btn_LamMoiGiamGia1 = new view.until.button.Button();
 
         dateChooserStart.setTextRefernce(txt_NgayBatDau);
 
@@ -277,13 +280,11 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txt_NgayBatDau.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel9.setText("Trạng Thái:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Danh Sách Voucher");
 
         txt_timKiem.addActionListener(new java.awt.event.ActionListener() {
@@ -341,29 +342,23 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel2.setText("Tên Voucher:");
 
-        txt_TenVourcher.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel4.setText("Ngày Bắt Đầu:");
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel5.setText("Ngày Kết Thúc:");
 
-        txt_TyLe.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_TyLe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_TyLeActionPerformed(evt);
             }
         });
 
-        txt_NgayKetThuc.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel7.setText("Tỷ Lệ:");
 
         scrollVC.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        tbl_Voucher.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         tbl_Voucher.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -395,7 +390,6 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
 
         lbl_MaVoucher.setEditable(false);
         lbl_MaVoucher.setFocusable(false);
-        lbl_MaVoucher.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         lbl_MaVoucher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lbl_MaVoucherActionPerformed(evt);
@@ -406,7 +400,6 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         jLabel18.setText("Mã Voucher");
 
         buttonGroup1.add(rdo_DungHoatDong);
-        rdo_DungHoatDong.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         rdo_DungHoatDong.setText("Kết Thúc");
         rdo_DungHoatDong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -415,9 +408,21 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         });
 
         buttonGroup1.add(rdo_HoatDong);
-        rdo_HoatDong.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         rdo_HoatDong.setSelected(true);
         rdo_HoatDong.setText("Hoạt Động");
+
+        btn_LamMoiTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lammoi.png"))); // NOI18N
+        btn_LamMoiTimKiem.setColor1(new java.awt.Color(16, 24, 32));
+        btn_LamMoiTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_LamMoiTimKiemMouseClicked(evt);
+            }
+        });
+        btn_LamMoiTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LamMoiTimKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -429,6 +434,9 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(scrollVC)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -438,11 +446,10 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                                 .addGap(6, 6, 6)
                                 .addComponent(txt_timKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
+                                .addComponent(btn_LamMoiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btn_TimKiemV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(scrollVC)
-                        .addContainerGap())))
+                        .addGap(39, 39, 39))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -513,16 +520,21 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                     .addComponent(btn_Them, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_TimKiemV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_timKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollVC, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_TimKiemV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_LamMoiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txt_timKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scrollVC, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -586,7 +598,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SELECT", "#", "Mã Giảm Giá", "Mã Sản Phẩm", "Tên Phân Loại", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Tỷ Lệ Giảm Giá (%)"
+                "SELECT", "STT", "Mã Giảm Giá", "Mã Sản Phẩm", "Tên Phân Loại", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Tỷ Lệ Giảm Giá (%)"
             }
         ) {
             Class[] types = new Class [] {
@@ -608,7 +620,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         scrollSPGG.setViewportView(tbl_SPGiamGia);
         if (tbl_SPGiamGia.getColumnModel().getColumnCount() > 0) {
             tbl_SPGiamGia.getColumnModel().getColumn(0).setMaxWidth(50);
-            tbl_SPGiamGia.getColumnModel().getColumn(1).setMaxWidth(70);
+            tbl_SPGiamGia.getColumnModel().getColumn(1).setMaxWidth(50);
         }
 
         cbosMaGiamGia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả" }));
@@ -626,7 +638,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         });
 
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Trang Sức Giảm Giá");
 
         lbl_tilte.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
@@ -652,6 +664,15 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
             }
         });
 
+        btn_LamMoiGiamGia.setBorder(null);
+        btn_LamMoiGiamGia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lammoi.png"))); // NOI18N
+        btn_LamMoiGiamGia.setColor1(new java.awt.Color(16, 24, 32));
+        btn_LamMoiGiamGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LamMoiGiamGiaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_SPGiamGiaLayout = new javax.swing.GroupLayout(panel_SPGiamGia);
         panel_SPGiamGia.setLayout(panel_SPGiamGiaLayout);
         panel_SPGiamGiaLayout.setHorizontalGroup(
@@ -670,9 +691,11 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                     .addComponent(lbl_tilte)
                     .addGroup(panel_SPGiamGiaLayout.createSequentialGroup()
                         .addComponent(cbosMaGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(btn_LamMoiGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_TimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addComponent(btn_ThemSPGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(btn_XoaSPGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -702,11 +725,13 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                             .addComponent(btn_XoaSPGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_SPGiamGiaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btn_TimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12)
+                        .addGroup(panel_SPGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_TimKiemSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_LamMoiGiamGia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(scrollSPGG, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollSPGG, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
 
@@ -816,7 +841,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "#", "Mã Giảm Giá", "Tên Giảm Giá", "Tỷ Lệ (%)", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Trạng Thái"
+                "STT", "Mã Giảm Giá", "Tên Giảm Giá", "Tỷ Lệ (%)", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -833,6 +858,9 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
             }
         });
         scroll_GiamGia.setViewportView(tbl_GiamGia);
+        if (tbl_GiamGia.getColumnModel().getColumnCount() > 0) {
+            tbl_GiamGia.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
         cbo__trangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Hoạt Động", "Ngừng Hoạt Động" }));
         cbo__trangThai.addActionListener(new java.awt.event.ActionListener() {
@@ -864,6 +892,15 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
 
         jLabel19.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel19.setText("Danh Sách Mã Giảm Giá");
+
+        btn_LamMoiGiamGia1.setBorder(null);
+        btn_LamMoiGiamGia1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lammoi.png"))); // NOI18N
+        btn_LamMoiGiamGia1.setColor1(new java.awt.Color(16, 24, 32));
+        btn_LamMoiGiamGia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LamMoiGiamGia1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_ThemGiamGiaLayout = new javax.swing.GroupLayout(pnl_ThemGiamGia);
         pnl_ThemGiamGia.setLayout(pnl_ThemGiamGiaLayout);
@@ -924,9 +961,11 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                             .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(cbo__trangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_LamMoiGiamGia1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(100, Short.MAX_VALUE))
                     .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(scroll_GiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
@@ -949,17 +988,18 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
                         .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txt_TenGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel17)
                     .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_maGiamGiaTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbo__trangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnl_ThemGiamGiaLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_maGiamGiaTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbo__trangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btn_LamMoiGiamGia1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
                         .addComponent(jLabel19)))
                 .addGap(6, 6, 6)
                 .addGroup(pnl_ThemGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1004,7 +1044,7 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnl_ThemGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnl_ThemGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 299, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_SPGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1319,6 +1359,30 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TenGiamGiaActionPerformed
 
+    private void btn_LamMoiTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LamMoiTimKiemMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_LamMoiTimKiemMouseClicked
+
+    private void btn_LamMoiTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiTimKiemActionPerformed
+        // TODO add your handling code here:
+        txt_timKiem.setText("");
+        qlKm.fillToTable(tbl_Voucher);
+    }//GEN-LAST:event_btn_LamMoiTimKiemActionPerformed
+
+    private void btn_LamMoiGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiGiamGiaActionPerformed
+        // TODO add your handling code here:
+        cbosMaGiamGia.setSelectedIndex(0);
+        txt_LoaiTS.setText("");
+        qlKm.fillTableGiamGiaSP(tbl_SPGiamGia);
+    }//GEN-LAST:event_btn_LamMoiGiamGiaActionPerformed
+
+    private void btn_LamMoiGiamGia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiGiamGia1ActionPerformed
+        // TODO add your handling code here:
+        cbo__trangThai.setSelectedIndex(0);
+        txt_MaGiamGia.setText("");
+        qlKm.fillTableGiamGia(tbl_GiamGia);
+    }//GEN-LAST:event_btn_LamMoiGiamGia1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton btnHD;
@@ -1327,6 +1391,9 @@ public class GiaoDienKhuyenMai extends javax.swing.JPanel implements Observer {
     private view.until.button.Button btn_CapNhat1;
     private view.until.button.Button btn_LamMoi;
     private view.until.button.Button btn_LamMoi1;
+    private view.until.button.Button btn_LamMoiGiamGia;
+    private view.until.button.Button btn_LamMoiGiamGia1;
+    private view.until.button.Button btn_LamMoiTimKiem;
     private view.until.button.Button btn_Them;
     private view.until.button.Button btn_Them1;
     private view.until.button.Button btn_ThemSPGiamGia;

@@ -17,6 +17,6 @@ import javax.swing.JTextField;
 public interface GiaoDienBaoHanhServicInterface {
     public void fillToTable(JTable tbl);
     public void addBaoHanh(JTextField TenKH,String SeriSp,String IDSp,String IDHDCT,JTextArea GhiChu, JTextField NgayTao, JRadioButton rdo1);
-    public void CapNhatBaoHanh(JLabel idBaoHanh, JTextArea GhiChuArea,JRadioButton rdo);
+    public void CapNhatBaoHanh(JTextField idBaoHanh, JTextArea GhiChuArea,JRadioButton rdo);
     public void fillByCondition(JTable tbl, JTextField TuNgay, JTextField ToiNgay,JTextField SDT) ;
 }

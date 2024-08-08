@@ -52,13 +52,13 @@ public class RepositoryHoaDon implements RepositoryHoaDonInterface {
     }
 
     @Override
-    public int create() {
+    public int create(String tk) {
         sql = "insert into HoaDon(IDTaiKhoan,TrangThai,TrangThaiTichDiem) values(?,?,?)";
         try {
             con = jdbc.getConnection();
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
-            pre.setString(1, "TK0001");
+            pre.setString(1,tk );
             pre.setBoolean(2, false);
             pre.setBoolean(3, true);
             return pre.executeUpdate();

@@ -87,6 +87,7 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
         btn_Luu = new view.until.button.Button();
         jLabel7 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        btn_TimKiemSP1 = new view.until.button.Button();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -170,8 +171,6 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel3.setText("Mã Sản Phẩm:");
 
-        txt_maSP_GG.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel4.setText("Loại Trang Sức:");
 
@@ -185,14 +184,11 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
             }
         });
 
-        cboThemSp_MGG.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         cboThemSp_MGG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboThemSp_MGGActionPerformed(evt);
             }
         });
-
-        cbo_LoaiTS_GG.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
 
         btn_Huy.setText("Hủy");
         btn_Huy.setColor1(new java.awt.Color(16, 24, 32));
@@ -217,6 +213,16 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel7.setText("Danh Sách Trang Sức");
 
+        btn_TimKiemSP1.setBorder(null);
+        btn_TimKiemSP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lammoi.png"))); // NOI18N
+        btn_TimKiemSP1.setColor1(new java.awt.Color(16, 24, 32));
+        btn_TimKiemSP1.setColor2(new java.awt.Color(254, 231, 21));
+        btn_TimKiemSP1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_TimKiemSP1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -239,7 +245,9 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addComponent(cbo_LoaiTS_GG, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(75, 75, 75)
+                                        .addGap(25, 25, 25)
+                                        .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
                                         .addComponent(btn_TimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -280,9 +288,11 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_maSP_GG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbo_LoaiTS_GG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txt_maSP_GG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbo_LoaiTS_GG, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_TimKiemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -360,6 +370,12 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboThemSp_MGGActionPerformed
 
+    private void btn_TimKiemSP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKiemSP1ActionPerformed
+        // TODO add your handling code here:
+        txt_maSP_GG.setText("");
+        cboThemSp_MGG.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_TimKiemSP1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -386,6 +402,7 @@ public class ThemSanPhamGiamGia extends javax.swing.JDialog {
     private view.until.button.Button btn_Huy;
     private view.until.button.Button btn_Luu;
     private view.until.button.Button btn_TimKiemSP;
+    private view.until.button.Button btn_TimKiemSP1;
     private view.until.combobox.ComboBoxSuggestion cboThemSp_MGG;
     private view.until.combobox.ComboBoxSuggestion cbo_LoaiTS_GG;
     private javax.swing.JLabel jLabel1;

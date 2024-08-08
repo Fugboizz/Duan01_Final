@@ -107,37 +107,30 @@ public class ThemMoiKhachHang extends javax.swing.JDialog {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel1.setText("Họ Và Tên:");
 
-        txt_SoDienThoai.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_SoDienThoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_SoDienThoaiActionPerformed(evt);
             }
         });
 
-        txt_HoVaTen.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_HoVaTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_HoVaTenActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel4.setText("Số Điện Thoại");
 
-        jLabel5.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel5.setText("Email");
 
-        txt_Email.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_EmailActionPerformed(evt);
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel9.setText("Trạng Thái");
 
         btn_Huy.setText("Đóng");
@@ -160,21 +153,17 @@ public class ThemMoiKhachHang extends javax.swing.JDialog {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel10.setText("Địa Chỉ");
 
         txt_DiaChi.setColumns(20);
-        txt_DiaChi.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_DiaChi.setRows(5);
         jScrollPane2.setViewportView(txt_DiaChi);
 
         buttonGroup1.add(rdo_HoatDong);
-        rdo_HoatDong.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         rdo_HoatDong.setSelected(true);
         rdo_HoatDong.setText("Hoạt Động");
 
         buttonGroup1.add(rdo_DungHoatDong);
-        rdo_DungHoatDong.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         rdo_DungHoatDong.setText("Ngưng Hoạt Động");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

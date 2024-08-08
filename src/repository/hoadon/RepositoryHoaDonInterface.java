@@ -7,6 +7,7 @@ package repository.hoadon;
 import java.util.List;
 import model.GiaoDien.DoanhThuModel;
 import model.HoaDon;
+import model.TaiKhoan;
 
 /**
  *
@@ -16,7 +17,7 @@ public interface RepositoryHoaDonInterface {
 
     public List<HoaDon> getAll();
 
-    public int create();
+    public int create(String tk);
 
     public int delete(String text);
 

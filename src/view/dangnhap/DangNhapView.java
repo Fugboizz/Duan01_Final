@@ -1,19 +1,28 @@
 package view.dangnhap;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.Font;
 import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import model.TaiKhoan;
+import raven.modal.Toast;
 import service.dangnhap.DangNhap;
 import view.main.Main;
 import view.quenmatkhau.QuenMatKhau;
+import view.until.hopthoai.NotificationJPanel;
 
 public class DangNhapView extends javax.swing.JFrame {
+
     public static boolean roleDN;
     public static String nameDN;
     public static String HinhAnh;
     private service.dangnhap.DangNhap dn = new DangNhap();
+    private repository.dangnhap.DangNhapRepository dnr = new repository.dangnhap.DangNhapRepository();
 
     public DangNhapView() {
         initComponents();
@@ -39,6 +48,7 @@ public class DangNhapView extends javax.swing.JFrame {
             System.out.println("Hình ảnh không tìm thấy!");
         }
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -199,21 +209,23 @@ public class DangNhapView extends javax.swing.JFrame {
         QuenMatKhau qmk = new QuenMatKhau(this, true);
         qmk.setVisible(true);
     }//GEN-LAST:event_jLabel9MouseClicked
-
+public static String IDTaiKhoan;
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
 
         service.dangnhap.DangNhap tksv = new service.dangnhap.DangNhap();
         TaiKhoan tk = tksv.CheckPassword(txt_MatKhau, txt_TaiKhoan);
         if (tk != null) {
+            NotificationJPanel panel = new NotificationJPanel(jPanel2, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Đăng Nhập Thành Công");
+            panel.showNotification();
             roleDN = tk.isChucVu();
             nameDN = tk.getHoTen();
             HinhAnh = tk.getHinhAnh();
-            JOptionPane.showMessageDialog(null, "Đăng nhập thành công với chức vụ.");
+            IDTaiKhoan = tk.getIDTaiKhoan();
             Main main = new Main(0);
             main.setVisible(true);
             dispose();
         } else {
-           JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            Toast.show(this, Toast.Type.ERROR, "Sai Mật Khẩu Hoặc Tài Khoản");
         }
 
     }//GEN-LAST:event_button1ActionPerformed
@@ -222,37 +234,10 @@ public class DangNhapView extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DangNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DangNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DangNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DangNhapView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+        FlatRobotoFont.install();
+        FlatLaf.registerCustomDefaultsSource("view.until.sampletable.themes");
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        FlatMacLightLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DangNhapView().setVisible(true);

@@ -692,11 +692,6 @@
               </Layout>
               <SubComponents>
                 <Component class="view.until.textfield.TextFieldSuggestion" name="txt_SoDienThoai">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="0"/>
-                    </Property>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_SoDienThoaiActionPerformed"/>
                   </Events>
@@ -718,11 +713,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_HoTen">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="0"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
@@ -734,9 +724,6 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_TichDiem">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="0"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
                 </Component>
@@ -790,11 +777,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_MaHoaDon">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="0"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
@@ -805,17 +787,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_TongTien">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="0"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_ChietKhau">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="0"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
                 </Component>
@@ -844,11 +818,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_ThanhToan">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="0"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="view.until.button.Button" name="btn_ThanhToan">
                   <Properties>
@@ -900,11 +869,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_GioHangHoaDon">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="13" style="0"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>

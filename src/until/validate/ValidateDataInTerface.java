@@ -4,6 +4,8 @@
  */
 package until.validate;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author HUNGpYN
@@ -47,4 +49,6 @@ public interface ValidateDataInTerface {
     public boolean isEndDateValid(String startDateStr, String endDateStr);
 
     public boolean checkContaintVoucher(String ID, String ten);
+    
+     public boolean isDateValid(JTextField txt_Ngay);
 }
