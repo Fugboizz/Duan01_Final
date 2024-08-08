@@ -4,6 +4,7 @@
  */
 package view.sanpham;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -13,6 +14,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -24,8 +27,12 @@ import model.SanPham;
 import repository.SanPham.repoChiTietSanPham;
 import service.GiaDienSanPhamService;
 import service.observer.Observer;
+import view.form.JTableHeader;
+import view.khuyenmai.TableKhuyenMai;
 import view.main.Main;
 import view.nhanvien.GiaoDienNhanVien;
+import view.until.hopthoai.Notification;
+import view.until.hopthoai.NotificationJPanel;
 
 /**
  *
@@ -56,12 +63,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
 
     public GiaoDienSanPham() {
         initComponents();
-        tbl_SanPham.fixTable(jScrollPane2);
-        lbl_DanhSach.setForeground(color1);
-        panel_ThemMoi.setBackground(color2);
-        btn_TimKiem.setColor1(color2);
-        btn_TimKiem.setColor2(color1);
-        tbl_SanPham.setRowHeight(100);
+        init();
         fillToTable();
         List<String> tenPhanLoais = gdspsv.fillTocbo();
         for (String ten : tenPhanLoais) {
@@ -86,13 +88,19 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
                 }
             }
         });
-//        addComponentListener(new ComponentAdapter() {
-//            @Override
-//            public void componentShown(ComponentEvent e) {
-//                onPanelShown();
-//            }
-//        });
 
+    }
+
+    private void init() {
+        lbl_DanhSach.setForeground(color1);
+        panel_ThemMoi.setBackground(color2);
+        btn_TimKiem.setColor1(color2);
+        btn_TimKiem.setColor2(color1);
+
+        TableKhuyenMai tkm = new TableKhuyenMai();
+        tkm.init(tbl_SanPham, scrollSP);
+        tbl_SanPham.getTableHeader().setDefaultRenderer(new JTableHeader(tbl_SanPham));
+        tbl_SanPham.getTableHeader().setReorderingAllowed(false);
     }
 
     public static GiaoDienSanPham getInstance() {
@@ -101,60 +109,107 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
         }
         return instance;
     }
-//     private void onPanelShown() {
-//         System.out.println("THành Công");
-//        fillToTable();
-//    }
-//      public void refreshData() {
-//        fillToTable();  
-//    }
 
     public String getSelectedID() {
         return selectedID;
     }
 
     void fillToTable() {
-        spList = rpsp.getAll();
-        String[] hienthi = {"Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Số Lượng Tồn Kho", "Trạng Thái"};
-        model = new DefaultTableModel(hienthi, 0);
+        // Khởi tạo DecimalFormatSymbols để cấu hình định dạng tiền tệ
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        symbols.setDecimalSeparator(',');
 
+        // Tạo đối tượng DecimalFormat với mẫu định dạng
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+
+        // Lấy danh sách sản phẩm từ repository
+        spList = rpsp.getAll();
+
+        // Khởi tạo mô hình bảng và đặt lại số lượng hàng về 0 để xóa dữ liệu cũ
+        model = (DefaultTableModel) tbl_SanPham.getModel();
+        model.setRowCount(0);
+
+        // Duyệt qua danh sách sản phẩm và thêm dữ liệu vào mô hình bảng
+        int STT = 1;
         for (SanPham sp : spList) {
-            String tenPhanLoai = sp.getIDPhanLoai() != null ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
-            String trangThai = sp.isTrangThai() ? "Đang Hoạt Động" : "Ngừng Kinh Doanh";
+            // Lấy tên phân loại hoặc "N/A" nếu không có
+            String tenPhanLoai = (sp.getIDPhanLoai() != null) ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
+
+            // Xác định trạng thái hoạt động
+            String trangThai = sp.isTrangThai() ? "Kinh Doanh" : "Ngừng Kinh Doanh";
+
+            // Định dạng giá chi tiết và số lượng tồn kho
+            String giaChiTiet = decimalFormat.format(sp.getGiaChiTiet()) + " VNĐ"; // Định dạng số tiền và thêm "VNĐ"
+            String soLuongTonKho = (sp.getSoLuongTonKho() > 0) ? String.valueOf(sp.getSoLuongTonKho()) : "Hết Hàng";
+
+            // Tạo mảng đối tượng cho hàng trong bảng
             Object[] rowObject = {
+                STT++,
                 sp.getIDSanPham(),
                 sp.getTenSanPham(),
                 tenPhanLoai,
                 sp.isGioiTinh() ? "Nam" : "Nữ",
-                sp.getGiaChiTiet() + "VNĐ",
-                sp.getSoLuongTonKho() > 0 ? sp.getSoLuongTonKho() : "Hết Hàng",
+                giaChiTiet,
+                soLuongTonKho,
                 trangThai
             };
+
+            // Thêm hàng vào mô hình bảng
             model.addRow(rowObject);
         }
+
+        // Cập nhật mô hình cho bảng (có thể không cần thiết nếu bạn chỉ thay đổi dữ liệu trong mô hình)
         tbl_SanPham.setModel(model);
     }
 
     void fillTOCheck(GiaoDienSanPhamModel gdspmd
     ) {
-        spList = rpsp.getAllWithConditional(gdspmd);
-        String[] hienthi = {"Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Số Lượng Tồn Kho", "Trạng Thái"};
-        model = new DefaultTableModel(hienthi, 0);
+        // Khởi tạo DecimalFormatSymbols để cấu hình định dạng tiền tệ
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        symbols.setDecimalSeparator(',');
 
+        // Tạo đối tượng DecimalFormat với mẫu định dạng
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
+
+        // Lấy danh sách sản phẩm từ repository
+        spList = rpsp.getAllWithConditional(gdspmd);
+
+        // Khởi tạo mô hình bảng và đặt lại số lượng hàng về 0 để xóa dữ liệu cũ
+        model = (DefaultTableModel) tbl_SanPham.getModel();
+        model.setRowCount(0);
+
+        // Duyệt qua danh sách sản phẩm và thêm dữ liệu vào mô hình bảng
+        int STT = 1;
         for (SanPham sp : spList) {
-            String tenPhanLoai = sp.getIDPhanLoai() != null ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
-            String trangThai = sp.isTrangThai() ? "Đang Hoạt Động" : "Ngừng Kinh Doanh";
+            // Lấy tên phân loại hoặc "N/A" nếu không có
+            String tenPhanLoai = (sp.getIDPhanLoai() != null) ? sp.getIDPhanLoai().getTenPhanLoai() : "N/A";
+
+            // Xác định trạng thái hoạt động
+            String trangThai = sp.isTrangThai() ? "Kinh Doanh" : "Ngừng Kinh Doanh";
+
+            // Định dạng giá chi tiết và số lượng tồn kho
+            String giaChiTiet = decimalFormat.format(sp.getGiaChiTiet()) + " đ"; // Định dạng số tiền và thêm "VNĐ"
+            String soLuongTonKho = (sp.getSoLuongTonKho() > 0) ? String.valueOf(sp.getSoLuongTonKho()) : "Hết Hàng";
+
+            // Tạo mảng đối tượng cho hàng trong bảng
             Object[] rowObject = {
+                STT++,
                 sp.getIDSanPham(),
                 sp.getTenSanPham(),
                 tenPhanLoai,
                 sp.isGioiTinh() ? "Nam" : "Nữ",
-                sp.getGiaChiTiet(),
-                sp.getSoLuongTonKho() > 0 ? sp.getSoLuongTonKho() : "Hết Hàng",
+                giaChiTiet,
+                soLuongTonKho,
                 trangThai
             };
+
+            // Thêm hàng vào mô hình bảng
             model.addRow(rowObject);
         }
+
+        // Cập nhật mô hình cho bảng (có thể không cần thiết nếu bạn chỉ thay đổi dữ liệu trong mô hình)
         tbl_SanPham.setModel(model);
     }
 
@@ -176,13 +231,15 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
         txt_TimKiem = new view.until.textfield.TextFieldSuggestion();
         btn_TimKiem = new view.until.button.Button();
         btn_Excel = new view.until.button.Button();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbl_SanPham = new view.until.table.TableDark();
+        jSeparator1 = new javax.swing.JSeparator();
+        scrollSP = new javax.swing.JScrollPane();
+        tbl_SanPham = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        lbl_DanhSach.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbl_DanhSach.setText("Danh Sách Sản Phẩm");
+        lbl_DanhSach.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        lbl_DanhSach.setText("Danh Sách Trang Sức");
 
         btn_TaoMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/add.png"))); // NOI18N
         btn_TaoMoi.setText("Tạo Mới");
@@ -210,7 +267,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
                 .addGap(13, 13, 13)
                 .addGroup(panel_ThemMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_DanhSach)
-                    .addComponent(btn_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_TaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -227,6 +284,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
 
         cbosTrangThai.setEditable(false);
         cbosTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Kinh Doanh", "Ngừng Kinh Doanh" }));
+        cbosTrangThai.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbosTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbosTrangThaiActionPerformed(evt);
@@ -235,6 +293,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
 
         cbosLoaiTrangSuc.setEditable(false);
         cbosLoaiTrangSuc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả" }));
+        cbosLoaiTrangSuc.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbosLoaiTrangSuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbosLoaiTrangSucActionPerformed(evt);
@@ -243,6 +302,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
 
         cbosGioiTinh.setEditable(false);
         cbosGioiTinh.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả", "Nam", "Nữ" }));
+        cbosGioiTinh.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbosGioiTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbosGioiTinhActionPerformed(evt);
@@ -252,6 +312,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel4.setText("Tên Trang Sức");
 
+        txt_TimKiem.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txt_TimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_TimKiemActionPerformed(evt);
@@ -259,7 +320,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
         });
 
         btn_TimKiem.setText("Tìm Kiếm");
-        btn_TimKiem.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btn_TimKiem.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         btn_TimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_TimKiemActionPerformed(evt);
@@ -268,6 +329,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
 
         btn_Excel.setBorder(null);
         btn_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
+        btn_Excel.setColor1(new java.awt.Color(16, 24, 32));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -291,16 +353,19 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cbosTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -308,50 +373,47 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbosLoaiTrangSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbosGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbosTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(cbosTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        scrollSP.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 0, 0, 0));
+
+        tbl_SanPham.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tbl_SanPham.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         tbl_SanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Hình Ảnh", "Trạng Thái"
+                "STT", "Mã Trang Sức", "Tên Trang Sức", "Phân Loại", "Giới Tính", "Giá Bán", "Tồn Kho", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbl_SanPham.setEnabled(false);
-        tbl_SanPham.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jScrollPane2.setViewportView(tbl_SanPham);
+        scrollSP.setViewportView(tbl_SanPham);
+        if (tbl_SanPham.getColumnModel().getColumnCount() > 0) {
+            tbl_SanPham.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
+
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel5.setText("Danh Sách Trang Sức");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -359,7 +421,14 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_ThemMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollSP)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +437,10 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollSP, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -398,7 +470,7 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
         GiaoDienSanPhamModel GiaoDienSanPhamModel = new GiaoDienSanPhamModel();
         String searchText = txt_TimKiem.getText().trim();
         if (!searchText.isEmpty()) {
-            GiaoDienSanPhamModel.setTenTrangSuc(txt_TimKiem.getText());
+            GiaoDienSanPhamModel.setTenTrangSuc(txt_TimKiem.getText().trim());
         }
         GiaoDienSanPhamModel.setLoaiTrangSuc(cbosLoaiTrangSuc.getSelectedItem().toString());
         GiaoDienSanPhamModel.setTrangThai(cbosTrangThai.getSelectedIndex());
@@ -419,11 +491,13 @@ public class GiaoDienSanPham extends javax.swing.JPanel implements Observer {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbl_DanhSach;
     private javax.swing.JPanel panel_ThemMoi;
-    private view.until.table.TableDark tbl_SanPham;
+    private javax.swing.JScrollPane scrollSP;
+    private javax.swing.JTable tbl_SanPham;
     private view.until.textfield.TextFieldSuggestion txt_TimKiem;
     // End of variables declaration//GEN-END:variables
 

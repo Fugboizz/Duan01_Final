@@ -15,6 +15,8 @@ public class HoaDonChiTiet {
     private SanPham IDSanPham;
     private HoaDon IDHoaDon;
     private int SoLUongSanPHam;
+    private double GiaSanPham;
+    private double GiaSauGiamGia;
     private Date ThoiHanBaoHanh ;
     private Date NgayTao;
     private Date NgaySua;
@@ -22,22 +24,28 @@ public class HoaDonChiTiet {
 
     public HoaDonChiTiet() {
     }
+
     public HoaDonChiTiet(SanPham IDSanPham, HoaDon IDHoaDon, int SoLUongSanPHam) {
         this.IDSanPham = IDSanPham;
         this.IDHoaDon = IDHoaDon;
         this.SoLUongSanPHam = SoLUongSanPHam;
     }
-    public HoaDonChiTiet(String IDHoaDonChiTiet, SanPham IDSanPham, HoaDon IDHoaDon, int SoLUongSanPHam, Date ThoiHanBaoHanh, Date NgayTao, Date NgaySua, boolean TrangThai) {
+
+ 
+
+    
+    public HoaDonChiTiet(String IDHoaDonChiTiet, SanPham IDSanPham, HoaDon IDHoaDon, int SoLUongSanPHam, double GiaSanPham, double GiaSauGiamGia, Date ThoiHanBaoHanh, Date NgayTao, Date NgaySua, boolean TrangThai) {
         this.IDHoaDonChiTiet = IDHoaDonChiTiet;
         this.IDSanPham = IDSanPham;
         this.IDHoaDon = IDHoaDon;
         this.SoLUongSanPHam = SoLUongSanPHam;
+        this.GiaSanPham = GiaSanPham;
+        this.GiaSauGiamGia = GiaSauGiamGia;
         this.ThoiHanBaoHanh = ThoiHanBaoHanh;
         this.NgayTao = NgayTao;
         this.NgaySua = NgaySua;
         this.TrangThai = TrangThai;
     }
-
 
     public String getIDHoaDonChiTiet() {
         return IDHoaDonChiTiet;
@@ -69,6 +77,22 @@ public class HoaDonChiTiet {
 
     public void setSoLUongSanPHam(int SoLUongSanPHam) {
         this.SoLUongSanPHam = SoLUongSanPHam;
+    }
+
+    public double getGiaSanPham() {
+        return GiaSanPham;
+    }
+
+    public void setGiaSanPham(double GiaSanPham) {
+        this.GiaSanPham = GiaSanPham;
+    }
+
+    public double getGiaSauGiamGia() {
+        return GiaSauGiamGia;
+    }
+
+    public void setGiaSauGiamGia(double GiaSauGiamGia) {
+        this.GiaSauGiamGia = GiaSauGiamGia;
     }
 
     public Date getThoiHanBaoHanh() {
@@ -103,5 +127,5 @@ public class HoaDonChiTiet {
         this.TrangThai = TrangThai;
     }
 
-    
+  
 }

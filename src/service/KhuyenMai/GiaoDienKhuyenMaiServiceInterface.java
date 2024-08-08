@@ -30,11 +30,11 @@ public interface GiaoDienKhuyenMaiServiceInterface {
     public void SearchGiamGiaSp(JTable tbl,GiaoDienKhuyenMaiModel gdkmm);
     public String fillCbo(ComboBoxSuggestion cbos);
     public void fillTableGiamGiaSP(JTable tbl);
-    public void fillWhenClick(JTable tbl,JTextField TenGG, JTextField TyleField, JTextField Ngaybd , JTextField NgayKt, JRadioButton btn1,JRadioButton btn2,JLabel MaGG);
-    public void addNewGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd , JTextField NgayKt, JRadioButton btn1,JRadioButton btn2,JLabel MaGG);
-    public void updateGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd , JTextField NgayKt, JRadioButton btn1,JRadioButton btn2,JLabel MaGG);
+    public void fillWhenClick(JTable tbl,JTextField TenGG, JTextField TyleField, JTextField Ngaybd , JTextField NgayKt, JRadioButton btn1,JRadioButton btn2,JTextField MaGG);
+    public void addNewGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd , JTextField NgayKt, JRadioButton btn1,JRadioButton btn2,JTextField MaGG);
+    public void updateGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd , JTextField NgayKt, JRadioButton btn1,JRadioButton btn2,JTextField MaGG);
     public void SearchTSp(JTable tbl,ThemGGModel tmd);
-    public String fillCbo2(ComboBoxSuggestion cbos,GiaoDienKhuyenMaiModel gdkmm);
+    public String fillCbo2(ComboBoxSuggestion cbos);
     public List<String> checkSelectedRows(JTable table);
     public List<String> checkSelectedRowsTB1(JTable table);
 }
