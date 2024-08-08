@@ -108,7 +108,7 @@ public class GiaoDienBaoHanhService implements GiaoDienBaoHanhServicInterface {
     }
 
     @Override
-    public void CapNhatBaoHanh(JLabel idBaoHanh, JTextArea GhiChuArea, JRadioButton rdo) {
+    public void CapNhatBaoHanh(JTextField idBaoHanh, JTextArea GhiChuArea, JRadioButton rdo) {
         String idBaoHanhText = idBaoHanh.getText().trim();
         String ghiChuText = GhiChuArea.getText().trim();
         boolean trangThai = rdo.isSelected() ? true : false;

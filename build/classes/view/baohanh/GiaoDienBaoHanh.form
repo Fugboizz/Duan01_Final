@@ -99,7 +99,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Roboto" size="18" style="1"/>
+              <Font name="Roboto" size="24" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="15" green="e7" red="fe" type="rgb"/>
@@ -134,11 +134,13 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="txt_DenNgay" min="-2" pref="174" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                  <Component id="button1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="button6" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="button1" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btn_LamMoiTimKiem" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="button6" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -168,13 +170,14 @@
                               <Component id="txt_TimSoDienThoai" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_TuNgay" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_DenNgay" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="button1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="button6" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="button1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="button6" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="btn_LamMoiTimKiem" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollBH" pref="375" max="32767" attributes="0"/>
+                  <Component id="scrollBH" pref="368" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -185,6 +188,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i"/>
           </Properties>
         </Component>
@@ -195,6 +201,15 @@
         <Component class="view.until.button.Button" name="button1">
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#xec;m Ki&#x1ebf;m"/>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="20" green="18" red="10" type="rgb"/>
+            </Property>
+            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="15" green="e7" red="fe" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
@@ -202,11 +217,17 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="T&#x1eeb; Ng&#xe0;y"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&#x110;&#x1ebf;n Ng&#xe0;y"/>
           </Properties>
         </Component>
@@ -307,10 +328,34 @@
         </Component>
         <Component class="view.until.button.Button" name="button6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icon/excel.png"/>
+            </Property>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="20" green="18" red="10" type="rgb"/>
+            </Property>
+            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="15" green="e7" red="fe" type="rgb"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button6ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="view.until.button.Button" name="btn_LamMoiTimKiem">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icon/lammoi.png"/>
+            </Property>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="20" green="18" red="10" type="rgb"/>
+            </Property>
+            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="15" green="e7" red="fe" type="rgb"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LamMoiTimKiemActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -332,13 +377,11 @@
                                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="lbl_maBaoHanh" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="txt_TenKhachHang" alignment="0" pref="394" max="32767" attributes="0"/>
-                                          <Component id="lbl_KhachHangKhongTonTai" max="32767" attributes="0"/>
-                                          <Component id="txt_SoDienThoai" max="32767" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="txt_TenKhachHang" alignment="0" pref="394" max="32767" attributes="0"/>
+                                      <Component id="lbl_KhachHangKhongTonTai" max="32767" attributes="0"/>
+                                      <Component id="txt_SoDienThoai" max="32767" attributes="0"/>
+                                      <Component id="lbl_maBaoHanh" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -348,7 +391,7 @@
                                   <Component id="jScrollPane1" min="-2" pref="397" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="181" max="32767" attributes="0"/>
+                          <EmptySpace pref="179" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -376,7 +419,7 @@
                                       <Group type="102" attributes="0">
                                           <Component id="txt_TenSanPham" min="-2" pref="233" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btn_ChonSanPham" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Component id="btn_ChonSanPham" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jScrollPane2" min="-2" pref="326" max="-2" attributes="0"/>
                                   </Group>
@@ -385,14 +428,14 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="263" max="-2" attributes="0"/>
-                          <Component id="btn_LamMoi" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_LamMoi" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                          <Component id="btn_CapNhat" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_CapNhat" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                          <Component id="btn_Them" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="btn_Them" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -405,7 +448,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_TenSanPham" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_ChonSanPham" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="btn_ChonSanPham" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -425,15 +468,15 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbl_maBaoHanh" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_maBaoHanh" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_TenKhachHang" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_TenKhachHang" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -459,9 +502,9 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btn_Them" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_CapNhat" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_LamMoi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_Them" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btn_CapNhat" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btn_LamMoi" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
               </Group>
@@ -471,30 +514,54 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="T&#xea;n Kh&#xe1;ch H&#xe0;ng:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ghi Ch&#xfa;:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="M&#xe3; S&#x1ea3;n Ph&#x1ea9;m:"/>
           </Properties>
         </Component>
         <Component class="view.until.textfield.TextFieldSuggestion" name="txt_TenKhachHang">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+              </Border>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="view.until.textfield.TextFieldSuggestion" name="txt_SoDienThoai">
         </Component>
@@ -509,8 +576,14 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="txt_DiaChi">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                    <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                  </Border>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -535,6 +608,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="&#x110;&#xe3; Nh&#x1ead;n"/>
           </Properties>
         </Component>
@@ -548,12 +622,24 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i:"/>
           </Properties>
         </Component>
         <Component class="view.until.button.Button" name="btn_LamMoi">
           <Properties>
             <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="20" green="18" red="10" type="rgb"/>
+            </Property>
+            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="15" green="e7" red="fe" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LamMoiActionPerformed"/>
@@ -562,6 +648,15 @@
         <Component class="view.until.button.Button" name="btn_Them">
           <Properties>
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="20" green="18" red="10" type="rgb"/>
+            </Property>
+            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="15" green="e7" red="fe" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThemActionPerformed"/>
@@ -570,6 +665,15 @@
         <Component class="view.until.button.Button" name="btn_CapNhat">
           <Properties>
             <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t"/>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="20" green="18" red="10" type="rgb"/>
+            </Property>
+            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="15" green="e7" red="fe" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_CapNhatActionPerformed"/>
@@ -577,7 +681,12 @@
         </Component>
         <Component class="view.until.button.Button" name="btn_ChonSanPham">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icon/addsmall.png"/>
+            </Property>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="20" green="18" red="10" type="rgb"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ChonSanPhamActionPerformed"/>
@@ -585,12 +694,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="M&#xe3; B&#x1ea3;o H&#xe0;nh"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbl_maBaoHanh">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="---"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_KhachHangKhongTonTai">
@@ -602,10 +709,24 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ng&#xe0;y Y&#xea;u C&#x1ea7;u"/>
           </Properties>
         </Component>
         <Component class="view.until.textfield.TextFieldSuggestion" name="txt_NgayYeuCau">
+        </Component>
+        <Component class="view.until.textfield.TextFieldSuggestion" name="lbl_maBaoHanh">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+              </Border>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

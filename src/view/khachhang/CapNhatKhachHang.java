@@ -110,7 +110,6 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         txt_TichDiem.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt_TichDiem.setEnabled(false);
         txt_TichDiem.setFocusable(false);
-        txt_TichDiem.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_TichDiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_TichDiemActionPerformed(evt);
@@ -120,14 +119,12 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel2.setText("Tích Điểm");
 
-        txt_SoDienThoai.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_SoDienThoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_SoDienThoaiActionPerformed(evt);
             }
         });
 
-        txt_HoVaTen.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_HoVaTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_HoVaTenActionPerformed(evt);
@@ -140,7 +137,6 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel5.setText("Email");
 
-        txt_Email.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_EmailActionPerformed(evt);
@@ -177,17 +173,16 @@ public class CapNhatKhachHang extends javax.swing.JDialog {
         jLabel11.setText("Mã Khách Hàng");
 
         txt_MaKhachhang.setEditable(false);
+        txt_MaKhachhang.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         txt_MaKhachhang.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt_MaKhachhang.setEnabled(false);
         txt_MaKhachhang.setFocusable(false);
-        txt_MaKhachhang.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
 
         txtA_DiaChi.setColumns(20);
         txtA_DiaChi.setRows(5);
         jScrollPane2.setViewportView(txtA_DiaChi);
 
         buttonGroup1.add(rdo_HoatDong);
-        rdo_HoatDong.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         rdo_HoatDong.setSelected(true);
         rdo_HoatDong.setText("Hoạt Động");
 

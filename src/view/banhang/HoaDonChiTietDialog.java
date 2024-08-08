@@ -256,6 +256,11 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
         btn_Dong.setColor1(new java.awt.Color(16, 24, 32));
         btn_Dong.setColor2(new java.awt.Color(254, 231, 21));
         btn_Dong.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        btn_Dong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_DongActionPerformed(evt);
+            }
+        });
 
         button2.setText("In");
         button2.setColor1(new java.awt.Color(16, 24, 32));
@@ -365,6 +370,11 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_DongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DongActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btn_DongActionPerformed
 
     /**
      * @param args the command line arguments

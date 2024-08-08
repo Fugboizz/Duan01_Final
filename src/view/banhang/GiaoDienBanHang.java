@@ -45,6 +45,7 @@ import view.banhang.cell.TableActionCellRender;
 import view.banhang.cell.TableActionEvent;
 import view.banhang.spinner.EventCellInputChange;
 import view.banhang.spinner.QtyCellEditor;
+import view.dangnhap.DangNhapView;
 import view.form.JTableHeader;
 import view.khachhang.ThemMoiKhachHang;
 import view.khuyenmai.TableKhuyenMai;
@@ -458,7 +459,14 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         System.out.println("Chiet Khau: " + chietKhau);
         System.out.println("Thanh Toan: " + thanhToan);
     }
-
+    void lamMoi(){
+        lbl_HoTen.setText("");
+        lbl_TichDiem.setText("");
+        lbl_MaHoaDon.setText("");
+        lbl_ThanhToan.setText("");
+        lbl_GioHangHoaDon.setText("");
+        lbl_TongTien.setText("");
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1177,8 +1185,8 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
 
 
     private void btn_TaoHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TaoHoaDonActionPerformed
-
-        if (rhd.create() > 0) {
+        System.out.println(dnv.IDTaiKhoan);
+        if (rhd.create(dnv.IDTaiKhoan) > 0) {
             NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Tạo Hóa Đơn Thành Công");
             panel.showNotification();
             bhs.fillHoaDonCho(tbl_HoaDonCho);
@@ -1239,6 +1247,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         if (getInstance() != null) {
             update();
         }
+        lamMoi();
         NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Hủy Hóa Đơn Thành Công");
         panel.showNotification();
     }//GEN-LAST:event_btn_HuyActionPerformed
@@ -1270,7 +1279,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         }
         return null;
     }
-
+    private DangNhapView dnv = new DangNhapView();
     HoaDon readHoaDon() {
         HoaDon hd = new HoaDon();
         hd.setIDHoaDon(lbl_MaHoaDon.getText());
@@ -1281,7 +1290,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         kh.setIDKhachHang(getIDKhachHang());
         hd.setIdKhachHang(kh);
         hd.setIdVoucher(vc);
-
         // Sử dụng formatDouble để chuyển đổi chuỗi tiền tệ về kiểu double
         double tongTien = bhs.formatDouble(lbl_TongTien.getText());
         double thanhToan = bhs.formatDouble(lbl_ThanhToan.getText());
@@ -1301,10 +1309,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
             if (ckb_SuDung.isSelected()) {
                 rhd.updateTichDiem(getIDKhachHang(), getIDHoaDonCho());
             }
-            NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.BOTTOM_RIGHT, "Thanh Toán Thành Công");
+            lamMoi();
+            NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Thanh Toán Thành Công");
             panel.showNotification();
         } else {
-            NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.WARNING, NotificationJPanel.Location.BOTTOM_RIGHT, "Thanh Toán Thành Công");
+            NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.WARNING, NotificationJPanel.Location.CENTER, "Thanh Toán Thất Bại");
             panel.showNotification();
         }
         System.out.println(getIDVoucher());
@@ -1320,7 +1329,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         if (getInstance() != null) {
             update();
         }
-        cbo_PhanLoai.setSelectedIndex(1);
+        cbo_PhanLoai.setSelectedIndex(0);
         txt_TenTrangSuc.setText("");
 
     }//GEN-LAST:event_button2ActionPerformed

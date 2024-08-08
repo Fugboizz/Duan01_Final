@@ -4,11 +4,15 @@
  */
 package until.validate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JTextField;
 import model.ChatLieu;
 import model.DaQuy;
 import model.GiamGia;
@@ -38,10 +42,12 @@ import repository.taikhoan.RepositoryTaiKhoan;
  * @author HUNGpYN
  */
 public class ValidateData implements ValidateDataInTerface {
- private repository.SanPham.repoChiTietSanPham rpct = new repoChiTietSanPham();
+
+    private repository.SanPham.repoChiTietSanPham rpct = new repoChiTietSanPham();
+
     @Override
     public boolean checkSanPham(String text, String ten) {
-        
+
         for (SanPham sp : rpct.getAll()) {
             if (sp.getIDSanPham().equalsIgnoreCase(text)) {
                 continue;
@@ -230,10 +236,10 @@ public class ValidateData implements ValidateDataInTerface {
         }
         return false;
     }
-    
+
     // So Sánh ngày Bắt Đầu Và Kết Thúc
     @Override
-     public boolean isEndDateValid(String startDateStr, String endDateStr) {
+    public boolean isEndDateValid(String startDateStr, String endDateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
@@ -245,32 +251,49 @@ public class ValidateData implements ValidateDataInTerface {
             return false;
         }
     }
-     
-     //check tồn tài của voucher
-     @Override
-     public boolean checkContaintVoucher(String ID, String ten){
-         repository.KhuyenMai.KhuyenMaiRepository kmr = new repository.KhuyenMai.KhuyenMaiRepository();
-         for (Voucher vc : kmr.getAll()) {
-             if (vc.getIDVoucher().equalsIgnoreCase(ID)) {
-                 continue;
-             }
-             if (vc.getTenVoucher().equalsIgnoreCase(ten)) {
-                 return true;
-             }
-         }
-     return false;
-     }
-          public boolean checkContaintGiamGia(String ID, String ten){
-              RepoGiamGia rgg = new RepoGiamGia();
-         for (GiamGia gg : rgg.getAll()) {
-             if (gg.getIDGIamGia().equalsIgnoreCase(ID)) {
-                 continue;
-             }
-             if (gg.getTenMaGiamGia().equalsIgnoreCase(ten)) {
-                 return true;
-             }
-         }
-     return false;
-     }
 
+    //check tồn tài của voucher
+    @Override
+    public boolean checkContaintVoucher(String ID, String ten) {
+        repository.KhuyenMai.KhuyenMaiRepository kmr = new repository.KhuyenMai.KhuyenMaiRepository();
+        for (Voucher vc : kmr.getAll()) {
+            if (vc.getIDVoucher().equalsIgnoreCase(ID)) {
+                continue;
+            }
+            if (vc.getTenVoucher().equalsIgnoreCase(ten)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkContaintGiamGia(String ID, String ten) {
+        RepoGiamGia rgg = new RepoGiamGia();
+        for (GiamGia gg : rgg.getAll()) {
+            if (gg.getIDGIamGia().equalsIgnoreCase(ID)) {
+                continue;
+            }
+            if (gg.getTenMaGiamGia().equalsIgnoreCase(ten)) {
+                return true;
+            }
+        }
+        return false;
+    }
+@Override
+    public boolean isDateValid(JTextField txt_Ngay) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date selectedDate = sdf.parse(txt_Ngay.getText().trim());
+            Date currentDate = new Date();
+
+            // So sánh ngày chọn với ngày hiện tại
+            if (selectedDate.before(sdf.parse(sdf.format(currentDate)))) {
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
