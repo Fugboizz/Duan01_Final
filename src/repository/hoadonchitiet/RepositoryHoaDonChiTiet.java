@@ -14,7 +14,10 @@ import java.util.List;
 import model.GiamGia;
 import model.HoaDon;
 import model.HoaDonChiTiet;
+import model.KhachHang;
 import model.SanPham;
+import model.TaiKhoan;
+import model.Voucher;
 import until.jdbc;
 
 /**
@@ -27,21 +30,81 @@ public class RepositoryHoaDonChiTiet implements RepositoryHoaDonChiTietInteface 
     private PreparedStatement pre = null;
     private ResultSet res = null;
     private String sql = null;
-    private CallableStatement call;
+    private CallableStatement call = null;
 
     @Override
-    public int create(HoaDonChiTiet hdct) {
-        String sql = "EXEC sp_ThemHoaDonChiTiet @IDSanPham = ?, @IDHoaDon = ?, @SoLuongSanPham = ?, @TrangThai = ?";
+    public List<HoaDonChiTiet> getAll() {
+        List<HoaDonChiTiet> list = new ArrayList<>();
+        sql = "select * from v_HoaDonChiTiet";
+        try {
+            con = jdbc.getConnection();
+            con = jdbc.getConnection();
+            pre = con.prepareStatement(sql);
+            res = pre.executeQuery();
+            while (res.next()) {
+                KhachHang kh = new KhachHang();
+                kh.setIDKhachHang(res.getString("IDKhachHang"));
+                kh.setHoTen(res.getString("HoTenKhachHang"));
+                TaiKhoan tk = new TaiKhoan();
+                tk.setIDTaiKhoan(res.getString("IDTaiKhoan"));
+                tk.setHoTen(res.getString("HoTenTaiKhoan"));
+                Voucher vc = new Voucher();
+                vc.setIDVoucher(res.getString("IDVoucher"));
+                vc.setTenVoucher(res.getString("TenVoucher"));
+                HoaDon hd = new HoaDon();
+                hd.setIDHoaDon(res.getString("IDHoaDon"));
+                hd.setTongTienTRuoc(res.getDouble("TongTienTruoc"));
+                hd.setTongTienSau(res.getDouble("TongTienSau"));
+                hd.setNgayTao(res.getDate("NgayTao"));
+                hd.setTrangThai(res.getBoolean("TrangThai"));
+                hd.setIdTaiKhoan(tk);
+                hd.setIdKhachHang(kh);
+                hd.setIdVoucher(vc);
+
+                SanPham sp = new SanPham();
+                sp.setIDSanPham(res.getString("IDSanPham"));
+                sp.setTenSanPham(res.getString("TenSanPham"));
+                sp.setSoLuongTonKho(res.getInt("SoLuongTonKho"));
+
+                HoaDonChiTiet hdct = new HoaDonChiTiet();
+                hdct.setIDHoaDonChiTiet(res.getString("IDHoaDonChiTiet"));
+                hdct.setIDSanPham(sp);
+                hdct.setSoLUongSanPHam(res.getInt("SoLuongSanPham"));
+                hdct.setIDHoaDon(hd);
+                hdct.setGiaSanPham(res.getDouble("GiaSanPham"));
+                double giaSauGiamGia = res.getDouble("GiaSauGiamGia");
+                if (res.wasNull()) {
+                    // Giá sau giảm giá là null, gán giá mặc định (ví dụ: 0)
+                    hdct.setGiaSauGiamGia(0.0);
+                } else {
+                    // Giá sau giảm giá không phải là null, gán giá lấy được
+                    hdct.setGiaSauGiamGia(giaSauGiamGia);
+                }
+                list.add(hdct);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public int create(HoaDonChiTiet ct) {
+        sql = "EXEC sp_ThemHoaDonChiTiet "
+                + "@IDSanPham = ?, "
+                + "@IDHoaDon = ?, "
+                + "@SoLuongSanPham = ?, "
+                + "@TrangThai = 0;";
 
         try {
             con = jdbc.getConnection();
             call = con.prepareCall(sql);
 
             // Cung cấp các giá trị cho các tham số của stored procedure
-            call.setString(1, hdct.getIDSanPham().getIDSanPham());
-            call.setString(2, hdct.getIDHoaDon().getIDHoaDon());
-            call.setInt(3, hdct.getSoLUongSanPHam());
-            call.setInt(4, 0); // TrangThai
+            call.setString(1, ct.getIDSanPham().getIDSanPham());
+            call.setString(2, ct.getIDHoaDon().getIDHoaDon());
+            call.setInt(3, ct.getSoLUongSanPHam());
 
             // Thực thi stored procedure và trả về số hàng bị ảnh hưởng
             return call.executeUpdate();
@@ -64,58 +127,14 @@ public class RepositoryHoaDonChiTiet implements RepositoryHoaDonChiTietInteface 
     }
 
     @Override
-    public List<HoaDonChiTiet> getData(String idHoaDon) {
-        List<HoaDonChiTiet> listData = new ArrayList<>();
-        sql = " select * from v_HoaDonChiTietBanHang where IDHoaDon = ?";
-        try {
-            con = jdbc.getConnection();
-            pre = con.prepareStatement(sql);
-            pre.setString(1, idHoaDon);
-            res = pre.executeQuery();
-            while (res.next()) {
-                HoaDonChiTiet hdct = new HoaDonChiTiet();
-                SanPham sp = new SanPham();
-                sp.setIDSanPham(res.getString("IDSanPham"));
-                sp.setGiaChiTiet(res.getDouble("GiaChiTiet"));
-                sp.setTenSanPham(res.getString("TenSanPham"));
-                GiamGia gg = new GiamGia();
-                gg.setIDGIamGia(res.getString("IDGiamGia"));
-                String idGiamGia = res.getString("IDGiamGia");
-                if (res.wasNull()) {
-                    idGiamGia = null;
-                }
-                gg.setIDGIamGia(idGiamGia);
-
-                Float tyLeGiamGia = res.getFloat("TyLeGiamGia");
-                if (res.wasNull()) {
-                    tyLeGiamGia = 0.0f;
-                }
-                gg.setTyLeGiamGia(tyLeGiamGia);
-                sp.setIDGiamGia(gg);
-
-                hdct.setIDHoaDonChiTiet(res.getString("IDHoaDonChiTiet"));
-                hdct.setIDSanPham(sp);
-                HoaDon hd = new HoaDon();
-                hd.setIDHoaDon("IDHoaDon");
-                hdct.setIDHoaDon(hd);
-                hdct.setSoLUongSanPHam(res.getInt("SoLuongSanPham"));
-                listData.add(hdct);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listData;
-    }
-
-    @Override
     public int delete(String text) {
-                String sql = "Delete HoaDonChiTiet where IDHoaDonChiTiet = ?";
+        sql = "Delete from HoaDonChitiet where IDHoaDonChiTiet = ?";
 
         try {
             con = jdbc.getConnection();
-            pre = con.prepareStatement(sql);
+            pre = con.prepareCall(sql);
             pre.setString(1, text);
+
             return pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -134,4 +153,34 @@ public class RepositoryHoaDonChiTiet implements RepositoryHoaDonChiTietInteface 
             }
         }
     }
+
+    @Override
+    public int update(HoaDonChiTiet ct) {
+                sql = "Update HoaDonChiTiet set SoLuongSanPham = ? where IDHoaDonChiTiet = ?";
+
+        try {
+            con = jdbc.getConnection();
+            pre = con.prepareCall(sql);
+            pre.setInt(1, ct.getSoLUongSanPHam());
+            pre.setString(2, ct.getIDHoaDonChiTiet());
+
+            return pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            // Đảm bảo đóng tài nguyên
+            try {
+                if (call != null) {
+                    call.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

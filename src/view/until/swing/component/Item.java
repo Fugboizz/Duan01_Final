@@ -14,11 +14,13 @@ import javax.swing.ImageIcon;
 import model.GiamGia;
 import model.SanPham;
 import repository.SanPham.repoChiTietSanPham;
+import service.banhang.BanHangService;
 
 public class Item extends javax.swing.JPanel {
 
     private repository.SanPham.repoChiTietSanPham rpct = new repoChiTietSanPham();
     private boolean selected;
+    private BanHangService bhs = new BanHangService();
 
     public boolean isSelected() {
         return selected;
@@ -40,13 +42,16 @@ public class Item extends javax.swing.JPanel {
     public void setData(SanPham sp) {
         this.sp = sp;
         txt_MaSP.setText(sp.getIDSanPham());
-        lbl_GiaBan.setText(String.valueOf(sp.getGiaChiTiet()));
+
+        double giaChiTiet = sp.getGiaChiTiet();
+        lbl_GiaBan.setText(bhs.formatToVND(giaChiTiet)); // Sử dụng phương thức formatToVND để định dạng giá bán
+
         if (sp.getIDGiamGia().getIDGIamGia() != null) {
-            lbl_GiaBan.setText(String.format("<html><strike>%s</strike></html>\"", String.valueOf(sp.getGiaChiTiet())));
+            lbl_GiaBan.setText(String.format("<html><strike>%s</strike></html>", bhs.formatToVND(giaChiTiet)));
             lbl_GiaBan.setForeground(Color.GRAY);
-            double giaGiam = sp.getGiaChiTiet() - (sp.getGiaChiTiet() * sp.getIDGiamGia().getTyLeGiamGia() / 100);
+            double giaGiam = giaChiTiet - (giaChiTiet * sp.getIDGiamGia().getTyLeGiamGia() / 100);
             System.out.println("GiaGiam:" + giaGiam);
-            txt_GiaGiam.setText(String.valueOf(giaGiam));
+            txt_GiaGiam.setText(bhs.formatToVND(giaGiam)); // Sử dụng phương thức formatToVND để định dạng giá giảm
         } else {
             txt_GiaGiam.setText("");
             lbl_GiaGiam.setText("");
@@ -61,7 +66,9 @@ public class Item extends javax.swing.JPanel {
             imageIcon = new ImageIcon(scaledImage);
             anh.setImage(imageIcon);
         }
-
+        // Đảm bảo cập nhật giao diện
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
@@ -125,13 +132,13 @@ public class Item extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_MaSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(anh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(anh, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addComponent(lbl_GiaGiam))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_GiaGiam, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)

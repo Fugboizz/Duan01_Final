@@ -20,7 +20,7 @@ public class SanPham {
     private boolean GioiTinh;
     private ChatLieu IDChatLieu;
     private int SoLuongTonKho;
-    private Double GiaChiTiet;
+    private double GiaChiTiet;
     private GiamGia IDGiamGia;
     private NhaCungCap IDNhaCungCap;
     private int SoLuongDaQuy;
@@ -66,7 +66,7 @@ public class SanPham {
 //        this.HinhAnhSanPham = HinhAnhSanPham;
 //    }
 
-    public SanPham(String IDSanPham, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
+    public SanPham(String IDSanPham, int SoLuongTonKho, double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
         this.IDSanPham = IDSanPham;
         this.SoLuongTonKho = SoLuongTonKho;
         this.GiaChiTiet = GiaChiTiet;
@@ -148,11 +148,11 @@ public class SanPham {
         this.SoLuongTonKho = SoLuongTonKho;
     }
 
-    public Double getGiaChiTiet() {
+    public double getGiaChiTiet() {
         return GiaChiTiet;
     }
 
-    public void setGiaChiTiet(Double GiaChiTiet) {
+    public void setGiaChiTiet(double GiaChiTiet) {
         this.GiaChiTiet = GiaChiTiet;
     }
 

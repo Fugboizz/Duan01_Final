@@ -51,6 +51,15 @@ public class TaiKhoan {
         this.TrangThai = TrangThai;
     }
 
+    public TaiKhoan(String IDTaiKhoan, String HoTen, boolean ChucVu) {
+        this.IDTaiKhoan = IDTaiKhoan;
+        this.HoTen = HoTen;
+        this.ChucVu = ChucVu;
+    }
+
+  
+    
+
     public String getIDTaiKhoan() {
         return IDTaiKhoan;
     }

@@ -20,8 +20,10 @@ import javax.swing.table.DefaultTableModel;
 import model.GiamGia;
 import model.GiaoDien.GiaoDienKhuyenMaiModel;
 import model.GiaoDien.ThemGGModel;
+import model.PhanLoai;
 import model.SanPham;
 import model.Voucher;
+import repository.PhanLoai.PhanLoaiRepo;
 import view.until.combobox.ComboBoxSuggestion;
 
 /**
@@ -38,10 +40,11 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     public void fillToTable(JTable tbl) {
         model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
+        int STT = 1;
         for (Voucher vc : rpKM.getAll()) {
             String ngayBatDauFormatted = sdf.format(vc.getNgayBatDau());
             String ngayKetThucFormatted = sdf.format(vc.getNgayKetThuc());
-            model.addRow(new Object[]{vc.getIDVoucher(), vc.getTenVoucher(), vc.getTyLe(), ngayBatDauFormatted, ngayKetThucFormatted, vc.isTrangThai() ? "Hoạt Động" : "Dừng Hoạt Động"});
+            model.addRow(new Object[]{STT++, vc.getIDVoucher(), vc.getTenVoucher(), vc.getTyLe(), ngayBatDauFormatted, ngayKetThucFormatted, vc.isTrangThai() ? "Hoạt Động" : "Kết Thúc"});
         }
     }
 
@@ -75,7 +78,7 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     public void fillTableGiamGia(JTable tbl) {
         model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-        int i = 0;
+        int i = 1;
         for (GiamGia gg : rpKM.getAllGiamGia()) {
             String ngayBatDauFormatted = sdf.format(gg.getNgayBatDau());
             String ngayKetThucFormatted = sdf.format(gg.getNgayKetThuc());
@@ -87,7 +90,7 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     public void SearchGiamGiaGG(JTable tbl, GiaoDienKhuyenMaiModel gdkmm) {
         model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-        int i = 0;
+        int i = 1;
         for (GiamGia gg : rpKM.SearchGiamGiaGG(gdkmm)) {
             String ngayBatDauFormatted = sdf.format(gg.getNgayBatDau());
             String ngayKetThucFormatted = sdf.format(gg.getNgayKetThuc());
@@ -99,7 +102,7 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     public void SearchGiamGiaSp(JTable tbl, GiaoDienKhuyenMaiModel gdkmm) {
         model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-        int i = 0;
+        int i = 1;
         for (SanPham sp : rpKM.SearchGiamGiaSP(gdkmm)) {
             String ngayBatDauFormatted = sdf.format(sp.getIDGiamGia().getNgayBatDau());
             String ngayKetThucFormatted = sdf.format(sp.getIDGiamGia().getNgayKetThuc());
@@ -113,7 +116,6 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
             return "ComboBox không được khởi tạo.";
         }
         cbos.removeAllItems();
-        cbos.addItem("Tất Cả");
         for (GiamGia gg : rpKM.getAllGiamGia()) {
             if (gg != null) {
                 cbos.addItem(gg.getIDGIamGia());
@@ -127,7 +129,7 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     public void fillTableGiamGiaSP(JTable tbl) {
         model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-        int i = 0;
+        int i = 1;
         for (SanPham sp : rpKM.fillTableGiamGiaSP()) {
             String ngayBatDauFormatted = sdf.format(sp.getIDGiamGia().getNgayBatDau());
             String ngayKetThucFormatted = sdf.format(sp.getIDGiamGia().getNgayKetThuc());
@@ -136,7 +138,7 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     }
 
     @Override
-    public void fillWhenClick(JTable tbl, JTextField TenGG, JTextField TyleField, JTextField Ngaybd, JTextField NgayKt, JRadioButton btn1, JRadioButton btn2, JLabel MaGG) {
+    public void fillWhenClick(JTable tbl, JTextField TenGG, JTextField TyleField, JTextField Ngaybd, JTextField NgayKt, JRadioButton btn1, JRadioButton btn2, JTextField MaGG) {
         int index = tbl.getSelectedRow();
         if (index == -1) {
             return;
@@ -162,41 +164,34 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     }
 
     @Override
-    public void addNewGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd, JTextField NgayKt, JRadioButton btn1, JRadioButton btn2, JLabel MaGG) {
+    public void addNewGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd, JTextField NgayKt, JRadioButton btn1, JRadioButton btn2, JTextField MaGG) {
         String tenGiamGia = TenGG.getText().trim();
         String tyleStr = TyleField.getText().trim();
         String ngayBatDauStr = Ngaybd.getText().trim();
         String ngayKetThucStr = NgayKt.getText().trim();
 
-        if (tenGiamGia.isEmpty() || tyleStr.isEmpty() || ngayBatDauStr.isEmpty() || ngayKetThucStr.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên giảm giá, tỷ lệ và ngày bắt đầu, ngày kết thúc không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        // Chuyển đổi tỷ lệ giảm giá
+        float tyleGiamGia = Float.parseFloat(tyleStr);
 
-        float tyleGiamGia;
-        java.sql.Date ngayBatDauSql = null;
-        java.sql.Date ngayKetThucSql = null;
+        // Định dạng ngày
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        // Chuyển đổi ngày bắt đầu và ngày kết thúc
+        java.util.Date utilDateStart = null;
+        java.util.Date utilDateEnd = null;
 
         try {
-            tyleGiamGia = Float.parseFloat(tyleStr);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            java.util.Date utilDateStart = dateFormat.parse(ngayBatDauStr);
-            java.util.Date utilDateEnd = dateFormat.parse(ngayKetThucStr);
-
-            ngayBatDauSql = new java.sql.Date(utilDateStart.getTime());
-            ngayKetThucSql = new java.sql.Date(utilDateEnd.getTime());
-            if (ngayKetThucSql.before(ngayBatDauSql)) {
-                JOptionPane.showMessageDialog(null, "Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Tỷ lệ giảm giá phải là số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
+            utilDateStart = dateFormat.parse(ngayBatDauStr);
+            utilDateEnd = dateFormat.parse(ngayKetThucStr);
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Ngày bắt đầu và ngày kết thúc không hợp lệ. Định dạng ngày phải là dd-MM-yyyy.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
+            // Xử lý ngoại lệ nếu cần
+            e.printStackTrace();
         }
 
+        java.sql.Date ngayBatDauSql = new java.sql.Date(utilDateStart.getTime());
+        java.sql.Date ngayKetThucSql = new java.sql.Date(utilDateEnd.getTime());
+
+        // Tạo đối tượng GiamGia và thiết lập các giá trị
         GiamGia gg = new GiamGia();
         gg.setTenMaGiamGia(tenGiamGia);
         gg.setTyLeGiamGia(tyleGiamGia);
@@ -204,48 +199,32 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
         gg.setNgayKetThuc(ngayKetThucSql);
         gg.setTrangThai(btn1.isSelected());
 
-        boolean success = rpKM.addGiamGia(gg);
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm giảm giá thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm giảm giá thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        // Thêm GiamGia vào repository
     }
 
     @Override
-    public void updateGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd, JTextField NgayKt, JRadioButton btn1, JRadioButton btn2, JLabel MaGG) {
+    public void updateGG(JTextField TenGG, JTextField TyleField, JTextField Ngaybd, JTextField NgayKt, JRadioButton btn1, JRadioButton btn2, JTextField MaGG) {
         String tenGiamGia = TenGG.getText().trim();
         String tyleStr = TyleField.getText().trim();
         String ngayBatDauStr = Ngaybd.getText().trim();
         String ngayKetThucStr = NgayKt.getText().trim();
         String idGiamGia = MaGG.getText().trim();
-        if (tenGiamGia.isEmpty() || tyleStr.isEmpty() || ngayBatDauStr.isEmpty() || ngayKetThucStr.isEmpty() || idGiamGia.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên giảm giá, tỷ lệ và ngày bắt đầu, ngày kết thúc, ID giảm giá không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         float tyleGiamGia;
         java.sql.Date ngayBatDauSql = null;
         java.sql.Date ngayKetThucSql = null;
-
+        tyleGiamGia = Float.parseFloat(tyleStr);
         try {
-            tyleGiamGia = Float.parseFloat(tyleStr);
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             java.util.Date utilDateStart = dateFormat.parse(ngayBatDauStr);
             java.util.Date utilDateEnd = dateFormat.parse(ngayKetThucStr);
             ngayBatDauSql = new java.sql.Date(utilDateStart.getTime());
             ngayKetThucSql = new java.sql.Date(utilDateEnd.getTime());
 
-            if (ngayKetThucSql.before(ngayBatDauSql)) {
-                JOptionPane.showMessageDialog(null, "Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Tỷ lệ giảm giá phải là số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Ngày bắt đầu và ngày kết thúc không hợp lệ. Định dạng ngày phải là dd-MM-yyyy.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
+            // Xử lý ngoại lệ nếu cần
+            e.printStackTrace();
         }
 
         GiamGia gg = new GiamGia();
@@ -259,12 +238,8 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
         System.out.println(ngayBatDauSql);
         System.out.println(ngayKetThucSql);
         System.out.println(idGiamGia);
-        boolean success = rpKM.updateGiamGia(gg, idGiamGia);
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Cập nhật giảm giá thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Cập nhật giảm giá thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        rpKM.updateGiamGia(gg, idGiamGia);
+
     }
 
     @Override
@@ -278,16 +253,16 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
     }
 
     @Override
-    public String fillCbo2(ComboBoxSuggestion cbos, GiaoDienKhuyenMaiModel gdkmm) {
-
+    public String fillCbo2(ComboBoxSuggestion cbos) {
+        PhanLoaiRepo plr = new PhanLoaiRepo();
         if (cbos == null) {
             return "ComboBox không được khởi tạo.";
         }
         cbos.removeAllItems();
         cbos.addItem("Tất Cả");
-        for (SanPham sp : rpKM.SearchGiamGiaSP(gdkmm)) {
-            if (sp != null) {
-                cbos.addItem(sp.getIDPhanLoai().getTenPhanLoai());
+        for (PhanLoai pl : plr.getAll()) {
+            if (pl.isTrangThai() == true) {
+                cbos.addItem(pl.getTenPhanLoai());
             }
         }
         return "Danh sách kiểm định đã được thêm vào ComboBox";
@@ -303,8 +278,8 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
                 String idSanPham = (String) table.getValueAt(i, 2);
                 lstList.add(idSanPham);
                 System.out.println(idSanPham + "checkRow");
-            } 
-            
+            }
+
         }
         return lstList;
     }
@@ -319,7 +294,7 @@ public class GiaoDienKhuyenMaiService implements GiaoDienKhuyenMaiServiceInterfa
                 String idSanPham = (String) table.getValueAt(i, 3);
                 lstList.add(idSanPham);
                 System.out.println(idSanPham + "checkRow1");
-            } 
+            }
         }
         return lstList;
     }

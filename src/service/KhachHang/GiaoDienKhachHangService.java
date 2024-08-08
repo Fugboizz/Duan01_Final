@@ -28,8 +28,9 @@ public class GiaoDienKhachHangService implements GiaoDienKhachHangServiceInterfa
     public void fillToTable(JTable tbl) {
         model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
+        int STT = 1;
         for (KhachHang kh : rpKH.getAll()) {
-            model.addRow(new Object[]{kh.getIDKhachHang(), kh.getHoTen(), kh.getSoDienThoai(), kh.getEmail(), kh.getDiaChi(), kh.getTichDiem(), kh.isTrangThai()?"Hoạt Động" : "Ngừng Hoạt Động"});
+            model.addRow(new Object[]{STT++,kh.getIDKhachHang(), kh.getHoTen(), kh.getSoDienThoai(), kh.getEmail(), kh.getDiaChi(), kh.getTichDiem(), kh.isTrangThai()?"Hoạt Động" : "Ngừng Hoạt Động"});
         }
 
     }
@@ -53,12 +54,7 @@ public class GiaoDienKhachHangService implements GiaoDienKhachHangServiceInterfa
 
     @Override
     public void themKhachHang(KhachHang kh) {
-        if (kh != null) {
             rpKH.creat(kh);
-            JOptionPane.showMessageDialog(null, "Thêm thành công");
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm thất bại. Kiểm tra lại");
-        }
     }
 
     @Override
@@ -72,12 +68,12 @@ public class GiaoDienKhachHangService implements GiaoDienKhachHangServiceInterfa
     @Override
     public void update(JTextField txtMaKH,JTextField txtTen,JTextField txtSDT,JTextField txtEmail,JTextArea DiaChir,JRadioButton rdoHoatDong){
            KhachHang kh = new KhachHang();
-           kh.setDiaChi(DiaChir.getText());
-           kh.setEmail(txtEmail.getText());
-           kh.setHoTen(txtTen.getText());
-           kh.setSoDienThoai(txtSDT.getText());
+           kh.setDiaChi(DiaChir.getText().trim());
+           kh.setEmail(txtEmail.getText().trim());
+           kh.setHoTen(txtTen.getText().trim());
+           kh.setSoDienThoai(txtSDT.getText().trim());
            kh.setTrangThai(rdoHoatDong.isSelected()?true:false);
-           kh.setIDKhachHang(txtMaKH.getText());
+           kh.setIDKhachHang(txtMaKH.getText().trim());
            rpKH.update(kh);
     }
 }

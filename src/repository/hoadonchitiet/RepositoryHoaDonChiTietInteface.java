@@ -12,7 +12,8 @@ import model.HoaDonChiTiet;
  * @author HUNGpYN
  */
 public interface RepositoryHoaDonChiTietInteface {
-    public int create(HoaDonChiTiet hdct);
-    public List<HoaDonChiTiet> getData(String idHoaDon);
+    public List<HoaDonChiTiet> getAll();
+    public int create(HoaDonChiTiet ct);
+    public int update (HoaDonChiTiet ct);
     public int delete(String text);
 }

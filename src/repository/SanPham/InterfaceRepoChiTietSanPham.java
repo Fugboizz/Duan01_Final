@@ -28,4 +28,5 @@ public interface InterfaceRepoChiTietSanPham {
                    String idGiamGia, String idNhaCungCap, int soLuongDaQuy, float kichThuocDa, float trongLuong,
                    String hinhAnhSanPham, String idDaQuy, boolean trangThai);
     public List<SanPham> getByID(String id);
+    public int updateTonKho(SanPham sp);
 }

@@ -7,8 +7,12 @@ package service.taikhoan;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,17 +51,19 @@ public class ServiceTaiKhoan implements ServiceTaiKhoanInterface {
     public void fillToTable(JTable tbl) {
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
+        int STT = 1;
         for (TaiKhoan tk : rptk.getAll()) {
-            tableModel.addRow(new Object[]{tk.getIDTaiKhoan(), tk.getHoTen(), tk.getTaiKhoan(), tk.getMatKhau(), tk.isGioiTinh() ? "Nam" : "Nữ",
+            tableModel.addRow(new Object[]{STT++, tk.getIDTaiKhoan(), tk.getHoTen(), tk.getTaiKhoan(), tk.getMatKhau(), tk.isGioiTinh() ? "Nam" : "Nữ",
                 tk.getSoDienThoai(), tk.isChucVu() ? "Quản Lí" : "Nhân Viên", tk.isTrangThai() ? "Làm Việc" : "Nghỉ Việc"});
         }
     }
-    
-    public void fillToTableCheck(JTable tbl, GiaoDienNhanVienModel gdnvm){
+
+    public void fillToTableCheck(JTable tbl, GiaoDienNhanVienModel gdnvm) {
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
+        int STT = 1;
         for (TaiKhoan tk : rptk.fillToCheck(tbl, gdnvm)) {
-            tableModel.addRow(new Object[]{tk.getIDTaiKhoan(), tk.getHoTen(), tk.getTaiKhoan(), tk.getMatKhau(), tk.isGioiTinh() ? "Nam" : "Nữ",
+            tableModel.addRow(new Object[]{STT++,tk.getIDTaiKhoan(), tk.getHoTen(), tk.getTaiKhoan(), tk.getMatKhau(), tk.isGioiTinh() ? "Nam" : "Nữ",
                 tk.getSoDienThoai(), tk.isChucVu() ? "Quản Lí" : "Nhân Viên", tk.isTrangThai() ? "Làm Việc" : "Nghỉ Việc"});
         }
     }
@@ -71,7 +77,7 @@ public class ServiceTaiKhoan implements ServiceTaiKhoanInterface {
                     int row = tbl.getSelectedRow();
                     if (row >= 0) {
                         for (TaiKhoan tk : rptk.getAll()) {
-                            if (tk.getIDTaiKhoan().equalsIgnoreCase(tbl.getValueAt(row, 0).toString())) {
+                            if (tk.getIDTaiKhoan().equalsIgnoreCase(tbl.getValueAt(row, 1).toString())) {
                                 CapNhatNhanVien cnnv = new CapNhatNhanVien(main, true);
                                 cnnv.setData(tk);
                                 cnnv.setVisible(true);
@@ -89,29 +95,43 @@ public class ServiceTaiKhoan implements ServiceTaiKhoanInterface {
 
     @Override
     public void chonAnh(JLabel label) {
-        JFileChooser filechooser = new JFileChooser();
-        filechooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        filechooser.setDialogTitle("Chọn Ảnh");
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setDialogTitle("Chọn Ảnh");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
-        filechooser.setFileFilter(filter);
-        int result = filechooser.showOpenDialog(null);
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showOpenDialog(null);
+
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = filechooser.getSelectedFile();
-            selectedFile = selectedFile.getAbsoluteFile();
-            String link = selectedFile.getAbsolutePath();
+            File selectedFile = fileChooser.getSelectedFile();
+            String fileName = selectedFile.getName();
+            Path projectDir = Paths.get("src", "images");
+            Path targetPath = projectDir.resolve(fileName);
+
             try {
-                Image img = ImageIO.read(selectedFile);
+                // Tạo thư mục nếu nó không tồn tại
+                Files.createDirectories(projectDir);
+                // Sao chép tệp đến thư mục của dự án
+                Files.copy(selectedFile.toPath(), targetPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+                // Đọc ảnh từ tệp
+                BufferedImage img = ImageIO.read(selectedFile);
 
                 if (img != null) {
-                    label.setIcon(new ImageIcon(img.getScaledInstance((label.getWidth() - 2), (label.getHeight() - 2), Image.SCALE_SMOOTH)));
+                    Image scaledImage = img.getScaledInstance(label.getWidth() - 2, label.getHeight() - 2, Image.SCALE_SMOOTH);
+                    label.setIcon(new ImageIcon(scaledImage));
                     label.setHorizontalAlignment(JLabel.CENTER);
+
+                    // Cập nhật đường dẫn ảnh đã lưu trong dự án
+                    String link = targetPath.toString();
                     label.putClientProperty("imagepath", link);
+                } else {
+                    System.err.println("File đã chọn không phải là ảnh hợp lệ.");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }
 
-    
+    }
 }

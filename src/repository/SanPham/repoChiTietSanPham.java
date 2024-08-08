@@ -158,7 +158,7 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
 
             for (int i = 0; i < params.size(); i++) {
                 pre.setObject(i + 1, params.get(i));
-             
+
             }
 
             try (ResultSet res = pre.executeQuery()) {
@@ -411,4 +411,35 @@ public class repoChiTietSanPham implements InterfaceRepoChiTietSanPham {
         }
         return listctsp;
     }
+
+    @Override
+    public int updateTonKho(SanPham sp) {
+        String sql = "UPDATE SanPham SET SoLuongTonKho = ? WHERE IDSanPham LIKE ?";
+        Connection con = null;
+        PreparedStatement pre = null;
+
+        try {
+            con = jdbc.getConnection();
+            pre = con.prepareStatement(sql);
+            pre.setInt(1, sp.getSoLuongTonKho());
+            pre.setString(2, "%" + sp.getIDSanPham() + "%"); // Dùng LIKE để tìm kiếm phần của chuỗi
+            return pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            // Đảm bảo đóng tài nguyên
+            try {
+                if (pre != null) {
+                    pre.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

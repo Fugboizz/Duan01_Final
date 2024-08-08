@@ -4,6 +4,7 @@
  */
 package repository.hoadon;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,103 +25,101 @@ public class RepositoryHoaDon implements RepositoryHoaDonInterface {
     private Connection con = null;
     private PreparedStatement pre = null;
     private ResultSet res = null;
+    private CallableStatement call = null;
     private String sql = null;
 
-    // Lấy Dữ liệu hóa đơn chờ
-    public List<HoaDon> getAllHDC() {
-        List<HoaDon> listHDC = new ArrayList<>();
-        sql = "select * from v_HoaDonCho where TrangThai = 0";
-
+    @Override
+    public List<HoaDon> getAll() {
+        List<HoaDon> list = new ArrayList<>();
+        sql = "Select * from v_HoaDonCho";
         try {
+            con = jdbc.getConnection();
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
             res = pre.executeQuery();
-
             while (res.next()) {
                 HoaDon hd = new HoaDon();
                 hd.setIDHoaDon(res.getString("IDHoaDon"));
                 hd.setNgayTao(res.getDate("NgayTao"));
-
-                Double tongGia = res.getDouble("TongGia");
-                if (res.wasNull()) {
-                    tongGia = null; // Set to null if TongGia is null
-                }
-
-                Double tongGiaGiam = res.getDouble("TongGiaGiam");
-                if (res.wasNull()) {
-                    tongGiaGiam = null; // Set to null if TongGiaGiam is null
-                }
-
-                // Use TongGiaGiam if it's not null, otherwise use TongGia
-                if (tongGiaGiam != null) {
-                    hd.setTongTienTRuoc(tongGiaGiam);
-                } else {
-                    hd.setTongTienTRuoc(tongGia != null ? tongGia : 0.0); // Default to 0.0 if both are null
-                }
-
+                hd.setTongTienTRuoc(res.getDouble("TongTien"));
                 hd.setTrangThai(res.getBoolean("TrangThai"));
-                listHDC.add(hd);
+                list.add(hd);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // Đảm bảo đóng các tài nguyên
-            try {
-                if (res != null) {
-                    res.close();
-                }
-                if (pre != null) {
-                    pre.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-
-        return listHDC;
+        return list;
     }
 
     @Override
     public int create() {
-        sql = "insert into HoaDon(TrangThai) values(?)";
+        sql = "insert into HoaDon(IDTaiKhoan,TrangThai,TrangThaiTichDiem) values(?,?,?)";
         try {
             con = jdbc.getConnection();
+            con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
-            pre.setBoolean(1, false);
+            pre.setString(1, "TK0001");
+            pre.setBoolean(2, false);
+            pre.setBoolean(3, true);
             return pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
-        } finally {
-            // Đảm bảo đóng các tài nguyên
-            try {
-                if (res != null) {
-                    res.close();
-                }
-                if (pre != null) {
-                    pre.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
     @Override
     public int delete(String text) {
-        String sql = "delete HoaDonChiTiet where IDHoaDon = ? Delete HoaDon where IDHoaDon = ?";
+        String sql = "EXEC DeleteHoaDon @idhoadon = ?";
+
+        try {
+            con = jdbc.getConnection();
+            call = con.prepareCall(sql);
+            call.setString(1, text);
+            return call.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            // Đảm bảo đóng tài nguyên
+            try {
+                if (call != null) {
+                    call.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public int update(HoaDon hd) {
+
+        String sql = "UPDATE HoaDon\n"
+                + "SET IDKhachHang = ?,\n"
+                + "    IDVoucher = ?,\n"
+                + "    TongTienTruoc = ?,\n"
+                + "    TongTienSau = ?,\n"
+                + "    TrangThai = ?\n"
+                + "WHERE IDHoaDon = ?";
+
+        Connection con = null;
+        PreparedStatement pre = null;
 
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
-            pre.setString(1, text);
-            pre.setString(2, text);
+            pre.setString(1, hd.getIdKhachHang().getIDKhachHang());
+            pre.setString(2, hd.getIdVoucher().getIDVoucher());
+            pre.setDouble(3, hd.getTongTienTRuoc());
+            pre.setDouble(4, hd.getTongTienSau());
+            pre.setBoolean(5, true);
+            pre.setString(6, hd.getIDHoaDon());
+
+            // Thực hiện cập nhật và trả về số lượng bản ghi bị ảnh hưởng
             return pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,34 +140,24 @@ public class RepositoryHoaDon implements RepositoryHoaDonInterface {
     }
 
     @Override
-    public int update(String idkhach, String IDvoucher, double tongTienTruoc, double tongTienSau, String idhoadon) {
-        String sql = "update HoaDon set \n"
-                + "IDKhachHang = ? \n"
-                + ",IDTaiKhoan = ? \n"
-                + ",IDVoucher = ? \n"
-                + ",TongTienTruoc = ? \n"
-                + ",TongTienSau = ? \n"
-                + ",TrangThai = ? \n"
-                + ",TrangThaiTichDiem = ?\n"
-                + "where IDHoaDon = ?";
-
+    public int updateTichDiem(String IDKhachHang, String IDHoaDon) {
+        sql = "UPDATE HoaDon\n"
+                + "SET TrangThaiTichDiem = ?\n"
+                + "WHERE IDKhachHang = ?\n"
+                + "AND IDHoaDon <> ?;";
         try {
             con = jdbc.getConnection();
             pre = con.prepareStatement(sql);
-            pre.setString(1, idkhach);
-            pre.setString(2, "TK0001");
-            pre.setString(3, IDvoucher);
-            pre.setDouble(4, tongTienTruoc);
-            pre.setDouble(5, tongTienSau);
-            pre.setBoolean(6, true);
-            pre.setBoolean(7, true);
-            pre.setString(8, idhoadon);
+            pre.setBoolean(1, false);
+            pre.setString(2, IDKhachHang);
+            pre.setString(3, IDHoaDon);
+            // Thực hiện cập nhật và trả về số lượng bản ghi bị ảnh hưởng
             return pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         } finally {
-            
+            // Đảm bảo đóng tài nguyên
             try {
                 if (pre != null) {
                     pre.close();
@@ -182,7 +171,9 @@ public class RepositoryHoaDon implements RepositoryHoaDonInterface {
         }
     }
 
-    @Override
+    
+    // code HoaDon phúc
+     @Override
     public List<HoaDon> getAllDT() {
         sql = "select * from v_DoanhThu_Khoang_Thoi_Gian";
         List<HoaDon> lstDT = new ArrayList<>();
@@ -341,5 +332,4 @@ public class RepositoryHoaDon implements RepositoryHoaDonInterface {
 
         return result;
     }
-
 }

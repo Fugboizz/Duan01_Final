@@ -33,13 +33,7 @@ import model.MauSac;
 import model.PhanLoai;
 import model.NhaCungCap;
 import model.Size;
-import java.sql.Date;
 
-/**
- * Lớp dịch vụ để cập nhật các danh sách vào ComboBox
- *
- * @author WINDOWS10
- */
 public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
 
     private KiemDinhRepository rpkd = new KiemDinhRepository();
@@ -58,15 +52,6 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     private List<Size> lstSizes = new ArrayList<>();
     private List<PhanLoai> lstPhanLoais = new ArrayList<>();
 
-//    private Date parseDate(String dateStr) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        try {
-//            return dateStr.isEmpty() ? null : dateFormat.parse(dateStr);
-//        } catch (ParseException e) {
-//            showMessage("Định dạng ngày không hợp lệ: " + dateStr);
-//            return null;
-//        }
-//    }
     @Override
     public String addCboKiemDinh(ComboBoxSuggestion cbos) {
         if (cbos == null) {
@@ -209,32 +194,6 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     }
 
     @Override
-    public void chonAnh(JLabel label) {
-        JFileChooser filechooser = new JFileChooser();
-        filechooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        filechooser.setDialogTitle("Chọn Ảnh");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
-        filechooser.setFileFilter(filter);
-        int result = filechooser.showOpenDialog(null);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = filechooser.getSelectedFile();
-            selectedFile = selectedFile.getAbsoluteFile();
-            String link = selectedFile.getAbsolutePath();
-            try {
-                Image img = ImageIO.read(selectedFile);
-
-                if (img != null) {
-                    label.setIcon(new ImageIcon(img.getScaledInstance((label.getWidth() - 2), (label.getHeight() - 2), Image.SCALE_SMOOTH)));
-                    label.setHorizontalAlignment(JLabel.CENTER);
-                    label.putClientProperty("imagepath", link);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
     public String checkCboKiemDinh(ComboBoxSuggestion cbos) {
         if (cbos == null || cbos.getSelectedItem() == null) {
             return null;
@@ -345,8 +304,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         lstPhanLoais = rppl.getAll();
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
+        int STT = 1;
         for (PhanLoai pl : rppl.getAll()) {
-            tableModel.addRow(new Object[]{pl.getIDPhanLoai(), pl.getTenPhanLoai(), pl.isTrangThai() ? "Hoạt Động" : "Ngừng Hoạt Động"});
+            tableModel.addRow(new Object[]{STT++, pl.getIDPhanLoai(), pl.getTenPhanLoai(), pl.isTrangThai() ? "Kinh Doanh" : "Ngừng Kinh Doanh"});
         }
     }
 
@@ -355,7 +315,7 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         lstKiemDinh = rpkd.getAll();
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
-
+        int STT = 1;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         for (KiemDinh kd : lstKiemDinh) {
@@ -363,6 +323,7 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
             String formattedDate = dateFormat.format(sqlDate);
 
             tableModel.addRow(new Object[]{
+                STT++,
                 kd.getIDKiemDinh(),
                 kd.getDonViKiemDinh(),
                 formattedDate,
@@ -376,8 +337,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         lstChatLieus = rpcl.getAll();
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
+        int STT = 1;
         for (ChatLieu cl : rpcl.getAll()) {
-            tableModel.addRow(new Object[]{cl.getIDChatLieu(), cl.getTenChatLieu(), cl.getTyLe(), cl.isTrangThai() ? "Hoạt Động" : "Ngừng Hoạt Động"});
+            tableModel.addRow(new Object[]{STT++, cl.getIDChatLieu(), cl.getTenChatLieu(), cl.getTyLe(), cl.isTrangThai() ? "Kinh Doanh" : "Ngừng Kinh Doanh"});
         }
     }
 
@@ -385,9 +347,10 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void fillToSizeTbl(JTable tbl) {
         lstSizes = rpsz.getAll();
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
+        int STT = 1;
         tableModel.setRowCount(0);
         for (Size sz : rpsz.getAll()) {
-            tableModel.addRow(new Object[]{sz.getIDSize(), sz.getSoSize(), sz.isTrangThai() ? "Hoạt Động" : "Ngừng Hoạt Động"});
+            tableModel.addRow(new Object[]{STT++, sz.getIDSize(), sz.getSoSize(), sz.isTrangThai() ? "Kinh Doanh" : "Ngừng Kinh Doanh"});
 
         }
     }
@@ -397,8 +360,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         lstNhaCungCaps = rpncc.getAll();
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
+        int STT = 1;
         for (NhaCungCap ncc : rpncc.getAll()) {
-            tableModel.addRow(new Object[]{ncc.getIDNhaCungCap(), ncc.getTenNhaCungCap(), ncc.getEmail(), ncc.getSoDienThoai(), ncc.getDiaChi(), ncc.isTrangThai() ? "Hoạt Động" : "Ngừng Hoạt Động"});
+            tableModel.addRow(new Object[]{STT++, ncc.getIDNhaCungCap(), ncc.getTenNhaCungCap(), ncc.getEmail(), ncc.getSoDienThoai(), ncc.getDiaChi(), ncc.isTrangThai() ? "Hoạt Động" : "Ngừng Hoạt Động"});
         }
     }
 
@@ -407,8 +371,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         lstMauSacs = rpms.getAll();
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
+        int STT = 1;
         for (MauSac ms : rpms.getAll()) {
-            tableModel.addRow(new Object[]{ms.getIDMauSac(), ms.getChiTietMauSac(), ms.isTrangThai() ? "Hoạt Động" : "Ngừng Hoạt Động"});
+            tableModel.addRow(new Object[]{STT++, ms.getIDMauSac(), ms.getChiTietMauSac(), ms.isTrangThai() ? "Kinh Doanh" : "Ngừng Kinh Doanh"});
         }
     }
 
@@ -417,8 +382,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         lstDaQuys = rpdq.getAll();
         DefaultTableModel tableModel = (DefaultTableModel) tbl.getModel();
         tableModel.setRowCount(0);
+        int STT = 1;
         for (DaQuy dq : rpdq.getAll()) {
-            tableModel.addRow(new Object[]{dq.getIDDaQuy(), dq.getTenDaQuy(), dq.isTrangThai() ? "Hoạt Động" : "Ngừng Hoạt Động"});
+            tableModel.addRow(new Object[]{STT++, dq.getIDDaQuy(), dq.getTenDaQuy(), dq.isTrangThai() ? "Kinh Doanh" : "Ngừng Kinh Doanh"});
         }
     }
 
@@ -426,9 +392,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void getDataPhanLoai(JTable tbl, JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         int i = tbl.getSelectedRow();
         if (i >= 0) {
-            txtID.setText(tbl.getValueAt(i, 0).toString());
-            txtTen.setText(tbl.getValueAt(i, 1).toString());
-            if (tbl.getValueAt(i, 2).toString().equalsIgnoreCase("Hoạt Động")) {
+            txtID.setText(tbl.getValueAt(i, 1).toString());
+            txtTen.setText(tbl.getValueAt(i, 2).toString());
+            if (tbl.getValueAt(i, 3).toString().equalsIgnoreCase("Kinh Doanh")) {
                 rdo1.setSelected(true);
             } else {
                 rdo2.setSelected(true);
@@ -440,10 +406,10 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void getDataKiemDinh(JTable tbl, JTextField txtID, JTextField txtTen, JTextField txtNgayKiemDinh, JRadioButton rdo1, JRadioButton rdo2) {
         int i = tbl.getSelectedRow();
         if (i >= 0) {
-            txtID.setText(tbl.getValueAt(i, 0).toString());
-            txtTen.setText(tbl.getValueAt(i, 1).toString());
-            txtNgayKiemDinh.setText(tbl.getValueAt(i, 2).toString());
-            if (tbl.getValueAt(i, 3).toString().equalsIgnoreCase("Hoạt Động")) {
+            txtID.setText(tbl.getValueAt(i, 1).toString());
+            txtTen.setText(tbl.getValueAt(i, 2).toString());
+            txtNgayKiemDinh.setText(tbl.getValueAt(i, 3).toString());
+            if (tbl.getValueAt(i, 4).toString().equalsIgnoreCase("Hoạt Động")) {
                 rdo1.setSelected(true);
             } else {
                 rdo2.setSelected(true);
@@ -455,9 +421,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void getDataMauSac(JTable tbl, JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         int i = tbl.getSelectedRow();
         if (i >= 0) {
-            txtID.setText(tbl.getValueAt(i, 0).toString());
-            txtTen.setText(tbl.getValueAt(i, 1).toString());
-            if (tbl.getValueAt(i, 2).toString().equalsIgnoreCase("Hoạt Động")) {
+            txtID.setText(tbl.getValueAt(i, 1).toString());
+            txtTen.setText(tbl.getValueAt(i, 2).toString());
+            if (tbl.getValueAt(i, 3).toString().equalsIgnoreCase("Kinh Doanh")) {
                 rdo1.setSelected(true);
             } else {
                 rdo2.setSelected(true);
@@ -473,12 +439,12 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
 
         int i = tbl.getSelectedRow();
         if (i >= 0) {
-            Object id = tbl.getValueAt(i, 0);
-            Object ten = tbl.getValueAt(i, 1);
-            Object email = tbl.getValueAt(i, 2);
-            Object sdt = tbl.getValueAt(i, 3);
-            Object diaChi = tbl.getValueAt(i, 4);
-            Object trangThai = tbl.getValueAt(i, 5);
+            Object id = tbl.getValueAt(i, 1);
+            Object ten = tbl.getValueAt(i, 2);
+            Object email = tbl.getValueAt(i, 3);
+            Object sdt = tbl.getValueAt(i, 4);
+            Object diaChi = tbl.getValueAt(i, 5);
+            Object trangThai = tbl.getValueAt(i, 6);
 
             txtID.setText(id != null ? id.toString() : "");
             txtTen.setText(ten != null ? ten.toString() : "");
@@ -498,10 +464,10 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void getDataChatLieu(JTable tbl, JTextField txtID, JTextField txtTen, JTextField txtTyLe, JRadioButton rdo1, JRadioButton rdo2) {
         int i = tbl.getSelectedRow();
         if (i >= 0) {
-            txtID.setText(tbl.getValueAt(i, 0).toString());
-            txtTen.setText(tbl.getValueAt(i, 1).toString());
-            txtTyLe.setText(tbl.getValueAt(i, 2).toString());
-            if (tbl.getValueAt(i, 3).toString().equalsIgnoreCase("Hoạt Động")) {
+            txtID.setText(tbl.getValueAt(i, 1).toString());
+            txtTen.setText(tbl.getValueAt(i, 2).toString());
+            txtTyLe.setText(tbl.getValueAt(i, 3).toString());
+            if (tbl.getValueAt(i, 4).toString().equalsIgnoreCase("Kinh Doanh")) {
                 rdo1.setSelected(true);
 
             } else {
@@ -514,9 +480,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void getDataSize(JTable tbl, JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         int i = tbl.getSelectedRow();
         if (i >= 0) {
-            txtID.setText(tbl.getValueAt(i, 0).toString());
-            txtTen.setText(tbl.getValueAt(i, 1).toString());
-            if (tbl.getValueAt(i, 2).toString().equalsIgnoreCase("Hoạt Động")) {
+            txtID.setText(tbl.getValueAt(i, 1).toString());
+            txtTen.setText(tbl.getValueAt(i, 2).toString());
+            if (tbl.getValueAt(i, 3).toString().equalsIgnoreCase("Kinh Doanh")) {
                 rdo1.setSelected(true);
             } else {
                 rdo2.setSelected(true);
@@ -528,9 +494,9 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void getDataDaQuy(JTable tbl, JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         int i = tbl.getSelectedRow();
         if (i >= 0) {
-            txtID.setText(tbl.getValueAt(i, 0).toString());
-            txtTen.setText(tbl.getValueAt(i, 1).toString());
-            if (tbl.getValueAt(i, 2).toString().equalsIgnoreCase("Hoạt Động")) {
+            txtID.setText(tbl.getValueAt(i, 1).toString());
+            txtTen.setText(tbl.getValueAt(i, 2).toString());
+            if (tbl.getValueAt(i, 3).toString().equalsIgnoreCase("Kinh Doanh")) {
                 rdo1.setSelected(true);
             } else {
                 rdo2.setSelected(true);
@@ -542,34 +508,24 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     public void readFormPhanLoai(JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         for (PhanLoai pl : lstPhanLoais) {
             if (txtID.getText().equals(pl.getIDPhanLoai())) {
-                pl.setTenPhanLoai(txtTen.getText());
+                pl.setTenPhanLoai(txtTen.getText().trim());
                 pl.setTrangThai(rdo1.isSelected());
-                if (rppl.updatePhanLoai(pl)) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật PhanLoai thành công.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật PhanLoai thất bại.");
-                }
+                rppl.updatePhanLoai(pl);
                 return;
             }
         }
-        JOptionPane.showMessageDialog(null, "Không tìm thấy PhanLoai với ID: " + txtID.getText());
     }
 
     @Override
     public void readFormMauSac(JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         for (MauSac ms : lstMauSacs) {
             if (txtID.getText().equals(ms.getIDMauSac())) {
-                ms.setChiTietMauSac(txtTen.getText());
+                ms.setChiTietMauSac(txtTen.getText().trim());
                 ms.setTrangThai(rdo1.isSelected());
-                if (rpms.update(ms) != 0) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật MauSac thành công.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật MauSac thất bại.");
-                }
+                rpms.update(ms);
                 return;
             }
         }
-        JOptionPane.showMessageDialog(null, "Không tìm thấy MauSac với ID: " + txtID.getText());
     }
 
     @Override
@@ -578,20 +534,14 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         String ten = txtTen.getText().trim();
         String ngayKiemDinhStr = txtNgayKiemDinh.getText().trim();
 
-        // Kiểm tra nếu ID hoặc tên hoặc ngày kiểm định rỗng
-        if (id.isEmpty() || ten.isEmpty() || ngayKiemDinhStr.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "ID, tên, và ngày kiểm định không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
         // Chuyển đổi ngày từ chuỗi sang java.sql.Date
-        java.sql.Date ngayKiemDinhSql;
+        java.sql.Date ngayKiemDinhSql = null;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // Định dạng ngày
             java.util.Date ngayKiemDinhUtil = sdf.parse(ngayKiemDinhStr); // Phân tích chuỗi thành java.util.Date
             ngayKiemDinhSql = new java.sql.Date(ngayKiemDinhUtil.getTime()); // Chuyển đổi thành java.sql.Date
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Ngày kiểm định không hợp lệ. Định dạng ngày phải là dd-MM-yyyy.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
             return;
         }
 
@@ -602,34 +552,24 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
                 kd.setTrangThai(rdo1.isSelected());
 
                 // Cập nhật đối tượng KiemDinh
-                if (rpkd.updateKiemDinh(kd) != 0) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật KiemDinh thành công.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật KiemDinh thất bại.");
-                }
+                rpkd.updateKiemDinh(kd);
                 return;
             }
         }
-        JOptionPane.showMessageDialog(null, "Không tìm thấy KiemDinh với ID: " + id);
     }
 
     @Override
     public void readFormChatLieu(JTextField txtID, JTextField txtTen, JTextField txtTyle, JRadioButton rdo1, JRadioButton rdo2) {
         for (ChatLieu cl : lstChatLieus) {
             if (txtID.getText().equals(cl.getIDChatLieu())) {
-                cl.setTenChatLieu(txtTen.getText());
-                cl.setTyLe(Float.parseFloat(txtTyle.getText()));
-                cl.setTrangThai(rdo1.isSelected() ? true : false);
+                cl.setTenChatLieu(txtTen.getText().trim());
+                cl.setTyLe(Float.parseFloat(txtTyle.getText().trim()));
+                cl.setTrangThai(rdo1.isSelected());
 
-                if (rpcl.update(cl) != 0) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật ChatLieu thành công.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật ChatLieu thất bại.");
-                }
+                rpcl.update(cl);
                 return;
             }
         }
-        JOptionPane.showMessageDialog(null, "Không tìm thấy ChatLieu với ID: " + txtID.getText());
     }
 
     @Override
@@ -637,53 +577,38 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         for (NhaCungCap ncc : lstNhaCungCaps) {
             if (txtID.getText().equals(ncc.getIDNhaCungCap())) {
                 ncc.setTenNhaCungCap(txtTen.getText());
-                ncc.setEmail(txtEmail.getText());
-                ncc.setDiaChi(txtDiaChi.getText());
-                ncc.setSoDienThoai(txtSDT.getText());
+                ncc.setEmail(txtEmail.getText().trim());
+                ncc.setDiaChi(txtDiaChi.getText().trim());
+                ncc.setSoDienThoai(txtSDT.getText().trim());
                 ncc.setTrangThai(rdo1.isSelected());
-                if (rpncc.updateNhaCungCap(ncc) != 0) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật NhaCungCap thành công.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật NhaCungCap thất bại.");
-                }
+                rpncc.updateNhaCungCap(ncc);
                 return;
             }
         }
-        JOptionPane.showMessageDialog(null, "Không tìm thấy NhaCungCap với ID: " + txtID.getText());
     }
 
     @Override
     public void readFormSize(JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         for (Size sz : lstSizes) {
             if (txtID.getText().equals(sz.getIDSize())) {
-                sz.setSoSize(Integer.valueOf(txtTen.getText()));
+                sz.setSoSize(Integer.valueOf(txtTen.getText().trim()));
                 sz.setTrangThai(rdo1.isSelected());
-                if (rpsz.update(sz) != 0) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật Size thành công.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật Size thất bại.");
-                }
+                rpsz.update(sz);           
                 return;
             }
         }
-        JOptionPane.showMessageDialog(null, "Không tìm thấy Size với ID: " + txtID.getText());
     }
 
     @Override
     public void readFormDaQuy(JTextField txtID, JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         for (DaQuy dq : lstDaQuys) {
             if (txtID.getText().equals(dq.getIDDaQuy())) {
-                dq.setTenDaQuy(txtTen.getText());
+                dq.setTenDaQuy(txtTen.getText().trim());
                 dq.setTrangThai(rdo1.isSelected());
-                if (rpdq.update(dq) != 0) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật DaQuy thành công.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật DaQuy thất bại.");
+                rpdq.update(dq); 
                 }
                 return;
             }
-        }
-        JOptionPane.showMessageDialog(null, "Không tìm thấy DaQuy với ID: " + txtID.getText());
     }
 
     @Override
@@ -722,37 +647,22 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
     @Override
     public void InsertPhanLoai(JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         String tenPhanLoai = txtTen.getText().trim();
-        if (tenPhanLoai.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên phân loại không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         PhanLoai pl = new PhanLoai();
-        pl.setTenPhanLoai(txtTen.getText());
+        pl.setTenPhanLoai(txtTen.getText().trim());
         pl.setTrangThai(rdo1.isSelected() ? true : false);
-        boolean success = rppl.addPhanLoai(pl);
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm phân loại thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm phân loại thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        rppl.addPhanLoai(pl);
+
     }
 
     @Override
     public void InsertMauSac(JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         String tenMauSac = txtTen.getText().trim();
-        if (tenMauSac.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên màu sắc không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+
         MauSac ms = new MauSac();
         ms.setChiTietMauSac(tenMauSac);
         ms.setTrangThai(rdo1.isSelected() ? true : false);
-        boolean success = rpms.addMauSac(ms);
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm màu sắc thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm màu sắc thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        rpms.addMauSac(ms);
+
     }
 
     @Override
@@ -760,116 +670,69 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         String tenKiemDinh = txtTen.getText().trim();
         String ngayKiemDinhStr = txtNgayKiemDinh.getText().trim();
 
-        if (tenKiemDinh.isEmpty() || ngayKiemDinhStr.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên kiểm định và ngày kiểm định không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
+        java.sql.Date ngayKiemDinhSql = null;
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            java.util.Date ngayKiemDinhUtil = sdf.parse(ngayKiemDinhStr);
+            ngayKiemDinhSql = new java.sql.Date(ngayKiemDinhUtil.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
-        java.sql.Date ngayKiemDinhSql;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
-            java.util.Date ngayKiemDinhUtil = sdf.parse(ngayKiemDinhStr); 
-            ngayKiemDinhSql = new java.sql.Date(ngayKiemDinhUtil.getTime()); 
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Ngày kiểm định không hợp lệ. Định dạng ngày phải là dd-MM-yyyy.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        System.out.println("svKiemDinhstr" + ngayKiemDinhStr);
-         System.out.println("svKiemDinhsql" + ngayKiemDinhSql);
+        // Tạo đối tượng KiemDinh nếu ngày hợp lệ
         KiemDinh kd = new KiemDinh();
         kd.setDonViKiemDinh(tenKiemDinh);
         kd.setNgayKiemDinh(ngayKiemDinhSql);
         kd.setTrangThai(rdo1.isSelected());
 
-        boolean success = rpkd.addKiemDinh(kd);
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm kiểm định thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm kiểm định thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        // Thêm đối tượng vào danh sách
+        rpkd.addKiemDinh(kd);
     }
 
     @Override
     public void InsertChatLieu(JTextField txtTen, JTextField txtTyle, JRadioButton rdo1, JRadioButton rdo2) {
         String tenChatLieu = txtTen.getText().trim();
         String tyle = txtTyle.getText().trim();
-        if (tenChatLieu.isEmpty() || tyle.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên chất liệu và tỷ lệ không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         ChatLieu cl = new ChatLieu();
         cl.setTenChatLieu(tenChatLieu);
         cl.setTyLe(Float.parseFloat(tyle));
         cl.setTrangThai(rdo1.isSelected() ? true : false);
-        boolean success = rpcl.creat(cl) > 0;
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm chất liệu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm chất liệu thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        rpcl.creat(cl);
+
     }
 
     @Override
     public void InsertNhaCungCap(JTextField txtTen, JTextField txtEmail, JTextField txtSDT, JTextArea txtDiaChi, JRadioButton rdo1, JRadioButton rdo2) {
         String soDienThoai = txtSDT.getText().trim();
-        if (soDienThoai.length() > 10) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không được vượt quá 10 ký tự.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         NhaCungCap nc = new NhaCungCap();
-        nc.setTenNhaCungCap(txtTen.getText());
+        nc.setTenNhaCungCap(txtTen.getText().trim());
         nc.setSoDienThoai(soDienThoai);
-        nc.setDiaChi(txtDiaChi.getText());
-        nc.setEmail(txtEmail.getText());
+        nc.setDiaChi(txtDiaChi.getText().trim());
+        nc.setEmail(txtEmail.getText().trim());
         nc.setTrangThai(rdo1.isSelected());
-        boolean success = rpncc.addNhaCungCap(nc);
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm nhà cung cấp thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm nhà cung cấp thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        rpncc.addNhaCungCap(nc);
+
     }
 
     @Override
     public void InsertSize(JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
-        int tenSize;
-        try {
-            tenSize = Integer.parseInt(txtTen.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Tên kích cỡ phải là một số nguyên hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (tenSize <= 0) {
-            JOptionPane.showMessageDialog(null, "Tên kích cỡ không được để trống và phải lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         Size sz = new Size();
+        int tenSize;
+        tenSize = Integer.parseInt(txtTen.getText().trim());
         sz.setSoSize(tenSize);
         sz.setTrangThai(rdo1.isSelected());
-        boolean success = rpsz.creat(sz) > 0;
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm kích cỡ thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm kích cỡ thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        rpsz.creat(sz);
     }
 
     @Override
     public void InsertDaQuy(JTextField txtTen, JRadioButton rdo1, JRadioButton rdo2) {
         String tenDaQuy = txtTen.getText().trim();
-        if (tenDaQuy.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên đá quý không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+
         DaQuy dq = new DaQuy();
         dq.setTenDaQuy(tenDaQuy);
         dq.setTrangThai(rdo1.isSelected() ? true : false);
-        boolean success = rpdq.creat(dq) > 0;
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Thêm đá quý thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm đá quý thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        rpdq.creat(dq);
     }
 
 }

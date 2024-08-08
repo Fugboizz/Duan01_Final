@@ -41,7 +41,6 @@ public interface InterfaceCapNhatSanPhamSv {
 
     boolean checkCbo(ComboBoxSuggestion cbos, String str);
 
-    public void chonAnh(JLabel label);
 
     String checkCboKiemDinh(ComboBoxSuggestion cbos);
 
