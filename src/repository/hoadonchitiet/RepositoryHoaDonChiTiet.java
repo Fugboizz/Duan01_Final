@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.GiamGia;
 import model.HoaDon;
 import model.HoaDonChiTiet;
 import model.KhachHang;

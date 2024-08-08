@@ -7,8 +7,6 @@ package service.BaoHanh;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
@@ -16,7 +14,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.BaoHanh;
-import model.HoaDonChiTiet;
 import model.KhachHang;
 import model.SanPham;
 import repository.KhachHang.repoKhachHang;
@@ -58,16 +55,6 @@ public class GiaoDienBaoHanhService implements GiaoDienBaoHanhServicInterface {
     @Override
     public void addBaoHanh(JTextField TenKH, String SeriSp, String IDSp, String IDHDCT, JTextArea GhiChu, JTextField NgayTao, JRadioButton rdo1) {
 
-        if (TenKH.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên khách hàng không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (NgayTao.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ngày tạo không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
         String IDKH = null;
         for (KhachHang kh : rpKh.getAll()) {
             if (TenKH.getText().trim().equals(kh.getHoTen())) {
@@ -77,7 +64,6 @@ public class GiaoDienBaoHanhService implements GiaoDienBaoHanhServicInterface {
         }
 
         if (IDKH == null) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy khách hàng với tên này.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -88,23 +74,15 @@ public class GiaoDienBaoHanhService implements GiaoDienBaoHanhServicInterface {
             java.util.Date utilDateStart1 = dateFormat.parse(NgayTao.getText().trim());
             NgayTaoSql = new java.sql.Date(utilDateStart1.getTime());
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Ngày không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        boolean isSuccess = rpBH.themBaoHanh(
+        rpBH.themBaoHanh(
                 IDKH, SeriSp, IDSp,
                 IDHDCT,
                 NgayTaoSql,
                 GhiChu.getText(),
-                rdo1.isSelected()
-        );
-
-        if (isSuccess) {
-            JOptionPane.showMessageDialog(null, "Thêm bảo hành thành công.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm bảo hành thất bại.");
-        }
+                rdo1.isSelected());
     }
 
     @Override

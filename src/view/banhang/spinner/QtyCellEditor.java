@@ -81,7 +81,7 @@ public class QtyCellEditor extends DefaultCellEditor {
             DecimalFormat df = new DecimalFormat("#,##0.##");
             item.setSoLUongSanPHam(qty);
             double total = item.getGiaSanPham() * qty;
-            table.setValueAt(df.format(total) + " VND", row, 7);
+            table.setValueAt(df.format(total) + " VND", row, 8);
             event.inputChanged();
         }
     }

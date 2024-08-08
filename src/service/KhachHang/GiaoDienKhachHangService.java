@@ -4,7 +4,6 @@
  */
 package service.KhachHang;
 
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextArea;

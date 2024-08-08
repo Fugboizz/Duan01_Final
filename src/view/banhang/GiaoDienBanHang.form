@@ -451,7 +451,7 @@
                             <Column editable="false" title="T&#xea;n S&#x1ea3;n Ph&#x1ea9;m" type="java.lang.Object"/>
                             <Column editable="false" title="Gi&#xe1; B&#xe1;n" type="java.lang.Object"/>
                             <Column editable="false" title="Gi&#x1ea3;m Gi&#xe1;" type="java.lang.Object"/>
-                            <Column editable="true" title="SL" type="java.lang.Object"/>
+                            <Column editable="false" title="SL" type="java.lang.Object"/>
                             <Column editable="false" title="T&#x1ed5;ng Ti&#x1ec1;n" type="java.lang.Object"/>
                             <Column editable="true" title="" type="java.lang.Object"/>
                           </Table>
@@ -573,9 +573,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="btn_Huy" pref="87" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btn_ThanhToanVaIn" pref="105" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
                                   <Component id="btn_ThanhToan" pref="131" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -682,7 +680,6 @@
                           <EmptySpace pref="25" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btn_ThanhToan" alignment="3" pref="31" max="32767" attributes="0"/>
-                              <Component id="btn_ThanhToanVaIn" alignment="3" pref="31" max="32767" attributes="0"/>
                               <Component id="btn_Huy" alignment="3" pref="31" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -830,14 +827,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThanhToanActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="view.until.button.Button" name="btn_ThanhToanVaIn">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="TT &amp; In"/>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Roboto" size="13" style="1"/>
-                    </Property>
-                  </Properties>
-                </Component>
                 <Component class="view.until.button.Button" name="btn_Huy">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
@@ -909,7 +898,7 @@
                               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="comboBoxSuggestion1" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <Component id="cbo_NhanVien" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -951,7 +940,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btn_Excel" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="comboBoxSuggestion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbo_NhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_BatDau" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="txt_KetThuc" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="btn_TimKiemHoaDon" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
@@ -1008,7 +997,7 @@
                 <Property name="text" type="java.lang.String" value="M&#xe3; Nh&#xe2;n Vi&#xea;n"/>
               </Properties>
             </Component>
-            <Component class="view.until.combobox.ComboBoxSuggestion" name="comboBoxSuggestion1">
+            <Component class="view.until.combobox.ComboBoxSuggestion" name="cbo_NhanVien">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
@@ -1057,7 +1046,7 @@
                   <Border info="null"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icon/excel.png"/>
+                  <Image iconType="3" name="/Icon/lammoi.png"/>
                 </Property>
                 <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="20" green="18" red="10" type="rgb"/>
