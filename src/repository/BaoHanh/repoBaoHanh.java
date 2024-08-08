@@ -179,4 +179,43 @@ public class repoBaoHanh implements InterfaceRepoBaoHanh {
         }
     }
 
+    public List<BaoHanh> getDanhSachSanPhamBaoHanhByDateAndPhone(java.sql.Date tuNgay, java.sql.Date toiNgay, String soDienThoai) {
+        List<BaoHanh> baoHanhList = new ArrayList<>();
+        String sql = "SELECT * FROM View_DanhSachSanPham_BaoHanh WHERE NgayYeuCau BETWEEN ? AND ? AND SoDienThoai LIKE ?";
+
+        try (Connection connection = jdbc.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setDate(1, tuNgay);
+            stmt.setDate(2, toiNgay);
+            stmt.setString(3, "%" + soDienThoai + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    BaoHanh bh = new BaoHanh();
+                    bh.setIDBaoHanh(rs.getString("IDBaoHanh"));
+                    bh.setNgayYeuCau(rs.getDate("NgayYeuCau"));
+                    bh.setTrangThai(rs.getBoolean("TrangThai"));
+                    bh.setGhiChu(rs.getString("GhiChu"));
+
+                    KhachHang kh = new KhachHang();
+                    kh.setHoTen(rs.getString("HoTen"));
+                    kh.setSoDienThoai(rs.getString("SoDienThoai"));
+                    kh.setDiaChi(rs.getString("DiaChi"));
+                    bh.setIDKhachHang(kh);
+
+                    SanPham sp = new SanPham();
+                    sp.setTenSanPham(rs.getString("TenSanPham"));
+                    bh.setIDSanPham(sp);
+
+                    baoHanhList.add(bh);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return baoHanhList;
+    }
+
 }

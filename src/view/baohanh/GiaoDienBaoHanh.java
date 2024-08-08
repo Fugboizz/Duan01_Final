@@ -134,7 +134,7 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                // Không xử lý thay đổi này vì không có sự thay đổi định dạng văn bản
+               
             }
 
             private void updateCustomerInfo() {
@@ -149,12 +149,12 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
                             txt_DiaChi.setText(kh.getDiaChi());
                             found = true;
                             lbl_KhachHangKhongTonTai.setText("");
-                            break; // Đã tìm thấy khách hàng, không cần kiểm tra thêm
+                            break;
                         }
                     }
 
                     if (!found) {
-                        // Nếu không tìm thấy khách hàng, xóa thông tin
+                      
                         lbl_KhachHangKhongTonTai.setText("Số điện thoại không tồn tại");
                     }
                 });
@@ -162,11 +162,11 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
         });
     }
      public void datNgayTao(String NgayTao) {
-        // Giả sử có JTextField hoặc JLabel để hiển thị tên sản phẩm
+
         txt_TenSanPham.setText(NgayTao);
     }
     public void datTenSanPham(String tenSanPham) {
-        // Giả sử có JTextField hoặc JLabel để hiển thị tên sản phẩm
+ 
         txt_TenSanPham.setText(tenSanPham);
     }
 
@@ -177,13 +177,15 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         dateChooserYeuCau = new com.raven.datechooser.DateChooser();
         dateChooserHenTra = new com.raven.datechooser.DateChooser();
+        dateChooserTuNGay = new com.raven.datechooser.DateChooser();
+        dateChooserDenNgay = new com.raven.datechooser.DateChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panel_BaoHanh = new view.until.swing.Background();
         txt_TimSoDienThoai = new view.until.textfield.TextFieldSuggestion();
         jLabel2 = new javax.swing.JLabel();
         txt_TuNgay = new view.until.textfield.TextFieldSuggestion();
-        textFieldSuggestion3 = new view.until.textfield.TextFieldSuggestion();
+        txt_DenNgay = new view.until.textfield.TextFieldSuggestion();
         button1 = new view.until.button.Button();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -219,6 +221,10 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
 
         dateChooserYeuCau.setTextRefernce(txt_NgayYeuCau);
 
+        dateChooserTuNGay.setTextRefernce(txt_TuNgay);
+
+        dateChooserDenNgay.setTextRefernce(txt_DenNgay);
+
         jPanel1.setBackground(new java.awt.Color(16, 24, 32));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -245,6 +251,11 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
         jLabel2.setText("Số Điện Thoại");
 
         button1.setText("Tìm Kiếm");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Từ Ngày");
 
@@ -309,7 +320,7 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
                         .addGroup(panel_BaoHanhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addGroup(panel_BaoHanhLayout.createSequentialGroup()
-                                .addComponent(textFieldSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_DenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(45, 45, 45)
                                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -336,7 +347,7 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
                         .addGroup(panel_BaoHanhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_TimSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_TuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_DenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -573,13 +584,21 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
 
     private void tbl_DanhSachBHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_DanhSachBHMouseClicked
         clickHienThi();
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tbl_DanhSachBHMouseClicked
 
     private void btn_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiActionPerformed
         lamMoi();
-        // TODO add your handling code here:
     }//GEN-LAST:event_btn_LamMoiActionPerformed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        if (txt_TimSoDienThoai.getText().isEmpty()) {
+            qlBaoHanh.fillToTable(tbl_DanhSachBH);
+        }else{
+            qlBaoHanh.fillByCondition(tbl_DanhSachBH, txt_TuNgay, txt_DenNgay, txt_TimSoDienThoai);
+        }
+        
+    }//GEN-LAST:event_button1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -591,7 +610,9 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
     private view.until.button.Button button1;
     private view.until.button.Button button6;
     private javax.swing.ButtonGroup buttonGroup1;
+    private com.raven.datechooser.DateChooser dateChooserDenNgay;
     private com.raven.datechooser.DateChooser dateChooserHenTra;
+    private com.raven.datechooser.DateChooser dateChooserTuNGay;
     private com.raven.datechooser.DateChooser dateChooserYeuCau;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -616,7 +637,7 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
     private javax.swing.JRadioButton rdo_DaTra;
     private javax.swing.JScrollPane scrollBH;
     private javax.swing.JTable tbl_DanhSachBH;
-    private view.until.textfield.TextFieldSuggestion textFieldSuggestion3;
+    private view.until.textfield.TextFieldSuggestion txt_DenNgay;
     private javax.swing.JTextArea txt_DiaChi;
     private javax.swing.JTextArea txt_GhiChu;
     private view.until.textfield.TextFieldSuggestion txt_NgayYeuCau;

@@ -4,6 +4,7 @@
  */
 package repository.BaoHanh;
 
+import java.sql.Date;
 import java.util.List;
 import model.BaoHanh;
 
@@ -21,4 +22,5 @@ public interface InterfaceRepoBaoHanh {
     public boolean themBaoHanh(String idKhachHang,String SeriSp,String IDSanPham ,String idHoaDonChiTiet, java.sql.Date ngayYeuCau, String ghiChu, boolean trangThai);
     
     public boolean capNhatBaoHanh(String idBaoHanh, String ghiChu, boolean trangThai);
+    public List<BaoHanh> getDanhSachSanPhamBaoHanhByDateAndPhone(java.sql.Date startDate, java.sql.Date endDate, String phone);
 }

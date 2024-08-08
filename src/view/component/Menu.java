@@ -5,27 +5,35 @@ import com.raven.swing.ButtonMenu;
 import com.raven.swing.scrollbar.ScrollBarCustom;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
-
+import view.dangnhap.DangNhapView;
+import view.main.Main;
 public class Menu extends javax.swing.JPanel {
-
     private EventMenu event;
+    private Main main;
+    public void setUserName(String name) {
+        lbl_NameUser.setText(name);
+    }
 
     public Menu() {
-        
         initComponents();
+        lbl_RoleUser.setText(DangNhapView.roleDN?"Admin":"Personnel");
+        lbl_NameUser.setText(DangNhapView.nameDN);
+                imageAvatar1.setIcon(new javax.swing.ImageIcon(DangNhapView.HinhAnh));
         setOpaque(false);
         ScrollBarCustom sb = new ScrollBarCustom();
         sb.setForeground(new Color(130, 130, 130, 100));
         jScrollPane1.setVerticalScrollBar(sb);
         panelMenu.setLayout(new MigLayout("wrap, fillx, inset 3", "[fill]", "[]0[]"));
     }
-
+    
     public void initMenu(EventMenu event) {
         this.event = event;
         addEmpty();
@@ -43,7 +51,7 @@ public class Menu extends javax.swing.JPanel {
         addEmpty();
         addMenu(new ImageIcon(getClass().getResource("/Icon/baohanh.png")), "Bảo Hành", 6);
         addEmpty();
-       }
+    }
 
     private void addEmpty() {
         panelMenu.add(new JLabel(), "push");
@@ -79,8 +87,9 @@ public class Menu extends javax.swing.JPanel {
 
         roundPanel1 = new com.raven.swing.RoundPanel();
         imageAvatar1 = new com.raven.swing.ImageAvatar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_NameUser = new javax.swing.JLabel();
+        lbl_RoleUser = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         roundPanel2 = new com.raven.swing.RoundPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelMenu = new javax.swing.JPanel();
@@ -89,14 +98,25 @@ public class Menu extends javax.swing.JPanel {
 
         imageAvatar1.setForeground(new java.awt.Color(231, 231, 231));
         imageAvatar1.setBorderSize(2);
-        imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/profile.jpg"))); // NOI18N
+        imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(224, 224, 224));
-        jLabel1.setText("User Name");
+        lbl_NameUser.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lbl_NameUser.setForeground(new java.awt.Color(224, 224, 224));
+        lbl_NameUser.setText("User Name");
 
-        jLabel2.setForeground(new java.awt.Color(203, 203, 203));
-        jLabel2.setText("Admin");
+        lbl_RoleUser.setForeground(new java.awt.Color(203, 203, 203));
+        lbl_RoleUser.setText("Admin");
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logout_1.png"))); // NOI18N
+        jButton1.setText("Đăng Xuất");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
@@ -107,9 +127,14 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(roundPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_NameUser)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(roundPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_RoleUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,13 +142,15 @@ public class Menu extends javax.swing.JPanel {
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addComponent(lbl_NameUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
+                        .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_RoleUser)
+                            .addComponent(jButton1)))
                     .addGroup(roundPanel1Layout.createSequentialGroup()
                         .addContainerGap(10, Short.MAX_VALUE)
                         .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
+                .addGap(6, 6, 6))
         );
 
         roundPanel2.setBackground(new java.awt.Color(51, 51, 51));
@@ -175,11 +202,18 @@ public class Menu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Window window = SwingUtilities.getWindowAncestor(this);
+        window.dispose();
+        new DangNhapView().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.swing.ImageAvatar imageAvatar1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_NameUser;
+    private javax.swing.JLabel lbl_RoleUser;
     private javax.swing.JPanel panelMenu;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;

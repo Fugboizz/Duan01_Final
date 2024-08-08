@@ -11,7 +11,6 @@ import view.form.Form_1;
 import view.khachhang.GiaoDienKhachHang;
 import view.khuyenmai.GiaoDienKhuyenMai;
 import view.nhanvien.GiaoDienNhanVien;
-import view.sanpham.CapNhatSanPham;
 import view.sanpham.GiaoDienSanPham;
 
 public class Main extends javax.swing.JFrame {
@@ -50,7 +49,6 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 3) {
                     showForm(GiaoDienNhanVien.getInstance());
                 } else if (index == 4) {
-
                     showForm(new GiaoDienKhachHang().getInstance());
                 } else if (index == 5) {
                     showForm(new GiaoDienKhuyenMai().getInstance());
@@ -79,6 +77,8 @@ public class Main extends javax.swing.JFrame {
             showForm(new GiaoDienSanPham());
         } else if (aFlag && cuaSo == 4) {
             showForm(new GiaoDienKhachHang());
+        }else if (aFlag && cuaSo == 0) {
+            showForm(new Form_1());
         }
     }
 
@@ -119,9 +119,9 @@ public class Main extends javax.swing.JFrame {
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 1357, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(simpleTitleBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1652, Short.MAX_VALUE)
         );

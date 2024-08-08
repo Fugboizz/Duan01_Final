@@ -3,12 +3,16 @@ package view.dangnhap;
 import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import model.TaiKhoan;
 import service.dangnhap.DangNhap;
+import view.main.Main;
+import view.quenmatkhau.QuenMatKhau;
 
 public class DangNhapView extends javax.swing.JFrame {
-
     public static boolean roleDN;
     public static String nameDN;
+    public static String HinhAnh;
     private service.dangnhap.DangNhap dn = new DangNhap();
 
     public DangNhapView() {
@@ -21,31 +25,21 @@ public class DangNhapView extends javax.swing.JFrame {
         init();
     }
 
-private void init() {
-        // Đường dẫn tới tệp hình ảnh
+    private void init() {
         URL imageURL = getClass().getResource("/Icon/nhan.jpg");
-
         if (imageURL != null) {
-            // Tạo ImageIcon từ URL
             ImageIcon originalIcon = new ImageIcon(imageURL);
-
-            // Lấy Image từ ImageIcon
             Image originalImage = originalIcon.getImage();
-
-            // Lấy kích thước của JLabel
             int labelWidth = lbl_BackGround.getWidth();
             int labelHeight = lbl_BackGround.getHeight();
-
-            // Thay đổi kích thước của hình ảnh sao cho phù hợp với kích thước của JLabel
             Image resizedImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
             ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-            // Đặt biểu tượng đã thay đổi kích thước cho JLabel
             lbl_BackGround.setIcon(resizedIcon);
         } else {
             System.out.println("Hình ảnh không tìm thấy!");
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -111,6 +105,11 @@ private void init() {
         jLabel9.setForeground(new java.awt.Color(0, 0, 255));
         jLabel9.setText("Quên mật khẩu");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, -1, -1));
 
         lbl_disable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/disable.png"))); // NOI18N
@@ -159,6 +158,11 @@ private void init() {
 
         button1.setText("ĐĂNG NHẬP");
         button1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 270, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 430, 500));
@@ -190,6 +194,29 @@ private void init() {
     private void lbl_disableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_disableMouseClicked
         dn.showPassword(txt_MatKhau, lbl_disable, lbl_enable);
     }//GEN-LAST:event_lbl_disableMouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        QuenMatKhau qmk = new QuenMatKhau(this, true);
+        qmk.setVisible(true);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+
+        service.dangnhap.DangNhap tksv = new service.dangnhap.DangNhap();
+        TaiKhoan tk = tksv.CheckPassword(txt_MatKhau, txt_TaiKhoan);
+        if (tk != null) {
+            roleDN = tk.isChucVu();
+            nameDN = tk.getHoTen();
+            HinhAnh = tk.getHinhAnh();
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công với chức vụ.");
+            Main main = new Main(0);
+            main.setVisible(true);
+            dispose();
+        } else {
+           JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments

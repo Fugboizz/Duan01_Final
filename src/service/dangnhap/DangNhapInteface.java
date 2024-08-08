@@ -7,6 +7,8 @@ package service.dangnhap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import model.TaiKhoan;
 
 /**
  *
@@ -15,4 +17,6 @@ import javax.swing.JPasswordField;
 public interface DangNhapInteface {
     public void showPassword(JPasswordField show, JLabel disable, JLabel enabled);
     public void hidePassword(JPasswordField show, JLabel disable, JLabel enabled);
+    public TaiKhoan CheckPassword(JTextField Password, JTextField Account);
+    public TaiKhoan ForgortPassword(JTextField Account, JTextField SDT, JTextField Email);
 }
