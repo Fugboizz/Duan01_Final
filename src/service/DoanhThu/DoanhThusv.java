@@ -42,26 +42,22 @@ public class DoanhThusv implements DoanhThuInterface {
 
     @Override
     public void fillByCondition(DoanhThuModel dtmd, JTable tbl) {
-        // Kiểm tra dtmd và tbl không phải là null
         if (dtmd == null || tbl == null) {
             JOptionPane.showMessageDialog(null, "DoanhThuModel hoặc JTable không được khởi tạo.");
             return;
         }
-
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-
-        // Lấy danh sách hóa đơn theo khoảng thời gian
         List<HoaDon> hoaDonList = rphd.getDoanhThuTheoKhoangThoiGian(dtmd);
         if (hoaDonList == null) {
             JOptionPane.showMessageDialog(null, "Không thể lấy danh sách hóa đơn.");
             return;
         }
-
-        // Thêm dữ liệu vào bảng
+        int i = 0;
         for (HoaDon hd : hoaDonList) {
             if (hd.getIdTaiKhoan() != null) {
                 model.addRow(new Object[]{
+                    i++,
                     hd.getIdTaiKhoan().getIDTaiKhoan(),
                     hd.getIdTaiKhoan().getHoTen(),
                     hd.getSoLuongDon(),
