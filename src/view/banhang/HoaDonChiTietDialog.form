@@ -89,14 +89,8 @@
                                       <Component id="lbl_ThanhToan" alignment="0" min="-2" pref="175" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
-                                  <Component id="btn_Dong" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                                  <Component id="button2" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="137" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="275" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -104,6 +98,11 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
+                  <Component id="btn_Dong" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -149,10 +148,7 @@
                       <Component id="lbl_ThanhToan" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btn_Dong" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="button2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btn_Dong" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -394,20 +390,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_DongActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="view.until.button.Button" name="button2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="In"/>
-            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="20" green="18" red="10" type="rgb"/>
-            </Property>
-            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="15" green="e7" red="fe" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Roboto" size="13" style="1"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

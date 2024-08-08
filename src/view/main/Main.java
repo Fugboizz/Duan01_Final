@@ -1,12 +1,19 @@
 package view.main;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import view.event.EventMenu;
 import view.form.Form;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import javax.swing.UIManager;
+import raven.modal.Toast;
 import service.observer.Subject;
 import view.banhang.GiaoDienBanHang;
 import view.baohanh.GiaoDienBaoHanh;
+import view.dangnhap.DangNhapView;
 import view.form.Form_1;
 import view.khachhang.GiaoDienKhachHang;
 import view.khuyenmai.GiaoDienKhuyenMai;
@@ -39,14 +46,14 @@ public class Main extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
         EventMenu event = new EventMenu() {
             @Override
-            public void selected(int index) {
+           public void selected(int index) {
                 if (index == 0) {
                     showForm(new Form_1());
-                } else if (index == 1) {
+                } else if (index == 1 && DangNhapView.roleDN) {
                     showForm(new GiaoDienSanPham().getInstance());
                 } else if (index == 2) {
                     showForm(new GiaoDienBanHang());
-                } else if (index == 3) {
+                } else if (index == 3 && DangNhapView.roleDN) {
                     showForm(GiaoDienNhanVien.getInstance());
                 } else if (index == 4) {
                     showForm(new GiaoDienKhachHang().getInstance());
@@ -58,8 +65,10 @@ public class Main extends javax.swing.JFrame {
                     System.out.println("Logout");
                 } else {
                     showForm(new Form(index));
+                    
                 }
             }
+
         };
         menu1.initMenu(event);
         showForm(new Form_1());
@@ -152,31 +161,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main(0).setVisible(true);

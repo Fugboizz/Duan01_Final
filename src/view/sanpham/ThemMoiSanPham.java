@@ -9,9 +9,6 @@ import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Window;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import repository.SanPham.repoChiTietSanPham;
 import service.CapNhatSanPham.CapNhatSanPhamSv;
@@ -20,7 +17,6 @@ import until.validate.ValidateData;
 import view.banhang.GiaoDienBanHang;
 import view.form.JTableHeader;
 import view.khuyenmai.TableKhuyenMai;
-import view.main.Main;
 import view.until.hopthoai.Notification;
 
 /**

@@ -11,8 +11,6 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import javax.swing.SwingUtilities;
@@ -20,9 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import model.BaoHanh;
-import model.HoaDonChiTiet;
 import model.KhachHang;
-import net.miginfocom.layout.LC;
 import until.validate.ValidateData;
 import view.form.JTableHeader;
 import view.khuyenmai.TableKhuyenMai;
@@ -200,7 +196,6 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
         scrollBH = new javax.swing.JScrollPane();
         tbl_DanhSachBH = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        button6 = new view.until.button.Button();
         btn_LamMoiTimKiem = new view.until.button.Button();
         background1 = new view.until.swing.Background();
         jLabel5 = new javax.swing.JLabel();
@@ -308,15 +303,6 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
             tbl_DanhSachBH.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
-        button6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
-        button6.setColor1(new java.awt.Color(16, 24, 32));
-        button6.setColor2(new java.awt.Color(254, 231, 21));
-        button6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button6ActionPerformed(evt);
-            }
-        });
-
         btn_LamMoiTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lammoi.png"))); // NOI18N
         btn_LamMoiTimKiem.setColor1(new java.awt.Color(16, 24, 32));
         btn_LamMoiTimKiem.setColor2(new java.awt.Color(254, 231, 21));
@@ -351,11 +337,9 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
                                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btn_LamMoiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12)
-                        .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(53, 53, 53)
                         .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 338, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panel_BaoHanhLayout.setVerticalGroup(
@@ -372,13 +356,13 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_BaoHanhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_TimSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_TuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_DenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_LamMoiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(panel_BaoHanhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_LamMoiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panel_BaoHanhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txt_TimSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_TuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_DenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollBH, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                 .addContainerGap())
@@ -625,13 +609,10 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
             panel.showNotification();
             return;
         }
-
         qlBaoHanh.addBaoHanh(txt_TenKhachHang, idSeri, IDSanPhamDaChon, IdHDCT, txt_GhiChu, txt_NgayYeuCau, rdo_DaTra);
-
         qlBaoHanh.fillToTable(tbl_DanhSachBH);
         NotificationJPanel panel = new NotificationJPanel(this, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Tạo Phiếu Bảo Hành Thành Công");
         panel.showNotification();
-        return;
     }//GEN-LAST:event_btn_ThemActionPerformed
 
     private void btn_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CapNhatActionPerformed
@@ -654,10 +635,6 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
         panel.showNotification();
         qlBaoHanh.fillToTable(tbl_DanhSachBH);
     }//GEN-LAST:event_btn_CapNhatActionPerformed
-
-    private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button6ActionPerformed
 
     private void btn_ChonSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ChonSanPhamActionPerformed
 
@@ -705,7 +682,6 @@ public class GiaoDienBaoHanh extends javax.swing.JPanel {
     private view.until.button.Button btn_LamMoiTimKiem;
     private view.until.button.Button btn_Them;
     private view.until.button.Button button1;
-    private view.until.button.Button button6;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.raven.datechooser.DateChooser dateChooserDenNgay;
     private com.raven.datechooser.DateChooser dateChooserHenTra;

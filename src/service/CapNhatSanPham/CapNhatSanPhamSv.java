@@ -1,22 +1,14 @@
 package service.CapNhatSanPham;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import repository.DaQuy.DaQuyRepository;
 import repository.NhaCungCap.NhaCungCapRepository;

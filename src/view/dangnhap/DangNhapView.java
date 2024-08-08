@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import model.TaiKhoan;
 import raven.modal.Toast;
@@ -112,7 +111,7 @@ public class DangNhapView extends javax.swing.JFrame {
         jLabel7.setText("Mật khẩu");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 310, -1));
 
-        jLabel9.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel9.setForeground(new java.awt.Color(254, 231, 21));
         jLabel9.setText("Quên mật khẩu");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,6 +133,7 @@ public class DangNhapView extends javax.swing.JFrame {
         txt_TaiKhoan.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
         txt_TaiKhoan.setForeground(new java.awt.Color(254, 231, 21));
         txt_TaiKhoan.setBorder(null);
+        txt_TaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_TaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_TaiKhoanActionPerformed(evt);

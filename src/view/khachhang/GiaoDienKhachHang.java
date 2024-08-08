@@ -139,7 +139,6 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
         scrollKH = new javax.swing.JScrollPane();
         tbl_KhachHang = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        btn_Excel1 = new view.until.button.Button();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1013, 612));
@@ -248,15 +247,6 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel5.setText("Danh Sách Khách Hàng");
 
-        btn_Excel1.setBorder(null);
-        btn_Excel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
-        btn_Excel1.setColor1(new java.awt.Color(16, 24, 32));
-        btn_Excel1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Excel1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -284,11 +274,9 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
                                         .addGap(32, 32, 32)
                                         .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btn_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btn_Excel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(btn_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 282, Short.MAX_VALUE)))
+                        .addGap(0, 335, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -309,16 +297,14 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
                                 .addComponent(btn_TimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cboxTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_Excel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btn_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btn_LamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollKH, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(scrollKH, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -356,13 +342,8 @@ public class GiaoDienKhachHang extends javax.swing.JPanel implements Observer {
         khsv.fillToCheck(tbl_KhachHang, gdmd);
     }//GEN-LAST:event_btn_TimKiemActionPerformed
 
-    private void btn_Excel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Excel1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Excel1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.until.button.Button btn_Excel1;
     private view.until.button.Button btn_LamMoi;
     private view.until.button.Button btn_TaoMoi;
     private view.until.button.Button btn_TimKiem;

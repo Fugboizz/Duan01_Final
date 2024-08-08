@@ -1,11 +1,24 @@
 package view.form;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.Font;
+import javax.swing.UIManager;
+import raven.modal.Toast;
+import view.main.Main;
+import view.until.hopthoai.NotificationJPanel;
+
 public class Form extends javax.swing.JPanel {
+
+
 
     public Form(int index) {
         initComponents();
         setOpaque(false);
-        jLabel1.setText("Form " + index);
+        NotificationJPanel panel = new NotificationJPanel(this, NotificationJPanel.Type.WARNING, NotificationJPanel.Location.CENTER, "Yêu Cầu Quyền Admin");
+        panel.showNotification();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -17,7 +30,7 @@ public class Form extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(137, 137, 137));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Form");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

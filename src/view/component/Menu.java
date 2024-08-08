@@ -1,10 +1,14 @@
 package view.component;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import view.event.EventMenu;
 import com.raven.swing.ButtonMenu;
 import com.raven.swing.scrollbar.ScrollBarCustom;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +16,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 import view.dangnhap.DangNhapView;
 import view.main.Main;
@@ -21,7 +26,12 @@ public class Menu extends javax.swing.JPanel {
     public void setUserName(String name) {
         lbl_NameUser.setText(name);
     }
-
+    static {
+        FlatRobotoFont.install();
+        FlatLaf.registerCustomDefaultsSource("view.until.sampletable.themes");
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        FlatMacLightLaf.setup();
+    }
     public Menu() {
         initComponents();
         lbl_RoleUser.setText(DangNhapView.roleDN?"Admin":"Personnel");
@@ -107,7 +117,7 @@ public class Menu extends javax.swing.JPanel {
         lbl_RoleUser.setForeground(new java.awt.Color(203, 203, 203));
         lbl_RoleUser.setText("Admin");
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/logout_1.png"))); // NOI18N
         jButton1.setText("Đăng Xuất");

@@ -139,11 +139,9 @@
                                   <Component id="btn_LamMoiTimKiem" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="button6" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="338" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -166,13 +164,14 @@
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txt_TimSoDienThoai" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_TuNgay" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_DenNgay" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="button1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="button6" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btn_LamMoiTimKiem" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txt_TimSoDienThoai" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_TuNgay" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_DenNgay" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="button1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -325,22 +324,6 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel6">
-        </Component>
-        <Component class="view.until.button.Button" name="button6">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icon/excel.png"/>
-            </Property>
-            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="20" green="18" red="10" type="rgb"/>
-            </Property>
-            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="15" green="e7" red="fe" type="rgb"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button6ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="view.until.button.Button" name="btn_LamMoiTimKiem">
           <Properties>

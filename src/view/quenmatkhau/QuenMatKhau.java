@@ -69,6 +69,7 @@ public class QuenMatKhau extends javax.swing.JDialog {
         pnl_ThemMoi.setBackground(new java.awt.Color(16, 24, 32));
 
         lbl_DanhSach.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_DanhSach.setForeground(new java.awt.Color(254, 231, 21));
         lbl_DanhSach.setText("Điền From Để Được Cấp Lại Mật Khẩu");
 
         javax.swing.GroupLayout pnl_ThemMoiLayout = new javax.swing.GroupLayout(pnl_ThemMoi);
@@ -82,10 +83,10 @@ public class QuenMatKhau extends javax.swing.JDialog {
         );
         pnl_ThemMoiLayout.setVerticalGroup(
             pnl_ThemMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_ThemMoiLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+            .addGroup(pnl_ThemMoiLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(lbl_DanhSach)
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jLabel4.setText("Tài Khoản");
@@ -169,7 +170,7 @@ public class QuenMatKhau extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(pnl_ThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                 .addComponent(txt_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_MatKhauCuaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)

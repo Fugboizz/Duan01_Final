@@ -56,7 +56,7 @@ import view.until.hopthoai.NotificationJPanel;
  * @author HUNGpYN
  */
 public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
-
+    
     private Main main;
     private Color color2 = Color.decode("#101820");// thanden
     private Color color1 = Color.decode("#FEE715"); //mau vang
@@ -87,14 +87,14 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
 
     // tạo biến số lượng
     private int soLuong;
-
+    
     static {
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("view.until.sampletable.themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatMacLightLaf.setup();
     }
-
+    
     public GiaoDienBanHang() {
         initComponents();
         init();
@@ -106,15 +106,15 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         setDataThanhToan();
         lbl_GioHangHoaDon.setText(getIDHoaDonCho());
         bhs.doubleClick(tbl_LichSuHoaDon);
-
+        
     }
-
+    
     private void init() {
         mainForm = new MainForm();
         SanPhamPanel.setLayout(new BorderLayout());
         SanPhamPanel.add(mainForm);
         testData();
-
+        
         bhs.addComboBox(cbo_PhanLoai);
         setLastRow();
         TableKhuyenMai tkm = new TableKhuyenMai();
@@ -122,17 +122,17 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         tbl_LichSuHoaDon.getTableHeader().setDefaultRenderer(new JTableHeader(tbl_LichSuHoaDon));
         tkm.init(tbl_HoaDonCho, scrollHDC);
         tbl_HoaDonCho.getTableHeader().setDefaultRenderer(new JTableHeader(tbl_HoaDonCho));
-
+        
         tkm.init(tbl_GioHang, scrollGH);
         tbl_GioHang.getTableHeader().setDefaultRenderer(new JTableHeader(tbl_GioHang));
 
         //set Table Hóa Đơn chờ và giỏ hàng
         setTableHoaDonCho();
         setTableGioHang();
-
+        
     }
     int index;
-
+    
     private void setTableHoaDonCho() {
         // cài đặt lại nút xóa của jtable
         TableActionEvent event = new TableActionEvent() {
@@ -142,7 +142,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                     tbl_HoaDonCho.getCellEditor().stopCellEditing();
                 }
                 DefaultTableModel model = (DefaultTableModel) tbl_HoaDonCho.getModel();
-
+                
                 bhs.deleteHoaDon(tbl_HoaDonCho.getValueAt(row, 1).toString());
                 model.removeRow(row);
                 NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Xóa Hóa Đơn Thành Công");
@@ -157,9 +157,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         tbl_HoaDonCho.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
         tbl_HoaDonCho.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }
-
+    
     private void setTableGioHang() {
-
+        
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void Delete(int row) {
@@ -175,9 +175,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                 SanPham sp = new SanPham();
                 sp.setIDSanPham(IDSanPhamBan);
                 sp.setSoLuongTonKho(tonKhoHienTai + slBan);
-
+                
                 rhdct.delete(tbl_GioHang.getValueAt(row, 2).toString());
-
+                
                 rpsp.updateTonKho(sp);
                 model.removeRow(row);
                 bhs.fillToTableNoReset(tbl_HoaDonCho);
@@ -189,17 +189,17 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                 if (getInstance() != null) {
                     update();
                 }
-
+                
             }
         };
-
+        
         tbl_GioHang.getColumnModel().getColumn(9).setCellRenderer(new TableActionCellRender());
         tbl_GioHang.getColumnModel().getColumn(9).setCellEditor(new TableActionCellEditor(event));
-
+        
         tbl_GioHang.getColumnModel().getColumn(7).setCellEditor(new QtyCellEditor(new EventCellInputChange() {
             @Override
             public void inputChanged() {
-
+                
             }
         }));
         tbl_GioHang.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
@@ -210,9 +210,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                 return this;
             }
         });
-
+        
     }
-
+    
     public int getTonKhoHienTai(String text) {
         int tonKhoHienTai = 0;
         for (SanPham sp : rpsp.getAll()) {
@@ -222,7 +222,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         }
         return tonKhoHienTai;
     }
-
+    
     private int lastRow = -1;
 
     // set bảng luôn luôn ở hàng cuối
@@ -251,7 +251,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
             }
         });
         DefaultTableModel modelGH = (DefaultTableModel) tbl_GioHang.getModel();
-
+        
         modelGH.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -262,7 +262,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
             }
         });
     }
-
+    
     private void testData() {
         mainForm.setEvent(new EventItem() {
             @Override
@@ -284,7 +284,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                         panel.showNotification();
                         setDataThanhToan();
                         return;
-
+                        
                     }
                     if (!vld.checkNguyenDuong(input, true)) {
                         NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.WARNING, NotificationJPanel.Location.CENTER, "Số Lượng Phải Là Số Nguyên Dương");
@@ -292,7 +292,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                         return;
                     }
                     if (bhs.capNhatSoLuong(getIDHoaDonCho(), IDSanPham, soLuong) == 1) {
-
+                        
                         NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Thêm Trang Sức Vào Giỏ Hàng Thành Công");
                         panel.showNotification();
                         bhs.fillToGioHang(tbl_GioHang, getIDHoaDonCho());
@@ -303,7 +303,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                         }
                         System.out.println(soLuong + " số lượng cập nhật");
                         return;
-
+                        
                     }
                     if (readForm() != null) {
                         rhdct.create(readForm());
@@ -320,14 +320,14 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-
+                    
                 }
                 mainForm.setSelected(com);
             }
         });
         setDataSP();
     }
-
+    
     private void setDataSP() {
         for (SanPham sp : rpct.getAll()) {
             if (sp.isTrangThai()) {
@@ -343,7 +343,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
             // Nếu không có hàng nào được chọn và bảng không rỗng, chọn hàng cuối cùng
             i = tbl_HoaDonCho.getRowCount() - 1;
         }
-
+        
         if (i > -1) {
             IDHoaDonCho = (String) tbl_HoaDonCho.getValueAt(i, 1);
         }
@@ -363,7 +363,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         hd.setIDHoaDon(getIDHoaDonCho());
         return new HoaDonChiTiet(sp, hd, soLuong);
     }
-
+    
     @Override
     public void update() {
         mainForm.clearItems(); // Xóa các item cũ
@@ -371,7 +371,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         SanPhamPanel.revalidate();
         SanPhamPanel.repaint();
     }
-
+    
     public static GiaoDienBanHang getInstance() {
         if (instance == null) {
             instance = new GiaoDienBanHang();
@@ -380,14 +380,14 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
     }
     // lấy tổng tiền của hóa đơn
     double tongTien;
-
+    
     public double getTongTien() {
         for (HoaDon hd : rhd.getAll()) {
             if (hd.getIDHoaDon().equalsIgnoreCase(getIDHoaDonCho())) {
                 tongTien = hd.getTongTienTRuoc();
                 break;
             }
-
+            
         }
         return tongTien;
     }
@@ -396,7 +396,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
     private double chietKhau = 0;
     private double thanhToan = 0;
     private int tichDiemBanDau = 0;
-
+    
     void setDataThanhToan() {
         lbl_MaHoaDon.setText(getIDHoaDonCho());
         lbl_TongTien.setText(bhs.formatToVND(getTongTien()));
@@ -442,7 +442,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
             }
         });
     }
-
+    
     void updateThanhToan() {
         // Đảm bảo các giá trị cần thiết đã được cập nhật
         double tongTien = getTongTien(); // Cập nhật tổng tiền hóa đơn mới nhất
@@ -459,7 +459,8 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         System.out.println("Chiet Khau: " + chietKhau);
         System.out.println("Thanh Toan: " + thanhToan);
     }
-    void lamMoi(){
+    
+    void lamMoi() {
         lbl_HoTen.setText("");
         lbl_TichDiem.setText("");
         lbl_MaHoaDon.setText("");
@@ -467,6 +468,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         lbl_GioHangHoaDon.setText("");
         lbl_TongTien.setText("");
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -513,7 +515,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         jLabel21 = new javax.swing.JLabel();
         lbl_ThanhToan = new javax.swing.JLabel();
         btn_ThanhToan = new view.until.button.Button();
-        btn_ThanhToanVaIn = new view.until.button.Button();
         btn_Huy = new view.until.button.Button();
         cbo_Voucher = new view.until.combobox.ComboBoxSuggestion();
         jLabel8 = new javax.swing.JLabel();
@@ -523,7 +524,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         panel_ThongTin = new javax.swing.JPanel();
         lbl_ThongTin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        comboBoxSuggestion1 = new view.until.combobox.ComboBoxSuggestion();
+        cbo_NhanVien = new view.until.combobox.ComboBoxSuggestion();
         txt_BatDau = new view.until.textfield.TextFieldSuggestion();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -698,7 +699,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false, true
+                false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -739,7 +740,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                 .addContainerGap())
         );
 
-        txt_SoDienThoai.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         txt_SoDienThoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_SoDienThoaiActionPerformed(evt);
@@ -752,12 +752,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel13.setText("Khách Hàng");
 
-        lbl_HoTen.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
         jLabel15.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel15.setText("Tích Điểm:");
 
-        lbl_TichDiem.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         lbl_TichDiem.setText("0");
 
         ckb_SuDung.setText("Sử Dụng");
@@ -789,14 +786,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel10.setText("Mã Hóa Đơn:");
 
-        lbl_MaHoaDon.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
         jLabel16.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel16.setText("Tổng Tiền:");
 
-        lbl_TongTien.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
-        lbl_ChietKhau.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         lbl_ChietKhau.setText("0");
 
         jLabel19.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
@@ -808,8 +800,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         jLabel21.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel21.setText("Chiết Khấu:");
 
-        lbl_ThanhToan.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
         btn_ThanhToan.setText("Thanh Toán");
         btn_ThanhToan.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         btn_ThanhToan.addActionListener(new java.awt.event.ActionListener() {
@@ -817,9 +807,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                 btn_ThanhToanActionPerformed(evt);
             }
         });
-
-        btn_ThanhToanVaIn.setText("TT & In");
-        btn_ThanhToanVaIn.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
 
         btn_Huy.setText("Hủy");
         btn_Huy.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
@@ -873,9 +860,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(background2Layout.createSequentialGroup()
                         .addComponent(btn_Huy, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_ThanhToanVaIn, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(135, 135, 135)
                         .addComponent(btn_ThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
                 .addGap(35, 35, 35))
             .addGroup(background2Layout.createSequentialGroup()
@@ -956,15 +941,12 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(background2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(btn_ThanhToanVaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(btn_Huy, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
 
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel8.setText("Giỏ Hàng:");
-
-        lbl_GioHangHoaDon.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel9.setText("Thanh Toán:");
@@ -1060,7 +1042,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel2.setText("Mã Nhân Viên");
 
-        comboBoxSuggestion1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả" }));
+        cbo_NhanVien.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất Cả" }));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel3.setText("Từ Ngày");
@@ -1074,7 +1056,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         btn_TimKiemHoaDon.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
 
         btn_Excel.setBorder(null);
-        btn_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/excel.png"))); // NOI18N
+        btn_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/lammoi.png"))); // NOI18N
         btn_Excel.setColor1(new java.awt.Color(16, 24, 32));
         btn_Excel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1126,7 +1108,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                         .addGap(79, 79, 79)
                         .addGroup(Panel_LichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbo_NhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(93, 93, 93)
                         .addGroup(Panel_LichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -1158,7 +1140,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
                 .addGroup(Panel_LichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_LichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbo_NhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txt_BatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txt_KetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_TimKiemHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1195,7 +1177,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         } else {
             return;
         }
-
+        
 
     }//GEN-LAST:event_btn_TaoHoaDonActionPerformed
 
@@ -1214,7 +1196,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
     private void ckb_SuDungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckb_SuDungActionPerformed
 
     }//GEN-LAST:event_ckb_SuDungActionPerformed
-
+    
 
     private void btn_TimKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimKhachHangActionPerformed
         boolean checkKH = true;
@@ -1251,7 +1233,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.SUCCESS, NotificationJPanel.Location.CENTER, "Hủy Hóa Đơn Thành Công");
         panel.showNotification();
     }//GEN-LAST:event_btn_HuyActionPerformed
-
+    
     private String getIDVoucher() {
         // Khởi tạo IDVoucher với giá trị null
         String IDVoucher = null;
@@ -1267,9 +1249,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         // Trả về IDVoucher nếu tìm thấy, nếu không trả về null
         return IDVoucher;
     }
-
+    
     String idKhachHang;
-
+    
     private String getIDKhachHang() {
         for (KhachHang kh : rpkh.getAll()) {
             if (kh.getSoDienThoai().equalsIgnoreCase(txt_SoDienThoai.getText())) {
@@ -1280,10 +1262,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         return null;
     }
     private DangNhapView dnv = new DangNhapView();
+    
     HoaDon readHoaDon() {
         HoaDon hd = new HoaDon();
         hd.setIDHoaDon(lbl_MaHoaDon.getText());
-
+        
         Voucher vc = new Voucher();
         vc.setIDVoucher(getIDVoucher()); // Nếu cần, hãy cung cấp IDVoucher hợp lệ
         KhachHang kh = new KhachHang();
@@ -1293,15 +1276,20 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         // Sử dụng formatDouble để chuyển đổi chuỗi tiền tệ về kiểu double
         double tongTien = bhs.formatDouble(lbl_TongTien.getText());
         double thanhToan = bhs.formatDouble(lbl_ThanhToan.getText());
-
+        
         hd.setTongTienTRuoc(tongTien);
         hd.setTongTienSau(thanhToan);
-
+        
         return hd;
     }
 
     private void btn_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThanhToanActionPerformed
         // TODO add your handling code here:
+        if (vld.checkIsEmpty(txt_SoDienThoai.getText())) {
+            NotificationJPanel panel = new NotificationJPanel(Panel_HoaDon, NotificationJPanel.Type.WARNING, NotificationJPanel.Location.CENTER, "Chưa Nhập Số Điện Thoại");
+            panel.showNotification();
+            return;
+        }
         if (rhd.update(readHoaDon()) > 0) {
             bhs.fillHoaDonCho(tbl_HoaDonCho);
             bhs.fillToGioHang(tbl_GioHang, null);
@@ -1321,6 +1309,8 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
 
     private void btn_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcelActionPerformed
         // TODO add your handling code here:
+        cbo_NhanVien.setSelectedIndex(1);
+        bhs.fillToTableLichSu(tbl_LichSuHoaDon);
     }//GEN-LAST:event_btn_ExcelActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
@@ -1333,7 +1323,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         txt_TenTrangSuc.setText("");
 
     }//GEN-LAST:event_button2ActionPerformed
-
+    
     GiaoDienSanPhamModel readModel() {
         GiaoDienSanPhamModel gdmd = new GiaoDienSanPhamModel();
         gdmd.setLoaiTrangSuc(cbo_PhanLoai.getSelectedItem().toString().trim());
@@ -1344,9 +1334,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel implements Observer {
         gdmd.setTenTrangSuc(tenTrangSuc);
         return gdmd;
     }
-
-void setDataSpTimKiem() {
-    mainForm.clearItems();
+    
+    void setDataSpTimKiem() {
+        mainForm.clearItems();
         for (SanPham sp : rpct.getAllWithConditional(readModel())) {
             if (sp.isTrangThai()) {
                 mainForm.addItem(new SanPham(sp.getIDSanPham(), sp.getSoLuongTonKho(), sp.getGiaChiTiet(), sp.getIDGiamGia(), sp.getHinhAnhSanPham()));
@@ -1354,9 +1344,8 @@ void setDataSpTimKiem() {
         }
     }
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-
         
-        if (getInstance()!= null) {
+        if (getInstance() != null) {
             update();
         }
         setDataSpTimKiem();
@@ -1374,15 +1363,14 @@ void setDataSpTimKiem() {
     private view.until.button.Button btn_Huy;
     private view.until.button.Button btn_TaoHoaDon;
     private view.until.button.Button btn_ThanhToan;
-    private view.until.button.Button btn_ThanhToanVaIn;
     private view.until.button.Button btn_TimKhachHang;
     private view.until.button.Button btn_TimKiemHoaDon;
     private view.until.button.Button button1;
     private view.until.button.Button button2;
+    private view.until.combobox.ComboBoxSuggestion cbo_NhanVien;
     private view.until.combobox.ComboBoxSuggestion cbo_PhanLoai;
     private view.until.combobox.ComboBoxSuggestion cbo_Voucher;
     private javax.swing.JCheckBox ckb_SuDung;
-    private view.until.combobox.ComboBoxSuggestion comboBoxSuggestion1;
     private com.raven.datechooser.DateChooser dateChooser1;
     private com.raven.datechooser.DateChooser dateChooser2;
     private javax.swing.JLabel jLabel1;
