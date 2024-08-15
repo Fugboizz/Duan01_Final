@@ -1,12 +1,5 @@
 package view.form;
 
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import java.awt.Font;
-import javax.swing.UIManager;
-import raven.modal.Toast;
-import view.main.Main;
 import view.until.hopthoai.NotificationJPanel;
 
 public class Form extends javax.swing.JPanel {

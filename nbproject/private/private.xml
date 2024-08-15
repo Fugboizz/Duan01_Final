@@ -12,39 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/GitHub/Duan01_Final/src/repository/hoadon/RepositoryHoaDonInterface.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/sanpham/GiaoDienSanPham.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/khuyenmai/ThemSanPhamGiamGia.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/khuyenmai/GiaoDienKhuyenMai.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/repository/hoadonchitiet/RepositoryHoaDonChiTiet.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/khachhang/ThemMoiKhachHang.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/repository/BaoHanh/repoBaoHanh.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/banhang/GiaoDienBanHang.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/service/BaoHanh/GiaoDienBaoHanhService.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/repository/dangnhap/DangNhapRepository.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/dangnhap/DangNhapView.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/until/validate/ValidateDataInTerface.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/form/Form.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/baohanh/DanhSachSPBaoHanh.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/banhang/spinner/QtyCellEditor.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/form/Form_1.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/component/Menu.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/quenmatkhau/QuenMatKhau.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/quenmatkhau/QuenMatKhau1.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/khuyenmai/TableKhuyenMai.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/nhanvien/GiaoDienNhanVien.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/service/dangnhap/DangNhap.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/khachhang/GiaoDienKhachHang.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/khachhang/CapNhatKhachHang.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/service/BaoHanh/GiaoDienBaoHanhServicInterface.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/nhanvien/CapNhatNhanVien.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/baohanh/GiaoDienBaoHanh.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/until/validate/ValidateData.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/service/banhang/BanHangService.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/until/hopthoai/NotificationJPanel.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/banhang/HoaDonChiTietDialog.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/view/main/Main.java</file>
-            <file>file:/E:/GitHub/Duan01_Final/src/repository/hoadon/RepositoryHoaDon.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/view/sanpham/ThemMoiSanPham.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/until/validate/ValidateData.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/repository/DaQuy/DaQuyRepository.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/repository/hoadon/RepositoryHoaDon.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/repository/hoadonchitiet/RepositoryHoaDonChiTiet.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/service/CapNhatSanPham/CapNhatSanPhamSv.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/repository/chatlieu/ChatLieuRepository.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/view/sanpham/CapNhatSanPham.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/view/dangnhap/DangNhapView.java</file>
+            <file>file:/D:/WorkSpace/DA1/Duan01_Final/src/view/sanpham/GiaoDienSanPham.java</file>
         </group>
     </open-files>
 </project-private>

@@ -144,6 +144,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         buttonGroup8 = new javax.swing.ButtonGroup();
         buttonGroup9 = new javax.swing.ButtonGroup();
         dateChooser1 = new com.raven.datechooser.DateChooser();
+        buttonGroup10 = new javax.swing.ButtonGroup();
         tabbedPaneCustom1 = new view.until.tabbedpane.TabbedPaneCustom();
         panel_ThemSanPham = new javax.swing.JPanel();
         pnl_ThemMoi = new javax.swing.JPanel();
@@ -691,6 +692,11 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
 
         txt_MaChatLieu.setEditable(false);
         txt_MaChatLieu.setFocusable(false);
+        txt_MaChatLieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_MaChatLieuActionPerformed(evt);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel21.setText("Tên Chất Liệu");
@@ -1455,9 +1461,11 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         jLabel50.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel50.setText("Danh Sách Đá Quý");
 
+        buttonGroup10.add(rdo_HDQ);
         rdo_HDQ.setSelected(true);
         rdo_HDQ.setText("Kinh doanh");
 
+        buttonGroup10.add(rdo_NDQ);
         rdo_NDQ.setText("Ngưng Kinh Doanh");
 
         scrollDQ.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -1491,7 +1499,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             tbl_DaQuy.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
-        btn_CapNhatKD1.setText("Cập Nhật");
+        btn_CapNhatKD1.setText("Làm Mới");
         btn_CapNhatKD1.setColor1(new java.awt.Color(16, 24, 32));
         btn_CapNhatKD1.setColor2(new java.awt.Color(254, 231, 21));
         btn_CapNhatKD1.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
@@ -1834,7 +1842,9 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             panel.showNotification();
             return;
         }
-        capNhatSanPhamSv.InsertChatLieu(txt_TenChatLieu, txt_TyLe, rdo_HoatDong_CL, rdo_NHoatDong_CL);
+        capNhatSanPhamSv.readFormChatLieu(txt_MaChatLieu, txt_TenChatLieu, txt_TyLe, rdo_HoatDong_CL, rdo_NHoatDong_CL);
+        capNhatSanPhamSv.clearList("ChatLieu");
+        capNhatSanPhamSv.fillToChatLieuTbl(tbl_ChatLieu);
         Notification panel = new Notification(this, Notification.Type.SUCCESS, Notification.Location.CENTER, "Cập Nhật Chất Liệu Thành Công");
         panel.showNotification();
 
@@ -1843,9 +1853,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         txt_TyLe.setText("");
         rdo_HoatDong_CL.setSelected(true);
         tbl_ChatLieu.clearSelection();
-        capNhatSanPhamSv.readFormChatLieu(txt_MaChatLieu, txt_TenChatLieu, txt_TyLe, rdo_HoatDong_CL, rdo_NHoatDong_CL);
-        capNhatSanPhamSv.clearList("ChatLieu");
-        capNhatSanPhamSv.fillToChatLieuTbl(tbl_ChatLieu);
+
     }//GEN-LAST:event_btn_CapNhatCLActionPerformed
 
     private void btn_UpdateSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateSizeActionPerformed
@@ -1996,8 +2004,8 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
             return;
         }
 
-        if (!vld.checkNumber(txt_KichThuocDa.getText(), true)) {
-            Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.CENTER, "Kích Thước Đá Phải Là Số  Và Lớn Hơn 0");
+        if (!vld.checkNumber(txt_KichThuocDa.getText(), false)) {
+            Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.CENTER, "Kích Thước Đá Phải Là Số");
             panel.showNotification();
             return;
 
@@ -2518,6 +2526,10 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
         tbl_PhanLoai.clearSelection();
     }//GEN-LAST:event_btn_LamMoiPLActionPerformed
 
+    private void txt_MaChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_MaChatLieuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_MaChatLieuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2573,6 +2585,7 @@ public class ThemMoiSanPham extends javax.swing.JDialog {
     private view.until.button.Button btn_UpdateMS;
     private view.until.button.Button btn_UpdateSize;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup10;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;

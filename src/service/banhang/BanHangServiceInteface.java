@@ -6,6 +6,7 @@ package service.banhang;
 
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -34,4 +35,6 @@ public interface BanHangServiceInteface {
 
     public void doubleClick(JTable tbl);
     public double formatDouble(String currencyStr);
+    public void fillToCbo(JComboBox cbo);
+    public void fillByCondition(JTable tbl, JTextField TuNgay, JTextField ToiNgay, String IDNhanVien) ;
 }

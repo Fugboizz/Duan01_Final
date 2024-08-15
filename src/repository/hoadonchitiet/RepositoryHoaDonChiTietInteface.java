@@ -16,4 +16,5 @@ public interface RepositoryHoaDonChiTietInteface {
     public int create(HoaDonChiTiet ct);
     public int update (HoaDonChiTiet ct);
     public int delete(String text);
+     public List<HoaDonChiTiet> getWithConditions(java.sql.Date startDate, java.sql.Date endDate, String idTaiKhoan);
 }

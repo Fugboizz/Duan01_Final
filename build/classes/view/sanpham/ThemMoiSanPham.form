@@ -51,6 +51,8 @@
         </Property>
       </Properties>
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup10">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -1074,6 +1076,9 @@
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="focusable" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_MaChatLieuActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel21">
                       <Properties>
@@ -2355,12 +2360,18 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdo_HDQ">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroup10"/>
+                        </Property>
                         <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Kinh doanh"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="rdo_NDQ">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroup10"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Ng&#x1b0;ng Kinh Doanh"/>
                       </Properties>
                     </Component>
@@ -2424,7 +2435,7 @@
                     </Container>
                     <Component class="view.until.button.Button" name="btn_CapNhatKD1">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t"/>
+                        <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
                         <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="20" green="18" red="10" type="rgb"/>
                         </Property>

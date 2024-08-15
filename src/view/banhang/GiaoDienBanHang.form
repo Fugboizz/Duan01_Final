@@ -1039,6 +1039,9 @@
                   <Font name="Roboto" size="13" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_TimKiemHoaDonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="view.until.button.Button" name="btn_Excel">
               <Properties>

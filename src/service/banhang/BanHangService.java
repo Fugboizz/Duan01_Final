@@ -7,21 +7,28 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.BaoHanh;
 import model.HoaDon;
 import model.HoaDonChiTiet;
+import model.KhachHang;
 import model.PhanLoai;
 import model.SanPham;
+import model.TaiKhoan;
 import model.Voucher;
 import repository.KhuyenMai.KhuyenMaiRepository;
 import repository.PhanLoai.PhanLoaiRepo;
 import repository.SanPham.repoChiTietSanPham;
 import repository.hoadon.RepositoryHoaDon;
 import repository.hoadonchitiet.RepositoryHoaDonChiTiet;
+import repository.taikhoan.RepositoryTaiKhoan;
 import view.banhang.HoaDonChiTietDialog;
 import view.main.Main;
 
@@ -38,6 +45,7 @@ public class BanHangService implements BanHangServiceInteface {
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private Main main;
     private HoaDonChiTietDialog hdct;
+    private RepositoryTaiKhoan rptk = new RepositoryTaiKhoan();
 
     // Add combobox
     @Override
@@ -271,4 +279,77 @@ public class BanHangService implements BanHangServiceInteface {
             }
         });
     }
+
+    @Override
+    public void fillToCbo(JComboBox cbo) {
+        cbo.addItem("Tất Cả");
+        for (TaiKhoan tk : rptk.getAll()) {
+            cbo.addItem(tk.getIDTaiKhoan());
+        }
+    }
+
+    @Override
+    public void fillByCondition(JTable tbl, JTextField TuNgay, JTextField ToiNgay, String IDNhanVien) {
+        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        model.setRowCount(0);
+        java.sql.Date TuNgaySQL = null;
+        java.sql.Date ToiNgaySQL = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            dateFormat.setLenient(false);
+            java.util.Date utilDateStart1 = dateFormat.parse(TuNgay.getText().trim());
+            java.util.Date utilDateEnd1 = dateFormat.parse(ToiNgay.getText().trim());
+            if (utilDateStart1.after(utilDateEnd1)) {
+                JOptionPane.showMessageDialog(null, "Ngày bắt đầu không được lớn hơn ngày kết thúc.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            TuNgaySQL = new java.sql.Date(utilDateStart1.getTime());
+            ToiNgaySQL = new java.sql.Date(utilDateEnd1.getTime());
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Ngày không hợp lệ. Vui lòng nhập ngày theo định dạng dd-MM-yyyy.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String idTaiKhoan = IDNhanVien.trim();
+        int stt = 1;
+        List<HoaDonChiTiet> list = rpct.getWithConditions(TuNgaySQL, ToiNgaySQL, idTaiKhoan);
+        model.setRowCount(0);
+
+        // Danh sách lưu trữ các mã hóa đơn đã xử lý
+        List<String> processedInvoiceIds = new ArrayList<>();
+
+        for (HoaDonChiTiet ct : list) {
+            if (ct.getIDHoaDon().isTrangThai() == true) {
+                String maHoaDon = ct.getIDHoaDon().getIDHoaDon();
+                double tongTien = 0;
+
+                // Kiểm tra nếu mã hóa đơn đã được xử lý chưa
+                if (!processedInvoiceIds.contains(maHoaDon)) {
+                    String ngayTaoHoaDon = sdf.format(ct.getIDHoaDon().getNgayTao());
+                    String tenNhanVien = ct.getIDHoaDon().getIdTaiKhoan().getHoTen();
+                    String tenKhachHang = ct.getIDHoaDon().getIdKhachHang().getHoTen();
+                    tongTien = ct.getIDHoaDon().getTongTienSau();
+
+                    // Định dạng số tiền
+                    String formattedTongTien = formatToVND(tongTien);
+                    stt++;
+
+                    // Thêm thông tin hóa đơn vào bảng
+                    model.addRow(new Object[]{
+                        stt,
+                        maHoaDon,
+                        ngayTaoHoaDon,
+                        tenNhanVien,
+                        tenKhachHang,
+                        formattedTongTien,
+                        ct.getIDHoaDon().isTrangThai() ? "Đã Thanh Toán" : "Chưa Thanh Toán"
+                    });
+
+                    // Đánh dấu mã hóa đơn đã được xử lý
+                    processedInvoiceIds.add(maHoaDon);
+                }
+            }
+        }
+    }
+
 }

@@ -26,12 +26,13 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
     private BanHangService bhs = new BanHangService();
     private GiaoDienBanHang gdBanHang = new GiaoDienBanHang();
     private repository.hoadonchitiet.RepositoryHoaDonChiTiet rll = new repository.hoadonchitiet.RepositoryHoaDonChiTiet();
-
+    
     public HoaDonChiTietDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         init();
         setFont();
+        
     }
 
     private void init() {
@@ -89,7 +90,7 @@ public class HoaDonChiTietDialog extends javax.swing.JDialog {
         lbl_TongTien.setText(bhs.formatToVND(hd.getTongTienTRuoc()));
         lbl_ThanhToan.setText(bhs.formatToVND(hd.getTongTienSau()));
     }
-
+    
     public void fillDataChiTiet(String text) {
         DefaultTableModel model = (DefaultTableModel) tbl_HDCT.getModel();
         model.setRowCount(0); // Xóa dữ liệu cũ trong bảng

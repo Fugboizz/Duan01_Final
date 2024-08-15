@@ -579,8 +579,8 @@ public class CapNhatSanPham extends javax.swing.JDialog {
             return;
         }
 
-        if (!vld.checkNumber(txt_KichThuocDa.getText().trim(), true)) {
-            Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.CENTER, "Kích Thước Đá Phải Là Số  Và Lớn Hơn 0");
+        if (!vld.checkNumber(txt_KichThuocDa.getText().trim(), false)) {
+            Notification panel = new Notification(this, Notification.Type.WARNING, Notification.Location.CENTER, "Kích Thước Đá Phải Là Số");
             panel.showNotification();
             return;
 

@@ -88,7 +88,7 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         }
         lstPhanLoais = rppl.getAll();
         if (lstPhanLoais == null) {
-            lstPhanLoais = new ArrayList<>(); // Khởi tạo danh sách nếu nó là null
+            lstPhanLoais = new ArrayList<>(); 
         }
         cbos.removeAllItems();
         for (PhanLoai phanLoai : lstPhanLoais) {
@@ -142,7 +142,7 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
         }
         lstDaQuys = rpdq.getAll();
         if (lstDaQuys == null) {
-            lstDaQuys = new ArrayList<>(); // Khởi tạo danh sách nếu nó là null
+            lstDaQuys = new ArrayList<>();
         }
         cbos.removeAllItems();
         for (DaQuy daQuy : lstDaQuys) {
@@ -552,12 +552,12 @@ public class CapNhatSanPhamSv implements InterfaceCapNhatSanPhamSv {
 
     @Override
     public void readFormChatLieu(JTextField txtID, JTextField txtTen, JTextField txtTyle, JRadioButton rdo1, JRadioButton rdo2) {
-        for (ChatLieu cl : lstChatLieus) {
+        for (ChatLieu cl : rpcl.getAll()) {
             if (txtID.getText().equals(cl.getIDChatLieu())) {
                 cl.setTenChatLieu(txtTen.getText().trim());
                 cl.setTyLe(Float.parseFloat(txtTyle.getText().trim()));
                 cl.setTrangThai(rdo1.isSelected());
-
+                cl.setIDChatLieu(txtID.getText().trim());
                 rpcl.update(cl);
                 return;
             }

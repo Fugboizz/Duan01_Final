@@ -58,16 +58,18 @@ public class SanPham {
         this.TrangThai = TrangThai;
     }
     
-//    public SanPham(String TenSanPham, int SoLuongTonKho, Double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
-//        this.TenSanPham = TenSanPham;
-//        this.SoLuongTonKho = SoLuongTonKho;
-//        this.GiaChiTiet = GiaChiTiet;
-//        this.IDGiamGia = IDGiamGia;
-//        this.HinhAnhSanPham = HinhAnhSanPham;
-//    }
 
     public SanPham(String IDSanPham, int SoLuongTonKho, double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
         this.IDSanPham = IDSanPham;
+        this.SoLuongTonKho = SoLuongTonKho;
+        this.GiaChiTiet = GiaChiTiet;
+        this.IDGiamGia = IDGiamGia;
+        this.HinhAnhSanPham = HinhAnhSanPham;
+    }
+
+    public SanPham(String IDSanPham, String TenSanPham, int SoLuongTonKho, double GiaChiTiet, GiamGia IDGiamGia, String HinhAnhSanPham) {
+        this.IDSanPham = IDSanPham;
+        this.TenSanPham = TenSanPham;
         this.SoLuongTonKho = SoLuongTonKho;
         this.GiaChiTiet = GiaChiTiet;
         this.IDGiamGia = IDGiamGia;
